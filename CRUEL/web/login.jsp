@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $nome_sistema; ?></title>
-        <link rel="stylesheet" href="view/css/bootstrap.min.css">
-        <link rel="stylesheet" href="view/css/login.css">
-        <link rel="stylesheet" href="view/css/datepicker.css">
+        <title><!--<?php echo $nome_sistema; ?>--></title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,7 +21,7 @@
     <body>
         <div class="container">
             <ol class="breadcrumb">
-                    <li><a href="index.php"><?php echo $nome_sistema; ?></a></li>
+                    <li><a href="index.php"><!--<?php echo $nome_sistema; ?>--></a></li>
                     <li class="active">Login</li>
             </ol>
             <h3>Login</h3>
@@ -67,6 +67,6 @@
                 </div>
             </div>
         </div> 
-    <script src="view/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
