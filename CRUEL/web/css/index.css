@@ -1,0 +1,67 @@
+.tudo{
+	margin-top:-20px;
+	background: url("../images/bg_vegetais.jpg"); 
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height:100%;
+}
+.meio{
+	min-height:100%;
+	margin: 0 auto;
+	max-width:960px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.conteudo{
+	background: url("../images/CRUEL_title.png");
+	background-repeat: no-repeat;
+	background-position:center top;
+	padding-top:300px;
+	z-index:100;
+}
+.logo {
+	background: url("../images/logo_CRUEL.png") no-repeat;
+	background-size:70px 50px;
+	filter: alpha(opacity = 100); /* esta linha para o IE */
+	opacity: 1.0; /*esta para os demais browsers*/	
+	width:70px;
+}
+.logo:hover {
+	background: url("../images/logo_CRUEL.png")no-repeat;
+	background-size:70px 50px;
+	filter: alpha(opacity = 60); /* esta linha para o IE */
+	opacity: 0.6; /*esta para os demais browsers*/
+	width:70px;
+}
+#menu a{
+	color:white;
+}
+#menu a:hover{
+	color:#B0B0B0;
+}
+#menu a:link{
+	color:white;
+}
+#menu a:active{
+	color:white;
+}	
+.btn-link{
+	margin-top:8px;
+	text-decoration:none !important;
+	color:white !important;
+}
+.btn-link:hover{
+	color:#B0B0B0 !important;
+}
+.dropdown-menu li a{
+	color:black !important;
+}
+
+.bg-alpha8 {
+    background-color: rgba(245,245,245,0.8) !important;
+}
+.lista_nutri{
+	font-size:13px;
+}
+.ingrediente{
+	margin-top:5px;
+}
