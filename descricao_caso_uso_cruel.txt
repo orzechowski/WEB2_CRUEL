@@ -1,0 +1,21 @@
+UC000 - Login
+Descrição: Este caso de uso tem como objetivo o login do usuário no sistema
+Pré-Condição: 
+Nenhuma
+Pós-Condição: 
+1. O usuário estará logado no sistema.  
+Ator Pimário: 
+Gerente/Nutricionista/Atendente 
+Fluxo de Eventos Principal: 
+1. O sistema apresenta a tela Login;
+2. O Usuário preenche o login e a senha;
+3. O Usuário clica no botão Logar; (A1)(E1) 
+4. O sistema efetua o login do usuário; 
+5. O caso de uso é finalizado.
+Fuxo de Eventos Alternativo 
+A1- Usuario clica em voltar
+1. O caso de uso é encerrado 
+Fluxo de Exceção: 
+E1 - Usuário e/ou senha incorreto/a:
+1. O sistema verifica os dados do usuário 
+2. O sistema apresenta a mensagem “Usuário e/ou senha incorreto/a 
