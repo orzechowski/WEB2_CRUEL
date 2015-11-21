@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Nov 21, 2015, 5:45:09 PM
+    Document   : cardapio_home
+    Created on : Nov 21, 2015, 5:27:36 PM
     Author     : Allan
 --%>
 
@@ -9,19 +9,18 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CRUEL - Relatório Anual</title>
+        <title>CRUEL - Cadastro de Funcionário</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/login.css">
-	<link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -197,8 +196,8 @@
                         </div>
 					</div>
 					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-success">Salvar Alterações</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
 					</div>
 				</div>
 			</div>
@@ -215,8 +214,8 @@
 						<table class="list-group segunda-feira">
 							<tr>
 								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">05</p>
-									<p class="lista-mes">OUT</p>
+									<a class="lista-dia">05</a>
+									<a class="lista-mes"><br>OUT</a>
 								</td>
 								<td></td>
 							</tr>
@@ -243,8 +242,8 @@
 						<table class="list-group terca-feira">
 							<tr>
 								<td rowspan="3" class="lista-data-ativo list-group-item list-group-item-success">
-									<p class="lista-dia-ativo">06</p>
-									<p class="lista-mes-ativo">OUT</p>
+									<a class="lista-dia-ativo">06</a>
+									<a class="lista-mes-ativo"><br>OUT</a>
 								</td>
 								<td></td>
 							</tr>
@@ -271,8 +270,8 @@
 						<table class="list-group quarta-feira">
 							<tr>
 								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">07</p>
-									<p class="lista-mes">OUT</p>
+									<a class="lista-dia">07</a>
+									<a class="lista-mes"><br>OUT</a>
 								</td>
 								<td></td>
 							</tr>
@@ -299,8 +298,8 @@
 						<table class="list-group quinta-feira">
 							<tr>
 								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">08</p>
-									<p class="lista-mes">OUT</p>
+									<a class="lista-dia">08</a>
+									<a class="lista-mes"><br>OUT</a>
 								</td>
 								<td></td>
 							</tr>
@@ -327,8 +326,8 @@
 						<table class="list-group sexta-feira">
 							<tr>
 								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">09</p>
-									<p class="lista-mes">OUT</p>
+									<a class="lista-dia">09</a>
+									<a class="lista-mes"><br>OUT</a>
 								</td>
 								<td></td>
 							</tr>
