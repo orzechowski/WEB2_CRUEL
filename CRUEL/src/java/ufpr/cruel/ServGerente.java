@@ -1,12 +1,10 @@
-package ufpr.cruel;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ufpr.cruel;
 
-import ufpr.cruel.TipoIngrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -20,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vishi_000
  */
-@WebServlet(urlPatterns = {"/Nutricionista"})
-public class ServNutricionista extends HttpServlet {
+@WebServlet(name = "ServGerente", urlPatterns = {"/ServGerente"})
+public class ServGerente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,17 +34,20 @@ public class ServNutricionista extends HttpServlet {
             throws ServletException, IOException {
             String action = request.getParameter("action");
             
-            if (action.equals("addtping")){
-                String desc = request.getParameter("nome");
-                TipoIngrediente t = new TipoIngrediente();
-                t.setDescricao(desc);
+            if (action.equals("addtpcli")){
+                String nome     = request.getParameter("nome");
+                String valor    = request.getParameter("valor");
+                TipoCliente tp  = new TipoCliente();
+                tp.setDescricao(nome);
+                tp.setValor(Double.parseDouble(valor));
                 //AQUI VAI INSERÇÃO DO BANCO
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_ingrediente.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

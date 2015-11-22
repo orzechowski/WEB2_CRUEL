@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import ufpr.cruel.TipoCliente;
 import java.io.Serializable;
 import java.util.*;
 /**

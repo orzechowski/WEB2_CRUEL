@@ -10,13 +10,13 @@ CREATE TABLE cargo(
 
 /* ********** COLABORADOR *********** */
 CREATE TABLE colaborador(
-	cpf integer PRIMARY KEY,
+	cpf varchar PRIMARY KEY,
 	nome varchar(50),
 	email varchar(30),
 	senha varchar(20),
 	endereco varchar(80),
-	telefone integer,
-	crn integer,
+	telefone varchar,
+	crn varchar,
 	ativo boolean,
 	id_cargo integer,
 
@@ -53,7 +53,7 @@ CREATE TABLE tipoCliente(
 CREATE TABLE registro(
 	dataHora timestamp,
 	valor_cobrado float(2),
-	cpf_colaborador integer,
+	cpf_colaborador varchar,
 	categoria_cliente integer,
 	
 	CONSTRAINT fkRegistro FOREIGN KEY (categoria_cliente) REFERENCES tipoCliente (id_tipo)

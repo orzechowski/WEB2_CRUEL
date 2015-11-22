@@ -22,46 +22,40 @@
 		
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/header.jspf" %>
-		
-		<div class="container-fluid tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
-				
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<h3 class="panel-title">Cadastro de Clientes</h3>
-						</div>
-						<div class="panel-body">
-							<form class="form-horizontal" method="POST" action=>
-												
-								<div class="control-group">
-								  <label class="control-label" for="nome">Nome de Registro</label>
-								  <div class="controls">
-									<input id="nome" name="nome" class="form-control" required type="text">
-								  </div>
-								</div>   
-								
-								<div class="control-group">
-								  <label class="control-label" for="valor">Valor de Entrada</label>
-								  <div class="controls">
-									<input id="valor" name="valor" class="form-control" required type="text" placeholder="R$ 0,00">
-								  </div>
-								</div>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>	
+        <div class="container-fluid tudo"> 
+            <div class="row meio">
+                <div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Cadastro de Clientes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" method="POST" action="gerente?action=addtpcli">
+                                <div class="control-group">
+                                    <label class="control-label" for="nome">Nome de Registro</label>
+                                    <div class="controls">
+                                          <input id="nome" name="nome" class="form-control" required type="text">
+                                    </div>
+                                </div>   
+                                <div class="control-group">
+                                    <label class="control-label" for="valor">Valor de Entrada</label>
+                                    <div class="controls">
+                                        <input id="valor" name="valor" class="form-control" required type="text" placeholder="R$ 0,00">
+                                    </div>
+                                </div>
+                                <div class="control-group pull-right">
+                                    <label class="control-label" for="submit"></label>
+                                    <div class="controls">
+                                        <button id="submit" name="submit" class="btn btn-success">Cadastrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
-								<div class="control-group pull-right">
-								  <label class="control-label" for="submit"></label>
-								  <div class="controls">
-									<button id="submit" name="submit" class="btn btn-success">Cadastrar</button>
-								  </div>
-								</div>
-								
-							</form>
-						</div>
-					</div>
-				
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
