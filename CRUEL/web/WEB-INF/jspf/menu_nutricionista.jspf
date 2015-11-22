@@ -35,7 +35,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a href="./consulta_ingredientes.jsp">Ingrediente</a></li>
-							<li><a href="./consulta_tipos_ingrediente.jsp">Tipo de Ingrediente</a></li>
+							<li><a href="./consulta_tipos_ingredientes.jsp">Tipo de Ingrediente</a></li>
 							 
 						</ul>
 					</div>
