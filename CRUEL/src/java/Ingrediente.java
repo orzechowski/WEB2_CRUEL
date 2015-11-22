@@ -13,18 +13,18 @@ import java.io.Serializable;
  */
 public class Ingrediente implements Serializable{
     
-    private int id_ingrediente;
+    private int idIngrediente;
     private String nome;
     private String descricao;
     private tipoIngrediente tipoIngrediente;
     public Ingrediente(){
    
     }
-    public int getId_ingrediente(){
-        return this.id_ingrediente;
+    public int getIdIngrediente(){
+        return this.idIngrediente;
     }
-    public void setId_ingrediente(int id_ingrediente){
-        this.id_ingrediente =  id_ingrediente;
+    public void setIdIngrediente(int idIngrediente){
+        this.idIngrediente =  idIngrediente;
     }
     public String getNome(){
         return this.nome;

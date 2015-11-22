@@ -12,17 +12,17 @@ import java.io.Serializable;
  * @author orzechowski
  */
 public class Cardapio implements Serializable{
-    private int id_cardapio;
+    private int idCardapio;
     private String data;
-    private int id_refeicao;
+    private int refeicao;
     
     Cardapio(){    
     }
-    public int getId_cardapio(){
-        return this.id_cardapio;
+    public int getIdCardapio(){
+        return this.idCardapio;
     }
-    public void setId_cardapio(int id_cardapio){
-        this.id_cardapio =  id_cardapio;
+    public void setIdCardapio(int idCardapio){
+        this.idCardapio =  idCardapio;
     }
     public String getData(){
         return this.data;
@@ -30,14 +30,14 @@ public class Cardapio implements Serializable{
     public void setData(String data){
         this.data = data;
     }
-    private int gettId_refeicao(){
-        return this.id_refeicao;
+    private int getRefeicao(){
+        return this.refeicao;
     }
-    private void setId_refeicao(int id_refeicao){
-        this.id_refeicao = id_refeicao;
+    private void setRefeicao(int refeicao){
+        this.refeicao = refeicao;
     }
     private String getDescricaoRefeicao(){
-        if (this.id_refeicao == 1)
+        if (this.refeicao == 1)
             return "Almoco";
         else
            return "Jantar";
