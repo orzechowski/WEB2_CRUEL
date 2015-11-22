@@ -12,16 +12,16 @@ import java.io.Serializable;
  * @author orzechowski
  */
 class tipoIngrediente implements Serializable{
-    private int id_tipoIngrediente;
+    private int idTipoIngrediente;
     private String descricao;
     
     tipoIngrediente(){    
     }
-    public int getId_tipoIngrdiente(){
-        return this.id_tipoIngrediente;
+    public int getIdTipoIngrdiente(){
+        return this.idTipoIngrediente;
     }
-    public void setId_tipoIngrediente(int id_tipoIngrediente){
-        this.id_tipoIngrediente =  id_tipoIngrediente;
+    public void setIdTipoIngrediente(int idTipoIngrediente){
+        this.idTipoIngrediente =  idTipoIngrediente;
     }
     public String getDescricao(){
         return this.descricao;
