@@ -23,7 +23,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/menu_nutricionista.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
         
 		<div class="container-fluid text-center tudo"> 
 			<div class="row meio">

@@ -21,7 +21,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/menu_deslogado.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
 		<!-- MODAL DE EDIÇÃO DO CARDÁPIO -->
 		<div id="editarCardapio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

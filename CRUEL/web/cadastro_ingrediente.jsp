@@ -22,7 +22,7 @@
 		
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/menu_nutricionista.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
         <div class="container-fluid tudo"> 
 			<div class="row meio">
 				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">

@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/menu_gerente.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
         <!-- MODAL EDITAR ATENDENTE-->
         <div id="editarAtendente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">

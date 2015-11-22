@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@include file="/WEB-INF/jspf/menu_gerente.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
         <div class="container-fluid tudo"> 
 			<div class="row meio">
 				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
