@@ -1,4 +1,4 @@
-
+import ufpr.cruel.TipoIngrediente;
 import java.io.Serializable;
 
 /*
@@ -16,7 +16,7 @@ public class Ingrediente implements Serializable{
     private int idIngrediente;
     private String nome;
     private String descricao;
-    private tipoIngrediente tipoIngrediente;
+    private TipoIngrediente tipoIngrediente;
     public Ingrediente(){
    
     }

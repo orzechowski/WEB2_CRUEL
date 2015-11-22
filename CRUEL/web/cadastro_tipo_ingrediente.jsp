@@ -23,41 +23,36 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-		
-		<div class="container-fluid tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
-				
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<h3 class="panel-title">Cadastro de Tipo de Ingrediente</h3>
-						</div>
-						<div class="panel-body">
-							<form class="form-horizontal" method="POST" action=>
-							<fieldset>
-								<div class="control-group col-md-12">
-								  <label class="control-label" for="nome">Nome do Tipo</label>
-								  <div class="controls">
-									<input id="nome" name="nome" class="form-control" required type="text" placeholder="Carne">
-								  </div>
-                                    
-                                    <div class="control-group pull-right">
-								  <label class="control-label" for="submit"></label>
-								  <div class="controls">
-									<button id="submit" name="submit" class="btn btn-success">Cadastrar</button>
-								  </div>
-								</div>
-								</div> 
-											
-								
-							</fieldset>	
-							</form>
-						</div>
-					</div>				
-				
-				</div>
-			</div>
-		</div>
+        
+            <div class="container-fluid tudo"> 
+                <div class="row meio">
+                    <div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Cadastro de Tipo de Ingrediente</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="POST" action="Nutricionista?action=addtping">
+                                    <fieldset>
+                                        <div class="control-group col-md-12">
+                                            <label class="control-label" for="nome">Nome do Tipo</label>
+                                            <div class="controls">
+                                                <input id="nome" name="nome" class="form-control" required type="text" placeholder="Carne" value="">
+                                            </div>
+                                            <div class="control-group pull-right">
+                                                <label class="control-label" for="submit"></label>
+                                                <div class="controls">
+                                                    <button id="submit" name="submit" class="btn btn-success">Cadastrar</button>
+                                                </div>
+                                            </div>
+                                        </div> 	
+                                    </fieldset>	
+                                </form>
+                            </div>
+                        </div>	
+                    </div>
+                </div>
+            </div>
     </body>
 </html>
 
