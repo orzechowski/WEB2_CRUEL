@@ -17,7 +17,7 @@ public class Ingrediente implements Serializable{
     
     private int idIngrediente;
     private String nome;
-    private String descricao;
+   //private String descricao;
     private TipoIngrediente tipoIngrediente;
    
     public int getIdIngrediente(){
@@ -32,12 +32,12 @@ public class Ingrediente implements Serializable{
     public void setNome(String nome){
         this.nome = nome;
     }
-    public String getDescricao(){
+   /* public String getDescricao(){
         return this.descricao;
     }
     public void setDescricao(String descricao){
         this.descricao = descricao;
-    }
+    }*/
     public TipoIngrediente getTipoIngrediente(){
         return this.tipoIngrediente;
     }

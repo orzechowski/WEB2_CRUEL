@@ -50,12 +50,23 @@ public class ServNutricionista extends HttpServlet {
                Ingrediente ingrediente = new Ingrediente();
                TipoIngrediente t1 = new TipoIngrediente();
                 ingrediente.setNome(filtroIngrediente);
-                ingrediente.setDescricao("feijao preto");
+                //ingrediente.setDescricao("feijao preto");
                 t1.setDescricao("outra");
                 ingrediente.setTipoIngrediente(t1);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);
-            
+            }else if (action.equals("cadastrar_ingrediente")){
+                String nome         = request.getParameter("nome");
+                int tpIngrediente   = Integer.parseInt(request.getParameter("selectbasic"));
+                Ingrediente i       = new Ingrediente();
+                TipoIngrediente t   = new TipoIngrediente();
+                
+                t.setIdTipoIngrediente(tpIngrediente);
+                i.setTipoIngrediente(t);
+                i.setNome(nome);
+                
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
+                rd.forward(request, response);                
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
