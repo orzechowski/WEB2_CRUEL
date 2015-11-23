@@ -1,3 +1,5 @@
+package ufpr.cruel;
+
 import ufpr.cruel.TipoIngrediente;
 import java.io.Serializable;
 
@@ -17,9 +19,7 @@ public class Ingrediente implements Serializable{
     private String nome;
     private String descricao;
     private TipoIngrediente tipoIngrediente;
-    public Ingrediente(){
    
-    }
     public int getIdIngrediente(){
         return this.idIngrediente;
     }
@@ -38,5 +38,10 @@ public class Ingrediente implements Serializable{
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
-    
+    public TipoIngrediente getTipoIngrediente(){
+        return this.tipoIngrediente;
+    }
+    public void setTipoIngrediente (TipoIngrediente tipoIngrediente){
+        this.tipoIngrediente = tipoIngrediente;
+    }
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  *
  * @author vishi_000
@@ -43,6 +44,18 @@ public class ServNutricionista extends HttpServlet {
                 //AQUI VAI INSERÇÃO DO BANCO
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_ingrediente.jsp");
                 rd.forward(request, response);
+            }else if (action.equals("buscaingrediente")){
+                String filtroIngrediente = request.getParameter("filtroIngrediente");
+                //BUSCA NO BANCO
+               Ingrediente ingrediente = new Ingrediente();
+               TipoIngrediente t1 = new TipoIngrediente();
+                ingrediente.setNome(filtroIngrediente);
+                ingrediente.setDescricao("feijao preto");
+                t1.setDescricao("outra");
+                ingrediente.setTipoIngrediente(t1);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_ingredientes.jsp");
+                rd.forward(request, response);
+            
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);

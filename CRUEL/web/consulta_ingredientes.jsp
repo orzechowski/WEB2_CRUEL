@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,12 +67,12 @@
 					<section class="panel-consulta">
                         <h1>Ingredientes</h1>
                         <div class="panel-body">
-                            <form class="form-inline well">
+                            <form class="form-inline well" action="Nutricionista?action=buscaingrediente" method="POST">
                                 <legend>Filtro de Busca</legend>
                                 <fieldset>
                                     <div class="form-group">
-                                        <label for="filtroTexto1"> Nome / Tipo: </label>
-                                        <input type="text" class="form-control" id="filtroTexto1" >
+                                        <label for="filtroTexto1"> Nome /${Ingrediente.nome} Tipo: </label>
+                                        <input type="text" class="form-control" id="filtroTexto1" name="filtroIngrediente">
                                     </div>
                                     <button type="submit" class="btn btn-default">Buscar</button>
                                 </fieldset>
@@ -80,6 +81,7 @@
                                 <ul class="list-group text-center" >
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
+                                   
 											<div class="row">
 												<div class="col-md-2 col-lg-2 col-sm-2">
 													<h4><span class="label label-success label-sm">Carne</span></h4>
