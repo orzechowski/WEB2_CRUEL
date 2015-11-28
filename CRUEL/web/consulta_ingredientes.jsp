@@ -22,7 +22,7 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        
+     
         <!-- MODAL EDITAR Ingrediente-->
         <div id="editarIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -53,25 +53,25 @@
                         Tem certeza que deseja remover o Ingrediente?
                     </div>
                     <div class="modal-footer">
-						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"> </i>
-							<span>Remover</span>
-						</button>
+			<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"> </i>
+			<span>Remover</span>
+			</button>
                         <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
-		<div class="container-fluid tudo"> 
-			<div class="row meio">
-				<div class="col-md-12 col-lg-12 col-sm-12 conteudo">
-					<section class="panel-consulta">
+	<div class="container-fluid tudo"> 
+            <div class="row meio">
+		<div class="col-md-12 col-lg-12 col-sm-12 conteudo">
+                    <section class="panel-consulta">
                         <h1>Ingredientes</h1>
                         <div class="panel-body">
                             <form class="form-inline well" action="Nutricionista?action=buscaingrediente" method="POST">
                                 <legend>Filtro de Busca</legend>
                                 <fieldset>
                                     <div class="form-group">
-                                        <label for="filtroTexto1"> Nome /${Ingrediente.nome} Tipo: </label>
+                                        <label for="filtroTexto1"> Nome / Tipo: </label>
                                         <input type="text" class="form-control" id="filtroTexto1" name="filtroIngrediente">
                                     </div>
                                     <button type="submit" class="btn btn-default">Buscar</button>
@@ -79,169 +79,45 @@
                             </form>
                             <div class="list-content">
                                 <ul class="list-group text-center" >
+                                    <!-- REPETIR COM A LISTA DE INGREDIENTES -->
+                                    <c:forEach var="ingrediente" items="${l_ingredientes}" >
                                     <li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                   
-											<div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success label-sm">Carne</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Carne de Panela</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Carne bovina cozida</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<div class="pull-right hidden-phone">
-														<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-															<span>Editar</span>
-														</button>
-														<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-															<span>Remover</span>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-                                    </li>
-                <!-- INICIO ITEMS 2-->
-                                    <li class="list-group-item clearfix">
-                                        <div class="task-title">
-											<div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success label-sm">Arroz</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Arroz Branco</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Arroz branco cozido</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3">
-													<div class="pull-right hidden-phone">
-														<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-															<span>Editar</span>
-														</button>
-														<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-															<span>Remover</span>
-														</button>
-													</div>
-												</div>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-											<div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success">Sobremesa</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Pudim de leite</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Contém lactose</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3">
-													<div class="pull-right hidden-phone">
-														<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-															<span>Editar</span>
-														</button>
-														<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-															<span>Remover</span>
-														</button>
-													</div>
-												</div>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
+                                        <div class="task-title">               
                                             <div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success">Feijão</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Feijão Preto</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Feijão preto cozido</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3">
-													<div class="pull-right hidden-phone">
-													<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-														<span>Editar</span>
-													</button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-														<span>Remover</span>
-													</button>
-												</div>
-											</div>
+						<div class="col-md-2 col-lg-2 col-sm-2">
+                                                    <h4><span class="label label-success label-sm"><c:out value="${ingrediente.tipoIngrediente.descricao}" /></span></h4>
+						</div>
+						<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
+                                                    <span><c:out value="${ingrediente.nome}"/></span>
+						</div>
+						<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
+                                                    <span><c:out value="${ingrediente.tipoIngrediente.descricao}" /></span>
+						</div>
+						<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
+                                                    <div class="pull-right hidden-phone">
+							<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
+                                                            <span>Editar</span>
+							</button>
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
+                                                            <span>Remover</span>
+							</button>
+                                                    </div>
+						</div>
+                                            </div>
                                         </div>
                                     </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-											<div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success">Acompanhamento</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Batata Chips</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Batata frita tipo chips</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3">
-													<div class="pull-right hidden-phone">
-														<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-															<span>Editar</span>
-														</button>
-														<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-															<span>Remover</span>
-														</button>
-													</div>
-												</div>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <div class="row">
-												<div class="col-md-2 col-lg-2 col-sm-2">
-													<h4><span class="label label-success">Carne</span></h4>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
-													<span>Meteoro</span>
-												</div>
-												<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-													<span>Bolinho de carne bovina no formato de meteoro</span>
-												</div>
-												<div class="col-md-3 col-lg-3 col-sm-3">
-													<div class="pull-right hidden-phone">
-														<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-															<span>Editar</span>
-														</button>
-														<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
-															<span>Remover</span>
-														</button>
-													</div>
-												</div>
-											</div>
-                                        </div>
-                                    </li>
-
-									<!-- FIM ITEMS 2 -->
+                                    </c:forEach>
+                                    <!-- FIM REPETICAO INGREDIENTES -->
                                 </ul>
                             </div>
-							<div class=" add-task-row">
+                            <div class=" add-task-row">
                <!-- <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a> -->
-								<a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
+                                <a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
                             </div>
                         </div>
                     </section>    
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -9,6 +9,8 @@ package ufpr.cruel;
 import ufpr.cruel.TipoIngrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,13 +49,18 @@ public class ServNutricionista extends HttpServlet {
             }else if (action.equals("buscaingrediente")){
                 String filtroIngrediente = request.getParameter("filtroIngrediente");
                 //BUSCA NO BANCO
+               List <Ingrediente> l_ingredientes = new ArrayList <>();               
                Ingrediente ingrediente = new Ingrediente();
                TipoIngrediente t1 = new TipoIngrediente();
                 ingrediente.setNome(filtroIngrediente);
                 //ingrediente.setDescricao("feijao preto");
                 t1.setDescricao("outra");
                 ingrediente.setTipoIngrediente(t1);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_ingredientes.jsp");
+                l_ingredientes.add(ingrediente);
+                l_ingredientes.add(ingrediente);
+                l_ingredientes.add(ingrediente);
+                request.setAttribute("l_ingredientes", l_ingredientes);
+                RequestDispatcher rd = request.getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);
             }else if (action.equals("cadastrar_ingrediente")){
                 String nome         = request.getParameter("nome");
