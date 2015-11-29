@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ufpr.gerente.cruel;
+
 import java.io.Serializable;
 /**
  *
  * @author vishi_000
  */
-public class Cargo implements Serializable{
-    private int idCargo;
+public class TipoCliente implements Serializable{
+    private int idTpCliente;
     private String descricao;
+    private double valor;
     
-    public void setIdCargo(int idCargo){
-        this.idCargo = idCargo;
+    public void setIdTipoCliente(int idTpCliente){
+        this.idTpCliente = idTpCliente;
     }
-    public int getIdCargo(){
-        return(this.idCargo);
+    public int getIdTipoCliente(){
+        return(this.idTpCliente);
     }
     
     public void setDescricao(String descricao){
@@ -24,5 +27,12 @@ public class Cargo implements Serializable{
     }
     public String getDescricao(){
         return(this.descricao);
+    }
+    
+    public void setValor(double valor){
+        this.valor = valor;
+    }
+    public double getValor(){
+        return(this.valor);
     }
 }
