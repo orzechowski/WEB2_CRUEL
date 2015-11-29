@@ -31,7 +31,7 @@
                             <h3 class="panel-title">Cadastro de Clientes</h3>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="POST" action="gerente?action=addtpcli">
+                            <form class="form-horizontal" method="POST" action="ServGerente?action=addtpcli">
                                 <div class="control-group">
                                     <label class="control-label" for="nome">Nome de Registro</label>
                                     <div class="controls">

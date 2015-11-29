@@ -11,20 +11,20 @@ import java.io.Serializable;
  * @author vishi_000
  */
 public class Colaborador implements Serializable {    
-    private int cpf;
+    private String cpf;
     private String nome;
     private String email;
     private String endereco;
     private String senha;
-    private int telefone;
-    private int crn;
+    private String telefone;
+    private String crn;
     private boolean ativo;
     private Cargo cargo;
        
-    public void setCpf (int cpf){
+    public void setCpf (String cpf){
         this.cpf = cpf;
     }
-    public int getCpf (){
+    public String getCpf (){
         return(this.cpf);
     }
 
@@ -53,17 +53,17 @@ public class Colaborador implements Serializable {
         this.senha = senha;
     }
 
-    public void setTelefone(int telefone){
+    public void setTelefone(String telefone){
         this.telefone = telefone;
     }
-    public int getTelefone(){
+    public String getTelefone(){
         return(this.telefone);
     }
 
-    public void setCrn(int crn){
+    public void setCrn(String crn){
         this.crn = crn;
     }
-    public int getCrn(){
+    public String getCrn(){
         return(this.crn);
     }
 

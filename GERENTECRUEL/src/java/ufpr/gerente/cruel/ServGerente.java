@@ -44,6 +44,40 @@ public class ServGerente extends HttpServlet {
                 //AQUI VAI INSERÇÃO DO BANCO
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
+            }else if(action.equals("cadastrarfuncionario")){
+                String nome             = request.getParameter("nome");
+                String cpf              = request.getParameter("cpf");
+                String senha            = request.getParameter("senha");
+                String confirma_senha   = request.getParameter("confirma_senha");
+                String email            = request.getParameter("email");
+                String endereco         = request.getParameter("endereco");
+                String telefone         = request.getParameter("telefone");
+                String crn              = request.getParameter("crn");
+                int    id_cargo         = Integer.parseInt(request.getParameter("cargo"));
+                
+                Cargo       car = new Cargo();
+                Colaborador col = new Colaborador();
+
+                car.setIdCargo(id_cargo);
+
+                col.setNome(nome);
+                col.setCpf(cpf);
+                col.setSenha(senha);
+                col.setEmail(email);
+                col.setEndereco(endereco);
+                col.setTelefone(telefone);
+                col.setCrn(crn);
+                col.setAtivo(true);
+                col.setCargo(car);
+                    
+                request.setAttribute("col", col);
+                if (senha.equals(confirma_senha)){
+                    /* INCLUSAO NO BANCO */
+                }else{ 
+                    /* Senha e confirmação não batem */
+                }
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_funcionario.jsp");
+                rd.forward(request, response); 
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
