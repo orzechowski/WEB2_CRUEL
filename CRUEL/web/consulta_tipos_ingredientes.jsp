@@ -5,11 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CRUEL - Consulta de Atendentes</title>
+        <title>CRUEL - Consulta de Tipos de Ingredientes</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/login.css">
 	<link rel="stylesheet" href="css/index.css">
@@ -52,113 +53,52 @@
                         Tem certeza que deseja remover o Tipo de Ingrediente?
                     </div>
                     <div class="modal-footer">
-						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-							<span>Remover</span>
-						</button>
+			<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
+                            <span>Remover</span>
+			</button>
                         <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
-		<div class="container-fluid tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
-					<section class="panel-consulta">
+	<div class="container-fluid tudo"> 
+            <div class="row meio">
+		<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
+                    <section class="panel-consulta">
                         <h1>Tipo de Ingredientes</h1>
                         <div class="panel-body">
                             <div class="list-content">
                                 <ul class="list-group">
+                                    <c:if test="${l_tpingredientes == null}">
+                                        <jsp:forward page="Nutricionista?action=buscatpingrediente" />
+                                    </c:if>
+                                    <!-- INICIO REPETICAO TIPO ITENS -->
+                                    <c:forEach var="tpingrediente" items="${l_tpingredientes}" >
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
-                                            <span> Carne</span>
+                                            <span><c:out value="${tpingrediente.descricao}"/></span>
                                             <div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
+						<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
+                                                    <span>Editar</span>
+						</button>
+						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
+                                                    <span>Remover</span>
+						</button>
+                                            </div>
                                         </div>
                                     </li>
-                <!-- INICIO ITEMS 2-->
-                                    <li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <span> Acompanhamento</span>
-                                            <div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <span> Feijão</span>
-                                            <div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <span>Arroz</span>
-                                            <div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <span> Salada</span>
-											<div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
-                                        </div>
-                                    </li>
-									<li class="list-group-item clearfix">
-                                        <div class="task-title">
-                                            <span>Sobremesa</span>
-                                            <div class="pull-right hidden-phone">
-												<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-													<span>Editar</span>
-												</button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-													<span>Remover</span>
-												</button>
-											</div>
-                                        </div>
-                                    </li>
-
-									<!-- FIM ITEMS 2 -->
+                                    </c:forEach>
+									<!-- FIM REPETICAO TIPO ITENS -->
                                 </ul>
                             </div>
-							<div class=" add-task-row">
+                            <div class=" add-task-row">
                <!-- <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a> -->
-								<a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
+				<a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
                             </div>
                         </div>
                     </section>    
-				</div>
-			</div>
 		</div>
+            </div>
+	</div>
     </body>
 </html>

@@ -62,6 +62,17 @@ public class ServNutricionista extends HttpServlet {
                 request.setAttribute("l_ingredientes", l_ingredientes);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);
+            }else if (action.equals("buscatpingrediente")){
+                //BUSCA NO BANCO
+               List <TipoIngrediente> l_tpingredientes = new ArrayList <>();               
+               TipoIngrediente t1 = new TipoIngrediente();
+                t1.setDescricao("Carne");
+                l_tpingredientes.add(t1);
+                l_tpingredientes.add(t1);
+                l_tpingredientes.add(t1);
+                request.setAttribute("l_tpingredientes", l_tpingredientes);
+                RequestDispatcher rd = request.getRequestDispatcher("/consulta_tipos_ingredientes.jsp");
+                rd.forward(request, response);
             }else if (action.equals("cadastrar_ingrediente")){
                 String nome         = request.getParameter("nome");
                 int tpIngrediente   = Integer.parseInt(request.getParameter("selectbasic"));
