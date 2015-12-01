@@ -42,8 +42,12 @@ public class ServNutricionista extends HttpServlet {
             if (action.equals("addtping")){
                 String desc = request.getParameter("nome");
                 TipoIngrediente t = new TipoIngrediente();
+                daoTipoIngrediente daoTp = new daoTipoIngrediente();
+                
                 t.setDescricao(desc);
-                //AQUI VAI INSERÇÃO DO BANCO
+                daoTp.inserir(t);
+                
+                //MSG SUCESSO? COMO MOSTRAR ERRO?(PEGANDO CODIGO DE RETORNO DO HTTP?)
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_ingrediente.jsp");
                 rd.forward(request, response);
             }else if (action.equals("buscaingrediente")){
