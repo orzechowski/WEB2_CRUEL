@@ -7,6 +7,8 @@ package ufpr.gerente.cruel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +45,22 @@ public class ServGerente extends HttpServlet {
                 tp.setValor(Double.parseDouble(valor));
                 //AQUI VAI INSERÇÃO DO BANCO
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
+                rd.forward(request, response);
+            }else if (action.equals("buscacolaborador")){
+                String filtroColaborador = request.getParameter("filtroColaborador");
+                //BUSCA NO BANCO
+                List <Colaborador> l_colaboradores = new ArrayList <>();               
+                Colaborador colaborador = new Colaborador();
+                Cargo c1 = new Cargo();
+                c1.setDescricao("outra");
+                colaborador.setAtivo(false);
+                colaborador.setNome(filtroColaborador);
+                colaborador.setCargo(c1);
+                l_colaboradores.add(colaborador);
+                l_colaboradores.add(colaborador);
+                l_colaboradores.add(colaborador);
+                request.setAttribute("l_colaboradores", l_colaboradores);
+                RequestDispatcher rd = request.getRequestDispatcher("/consulta_funcionarios.jsp");
                 rd.forward(request, response);
             }else if(action.equals("cadastrarfuncionario")){
                 String nome             = request.getParameter("nome");
