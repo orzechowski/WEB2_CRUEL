@@ -91,7 +91,7 @@
                                                     <span><c:out value="${ingrediente.nome}"/></span>
 						</div>
 						<div class="col-md-4 col-lg-4 col-sm-4 ingrediente">
-                                                    <span><c:out value="${ingrediente.tipoIngrediente.descricao}" /></span>
+                                                    <span><c:out value="${ingrediente.descricao}" /></span>
 						</div>
 						<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
                                                     <div class="pull-right hidden-phone">

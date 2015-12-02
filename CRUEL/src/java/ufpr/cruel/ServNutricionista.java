@@ -9,6 +9,7 @@ package ufpr.cruel;
 import ufpr.cruel.TipoIngrediente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -38,11 +39,13 @@ public class ServNutricionista extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String action = request.getParameter("action");
+            daoTipoIngrediente daoTp = new daoTipoIngrediente();
+            daoIngrediente daoIng = new daoIngrediente();
             
             if (action.equals("addtping")){
                 String desc = request.getParameter("nome");
                 TipoIngrediente t = new TipoIngrediente();
-                daoTipoIngrediente daoTp = new daoTipoIngrediente();
+                
                 
                 t.setDescricao(desc);
                 daoTp.inserir(t);
@@ -52,8 +55,14 @@ public class ServNutricionista extends HttpServlet {
                 rd.forward(request, response);
             }else if (action.equals("buscaingrediente")){
                 String filtroIngrediente = request.getParameter("filtroIngrediente");
-                //BUSCA NO BANCO
-               List <Ingrediente> l_ingredientes = new ArrayList <>();               
+                List <Ingrediente> l_ingredientes = new ArrayList(); 
+                
+                try{
+                    l_ingredientes = daoIng.getFiltrado(filtroIngrediente);
+                } catch(SQLException ex){
+                    //MAGIC
+                }
+                /*
                Ingrediente ingrediente = new Ingrediente();
                TipoIngrediente t1 = new TipoIngrediente();
                 ingrediente.setNome(filtroIngrediente);
@@ -62,18 +71,19 @@ public class ServNutricionista extends HttpServlet {
                 ingrediente.setTipoIngrediente(t1);
                 l_ingredientes.add(ingrediente);
                 l_ingredientes.add(ingrediente);
-                l_ingredientes.add(ingrediente);
+                l_ingredientes.add(ingrediente);*/
                 request.setAttribute("l_ingredientes", l_ingredientes);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);
             }else if (action.equals("buscatpingrediente")){
-                //BUSCA NO BANCO
-               List <TipoIngrediente> l_tpingredientes = new ArrayList <>();               
-               TipoIngrediente t1 = new TipoIngrediente();
-                t1.setDescricao("Carne");
-                l_tpingredientes.add(t1);
-                l_tpingredientes.add(t1);
-                l_tpingredientes.add(t1);
+                List <TipoIngrediente> l_tpingredientes = new ArrayList();
+                
+                try{
+                    l_tpingredientes = daoTp.getTodos();                    
+                } catch(SQLException ex){
+                    //MAGIC
+                }
+                
                 request.setAttribute("l_tpingredientes", l_tpingredientes);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_tipos_ingredientes.jsp");
                 rd.forward(request, response);

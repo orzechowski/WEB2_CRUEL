@@ -16,58 +16,53 @@ import java.util.List;
  *
  * @author Cristopher
  */
-public class daoTipoIngrediente {
+public class daoIngrediente {
     
-    private final String stmtInserir = "INSERT INTO tipoingrediente(descricao) VALUES (?)";
-    private final String stmtGetTodos = "SELECT * FROM tipoingrediente";
+    private final String stmtGetFiltrado = "SELECT ING.id_ingrediente,ING.nome,"
+        + " ING.descricao,TPI.id_tipoingrediente,TPI.descricao AS tp_descricao"
+        + " FROM ingrediente AS ING JOIN tipoingrediente AS TPI"
+        + " ON ING.id_tipoingrediente=TPI.id_tipoingrediente"
+        + " where (ING.nome like '%{FILTRO}%')"
+	+ " or (ING.descricao like '%{FILTRO}%')"
+        + " or (TPI.descricao like '%{FILTRO}%')";
     
-    public void inserir(TipoIngrediente Tp){
-        
-        Connection        conn   = null;
-        PreparedStatement stmt  = null;
-        try{
-            conn  = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(stmtInserir);
-            stmt.setString(1, Tp.getDescricao());
-            stmt.execute();
-            
-        }catch(SQLException ex){
-               throw new RuntimeException("Erro ao inserir ingrediente: "+ex.getMessage());            
-        }finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage());}
-            try{conn.close(); }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
-        }  
-    }
-    
-    public List<TipoIngrediente> getTodos() throws SQLException{
+    public List<Ingrediente> getFiltrado(String filtro) throws SQLException{
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
         ResultSet           rset    = null;
         
         try{
+                                  
             conn = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(stmtGetTodos);
+            stmt = conn.prepareStatement(stmtGetFiltrado.replace("{FILTRO}", filtro));
             
             rset = stmt.executeQuery();
-            List<TipoIngrediente> listaTodos = new ArrayList();
+            List<Ingrediente> listaTodos = new ArrayList();
             
             while (rset.next()) {
                 TipoIngrediente tp = new TipoIngrediente();
+                Ingrediente     ing = new Ingrediente();
                 
                 tp.setIdTipoIngrediente(rset.getInt("id_tipoingrediente"));
-                tp.setDescricao(rset.getString("descricao"));
+                tp.setDescricao(rset.getString("tp_descricao"));
                 
-                listaTodos.add(tp);
+                ing.setIdIngrediente(rset.getInt("id_ingrediente"));
+                ing.setNome(rset.getString("nome"));
+                ing.setDescricao(rset.getString("descricao"));
+                ing.setTipoIngrediente(tp);
+                
+                listaTodos.add(ing);
             }
             
             return listaTodos;
             
         }catch(SQLException ex){
-            throw new RuntimeException("Erro ao buscar Tipos de Ingredientes. "+ex.getMessage());
+            throw new RuntimeException("Erro ao buscar Ingredientes." + stmtGetFiltrado +ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
     }
+    
 }
