@@ -26,6 +26,12 @@ public class daoIngrediente {
 	+ " or (ING.descricao ilike '%{FILTRO}%')"
         + " or (TPI.descricao ilike '%{FILTRO}%')";
     
+    private final String stmtInserir = "INSERT INTO ingrediente(nome,descricao,id_tipoingrediente) VALUES(?,?,?)";
+    private final String stmtExcluir = "DELETE FROM ingrediente WHERE id_ingrediente = ?";
+    
+    // TODO UPDATE ATUALIZA NOME E DESCRIÇÃO, MESMO QUE CONTINUEM OS MESMOS
+    private final String stmtUpdate = "UPDATE ingrediente SET nome=?, descricao=? WHERE id_ingrediente=?";
+    
     public List<Ingrediente> getFiltrado(String filtro) throws SQLException{
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
@@ -62,6 +68,72 @@ public class daoIngrediente {
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public void inserir (Ingrediente ing){
+        
+        Connection con = null;
+        PreparedStatement stmt = null;
+        
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtInserir);
+            
+            stmt.setString(1, ing.getNome());
+            stmt.setString(2, ing.getDescricao());
+            stmt.setInt(3, ing.getTipoIngrediente().getIdTipoIngrdiente());
+            
+            stmt.executeUpdate();
+        }catch(SQLException ex){
+               throw new RuntimeException("Erro ao adicionar Ingrediente: "+ex.getMessage());            
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage()); }
+            try{con.close();}catch(Exception ex){ System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public void excluir (Ingrediente ing){
+        
+        Connection con = null;
+        PreparedStatement stmt = null;
+        
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtExcluir);
+            
+            stmt.setInt(1, ing.getIdIngrediente());
+            
+            stmt.executeUpdate();
+        }catch(SQLException ex){
+               throw new RuntimeException("Erro ao excluir Ingrediente: "+ex.getMessage());            
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage()); }
+            try{con.close();}catch(Exception ex){ System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    
+    
+    public void update(Ingrediente ing){
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        
+        try{
+            con  = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdate);
+            
+            stmt.setString(1, ing.getNome());
+            stmt.setString(2, ing.getDescricao());
+            stmt.setInt(3, ing.getIdIngrediente());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Erro ao atualizar Ingrediente ");
+            throw new RuntimeException(e);
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage());}
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
     }
     
