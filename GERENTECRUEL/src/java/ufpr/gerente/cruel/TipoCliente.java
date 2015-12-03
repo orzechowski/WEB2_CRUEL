@@ -14,6 +14,7 @@ public class TipoCliente implements Serializable{
     private int idTpCliente;
     private String descricao;
     private double valor;
+    private boolean ativo;
     
     public void setIdTipoCliente(int idTpCliente){
         this.idTpCliente = idTpCliente;
@@ -34,5 +35,13 @@ public class TipoCliente implements Serializable{
     }
     public double getValor(){
         return(this.valor);
+    }
+    
+    public void setAtivo(boolean ativo){
+        this.ativo = ativo;
+    }
+    
+    public boolean getAtivo(){
+        return (this.ativo);
     }
 }

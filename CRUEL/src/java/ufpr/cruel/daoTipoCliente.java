@@ -49,7 +49,7 @@ public class daoTipoCliente {
             return listaTodos;
             
         }catch(SQLException ex){
-            throw new RuntimeException("Erro ao buscar Ingredientes." +ex.getMessage());
+            throw new RuntimeException("Erro ao buscar TipoCliente." +ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
