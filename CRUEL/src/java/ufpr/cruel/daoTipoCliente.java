@@ -57,7 +57,7 @@ public class daoTipoCliente {
         }
     }
     
-    public void update(TipoCliente cli){
+    public void update(TipoCliente cli) throws SQLException{
         Connection        con      = null;
         PreparedStatement stmt     = null;
         
