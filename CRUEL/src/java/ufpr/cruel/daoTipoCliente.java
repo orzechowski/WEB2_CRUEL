@@ -19,6 +19,7 @@ import java.util.List;
 public class daoTipoCliente {
     
     private final String stmtGetTodos = "SELECT * FROM tipocliente";
+    private final String stmtUpdate = "UPDATE TipoCliente SET valor=?, ativo=? WHERE descricao=?";
     
     public List<TipoCliente> getTudo() throws SQLException{
         Connection          conn    = null;
@@ -56,6 +57,26 @@ public class daoTipoCliente {
         }
     }
     
-    
+    public void update(TipoCliente cli){
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        
+        try{
+            con  = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdate);
+            
+            stmt.setDouble(1, cli.getValor());
+            stmt.setBoolean(2, cli.getAtivo());
+            stmt.setString(3, cli.getDescricao());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Erro ao atualizar Tipo de Cliente ");
+            throw new RuntimeException(e);
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage());}
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
     
 }
