@@ -65,7 +65,8 @@ CREATE TABLE ingrediente(
 CREATE TABLE tipoCliente(
 	id_tipo SERIAL PRIMARY KEY,
 	descricao varchar(50),
-	valor float(2)
+	valor float(2),
+	ativo boolean
 );
 
 /* ********** REGISTRO *********** */
