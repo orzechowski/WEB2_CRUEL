@@ -16,17 +16,11 @@ import java.util.List;
  *
  * @author Cristopher
  */
-public class daoIngrediente {
+public class daoTipoCliente {
     
-    private final String stmtGetFiltrado = "SELECT ING.id_ingrediente,ING.nome,"
-        + " ING.descricao,TPI.id_tipoingrediente,TPI.descricao AS tp_descricao"
-        + " FROM ingrediente AS ING JOIN tipoingrediente AS TPI"
-        + " ON ING.id_tipoingrediente=TPI.id_tipoingrediente"
-        + " where (ING.nome ilike '%{FILTRO}%')"
-	+ " or (ING.descricao ilike '%{FILTRO}%')"
-        + " or (TPI.descricao ilike '%{FILTRO}%')";
+    private final String stmtGetTodos = "SELECT * FROM tipocliente";
     
-    public List<Ingrediente> getFiltrado(String filtro) throws SQLException{
+    public List<TipoCliente> getTudo() throws SQLException{
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
         ResultSet           rset    = null;
@@ -34,24 +28,21 @@ public class daoIngrediente {
         try{
                                   
             conn = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(stmtGetFiltrado.replace("{FILTRO}", filtro));
+            stmt = conn.prepareStatement(stmtGetTodos);
             
             rset = stmt.executeQuery();
-            List<Ingrediente> listaTodos = new ArrayList();
+            List<TipoCliente> listaTodos = new ArrayList();
             
             while (rset.next()) {
-                TipoIngrediente tp = new TipoIngrediente();
-                Ingrediente     ing = new Ingrediente();
                 
-                tp.setIdTipoIngrediente(rset.getInt("id_tipoingrediente"));
-                tp.setDescricao(rset.getString("tp_descricao"));
+                TipoCliente     cli = new TipoCliente();
+                                      
+                cli.setIdTipoCliente(rset.getInt("id_tipoc"));
+                cli.setDescricao(rset.getString("descricao"));
+                cli.setValor(rset.getDouble("valor"));
+                cli.setAtivo(rset.getBoolean("ativo"));
                 
-                ing.setIdIngrediente(rset.getInt("id_ingrediente"));
-                ing.setNome(rset.getString("nome"));
-                ing.setDescricao(rset.getString("descricao"));
-                ing.setTipoIngrediente(tp);
-                
-                listaTodos.add(ing);
+                listaTodos.add(cli);
             }
             
             return listaTodos;
@@ -64,5 +55,7 @@ public class daoIngrediente {
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
     }
+    
+    
     
 }
