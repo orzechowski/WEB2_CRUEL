@@ -1,5 +1,19 @@
+/*
+	CRIAR DOIS BANCOS SEPARADOS
+		- CRUEL_GER
+		- CRUEL_ORG
+		
+	USUÁRIO: postgres
+	SENHA: admin
+	
+	Acessar banco de gerente e executar scripts da sessão BD - GERENTE abaixo
+	
+	Acessar banco organizacional e executar scripts da sessão BD - ORGANIZACIONAL abaixo
+*/
+
+
 /*===============================================================
-======== BD - GERENTE
+  ======== BD - GERENTE
 ===============================================================*/
 /* ********** CARGO *********** */
 CREATE TABLE cargo(
@@ -16,13 +30,18 @@ CREATE TABLE colaborador(
 	senha varchar(20),
 	endereco varchar(80),
 	telefone varchar,
-	crn varchar,
+	crn varchar(10),
 	ativo boolean,
 	id_cargo integer,
 
 	CONSTRAINT fkColaborador FOREIGN KEY (id_cargo) REFERENCES cargo (id_cargo)
 );
 
+/* ********** INSERÇÃO INICIAL *********** */
+INSERT INTO cargo (nome) VALUES ('Gerente'); /* 1 */
+INSERT INTO cargo (nome) VALUES ('Nutricionista'); /* 2 */
+INSERT INTO cargo (nome) VALUES ('Atendente'); /* 3 */
+INSERT INTO cargo (nome) VALUES ('Cliente'); /* 4 */
 /*===============================================================
 ======== BD - ORGANIZACIONAL 
 ===============================================================*/
@@ -82,10 +101,3 @@ CREATE TABLE ingredientesCardapio(
 	CONSTRAINT fkIngredienteCardapio  FOREIGN KEY (id_cardapio) REFERENCES cardapio (id_cardapio),
 	CONSTRAINT fkIngredienteCardapio2 FOREIGN KEY (ingrediente) REFERENCES ingrediente (id_ingrediente)
 );
-
-
-/* ********** INSERÇÃO INICIAL *********** */
-INSERT INTO cargo (nome) VALUES ('Gerente'); /* 1 */
-INSERT INTO cargo (nome) VALUES ('Nutricionista'); /* 2 */
-INSERT INTO cargo (nome) VALUES ('Atendente'); /* 3 */
-INSERT INTO cargo (nome) VALUES ('Cliente'); /* 4 */
