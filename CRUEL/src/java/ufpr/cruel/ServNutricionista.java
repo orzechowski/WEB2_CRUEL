@@ -97,6 +97,9 @@ public class ServNutricionista extends HttpServlet {
                 i.setTipoIngrediente(t);
                 i.setNome(nome);
                 
+                //DAO PRONTA, É SÓ CRIAR O OBJETO A SER INSERIDO E MANDAR ESSE COMANDO ABAIXO
+                //daoIng.inserir(i);
+                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
             }else{
