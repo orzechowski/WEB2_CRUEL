@@ -24,6 +24,33 @@
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
         <!-- MODAL EDITAR Funcionario-->
+        <script>
+            $(document).on("click", "#editar", function () {
+            var id = $(this).data("id");
+            alert(id);
+            var aline = "sline";
+            var lista_colaboradores = [];
+            <c:forEach var="colaborador" items="${l_colaboradores}">
+                var colaborador = {};
+                colaborador.nome = "<c:out value="${colaborador.nome}" />";
+                colaborador.cpf = "<c:out value="${colaborador.cpf}" />";
+                colaborador.email = "<c:out value="${colaborador.email}" />";
+                colaborador.cargo = "<c:out value="${colaborador.cargo.descricao}" />";
+                colaborador.endereco = "<c:out value="${colaborador.endereco}" />";
+                colaborador.telefone = "<c:out value="${colaborador.telefone}" />";
+                colaborador.crn = "<c:out value="${colaborador.crn}" />";
+                colaborador.ativo = <c:out value="${colaborador.ativo}" />;
+                lista_colaboradores.push(colaborador);
+            </c:forEach>
+            $(".modal-body #nome").val(lista_colaboradores[id].nome);
+            $(".modal-body #cargo").val(lista_colaboradores[id].cargo);
+            $(".modal-body #cpf").val(lista_colaboradores[id].cpf);
+            $(".modal-body #email").val(lista_colaboradores[id].email);
+            $(".modal-body #endereco").val(lista_colaboradores[id].endereco);
+            $(".modal-body #telefone").val(lista_colaboradores[id].telefone);
+            $(".modal-body #crn").val(lista_colaboradores[id].crn);
+            });
+        </script>
         <div id="editarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -31,13 +58,54 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
                         <h4 class="modal-title" id="myModalLabel">Editar Funcionário</h4>
                     </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success">Salvar Alterações</button>
-                    </div>
+                    <form class="form-horizontal" method="POST" action="ServGerente?action=atualizarfuncionario">
+                        <div class="modal-body">
+                            <div class="control-group">
+                                <label class="control-label" for="cargo">Cargo:</label>
+                                <input id="cargo" name="cargo" class="form-control" required type="text" value="">
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="nome">Nome Completo</label>
+                                <div class="controls">
+                                    <input id="nome" name="nome" class="form-control" required type="text" value="">
+                                </div>
+                            </div>   
+                            <div class="control-group">
+                                <label class="control-label" for="cpf">CPF</label>
+                                <div class="controls">
+                                    <input id="cpf" name="cpf" class="form-control" disabled required type="text" placeholder="000.000.000-00" value="">
+                                </div>
+                            </div>  
+                            <div class="control-group">
+                                <label class="control-label" for="email">Email</label>
+                                <div class="controls">
+                                    <input id="email" name="email" class="form-control" required type="text" value="">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="endereco">Endereço</label>
+                                <div class="controls">
+                                    <input id="endereco" name="endereco" class="form-control" required type="text" value="">
+                                </div>
+                            </div>   
+                            <div class="control-group">
+                                <label class="control-label" for="telefone">Telefone</label>
+                                <div class="controls">
+                                    <input id="telefone" name="telefone" class="form-control" required type="text" value="">
+                                </div>
+                            </div> 
+                            <div class="control-group" id="crn_div">
+                                <label class="control-label" for="crn">CRN</label>
+                                <div class="controls">
+                                    <input id="crn" name="crn" class="form-control" disabled type="text" value="">
+                                </div>
+                            </div>                
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <button type="button" id="submit" name="submit" class="btn btn-success">Salvar Alterações</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -80,7 +148,7 @@
                             <div class="list-content">
                                 <ul class="list-group text-center" >
                                     <!-- INICIO REPETICAO FUNCIONARIOS -->
-                                    <c:forEach var="colaborador" items="${l_colaboradores}" >
+                                    <c:forEach var="colaborador" items="${l_colaboradores}" varStatus="loop" >
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">               
                                             <div class="row">
@@ -104,7 +172,7 @@
 						</div>
 						<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
                                                     <div class="pull-right hidden-phone">
-							<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarFuncionario"><i class=" glyphicon glyphicon-pencil"></i>
+							<button class="btn btn-success btn-sm" id="editar" data-toggle="modal" data-target="#editarFuncionario" data-id="${loop.index}"><i class=" glyphicon glyphicon-pencil"></i>
                                                             <span>Editar</span>
 							</button>
 							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerFuncionario"><i class="glyphicon glyphicon-remove"></i>
