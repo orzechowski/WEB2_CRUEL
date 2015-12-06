@@ -27,7 +27,6 @@
         <script>
             $(document).on("click", "#editar", function () {
             var id = $(this).data("id");
-            alert(id);
             var aline = "sline";
             var lista_colaboradores = [];
             <c:forEach var="colaborador" items="${l_colaboradores}">
@@ -103,7 +102,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                            <button type="button" id="submit" name="submit" class="btn btn-success">Salvar Alterações</button>
+                            <button id="submit" name="submit" class="btn btn-success">Salvar Alterações</button>
                         </div>
                     </form>
                 </div>
@@ -175,7 +174,7 @@
 							<button class="btn btn-success btn-sm" id="editar" data-toggle="modal" data-target="#editarFuncionario" data-id="${loop.index}"><i class=" glyphicon glyphicon-pencil"></i>
                                                             <span>Editar</span>
 							</button>
-							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerFuncionario"><i class="glyphicon glyphicon-remove"></i>
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#inativarFuncionario"><i class="glyphicon glyphicon-remove"></i>
                                                             <span>Remover</span>
 							</button>
                                                     </div>
