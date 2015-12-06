@@ -52,6 +52,10 @@ public class Colaborador implements Serializable {
     public void setSenha(String senha){
         this.senha = senha;
     }
+    
+    public String getSenha() {
+        return(this.senha);
+    }
 
     public void setTelefone(String telefone){
         this.telefone = telefone;
