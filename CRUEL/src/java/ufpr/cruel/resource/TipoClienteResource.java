@@ -5,7 +5,9 @@
  */
 package ufpr.cruel.resource;
 
-import static java.util.Collections.singleton;
+import ufpr.cruel.TipoCliente;
+import ufpr.cruel.daoTipoCliente;
+import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -18,8 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import ufpr.cruel.TipoCliente;
-import ufpr.cruel.daoTipoCliente;
+
 
 /**
  * REST Web Service
@@ -46,13 +47,32 @@ public class TipoClienteResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson( TipoCliente tipocliente) {
+    public String putJson( TipoCliente tipocliente) {
         
-        dtc = new daoTipoCliente();   	
-    	dtc.update(tipocliente);
+        try{
+            dtc = new daoTipoCliente();   	
+            dtc.update(tipocliente);
+            return "OK";
+            
+        }catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
         
-        String output = tipocliente.toString();
-        return Response.status(200).entity(output).build();
+        /*String output = tipocliente.toString();
+        return Response.status(200).entity(output).build();*/
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public TipoCliente produceJSON() {
+        
+        TipoCliente st = new TipoCliente();
+                    st.setIdTipoCliente(1);
+                    st.setDescricao("Professor2");
+                    st.setValor(3);
+                    st.setAtivo(true);
+        return st;
+        
     }
     
     /*@Path("{listTipoCliente}")

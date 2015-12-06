@@ -15,6 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import ufpr.gerente.cruel.TipoCliente;
 
 /**
@@ -43,7 +47,17 @@ public class ServGerente extends HttpServlet {
                 TipoCliente tp  = new TipoCliente();
                 tp.setDescricao(nome);
                 tp.setValor(Double.parseDouble(valor));
+                
+                tp.setAtivo(true);
                 //AQUI VAI INSERÇÃO DO BANCO
+                
+                Client client = ClientBuilder.newClient();
+
+                client
+                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
+                        .request(MediaType.APPLICATION_JSON)
+                        .post(Entity.json(tp));
+                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
             }else if (action.equals("buscacolaborador")){

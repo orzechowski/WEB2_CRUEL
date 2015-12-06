@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author vishi_000
  */
-public class TipoCliente implements Serializable{
+public class TipoCliente {
     private int idTpCliente;
     private String descricao;
     private double valor;
