@@ -5,7 +5,6 @@
  */
 package ufpr.gerente.cruel;
 
-import ufpr.gerente.cruel.TipoCliente;
 import java.io.Serializable;
 import java.util.*;
 /**
@@ -14,8 +13,8 @@ import java.util.*;
  */
 public class Registro implements Serializable{
     private Date dtHora;
-    private float valorCobrado;
-    private int cpfColaborador;
+    private double valorCobrado;
+    private String cpfColaborador;
     private TipoCliente tpCliente;
     
     public void setDtHora(Date dtHora){
@@ -25,17 +24,17 @@ public class Registro implements Serializable{
         return(this.dtHora);
     }
     
-    public void setValorCobrado(float valorCobrado){
+    public void setValorCobrado(double valorCobrado){
         this.valorCobrado = valorCobrado;
     }
-    public float getValorCobrado(){
+    public double getValorCobrado(){
         return(this.valorCobrado);
     }
     
-    public void setCpfColaborador(int cpfColaborador){
+    public void setCpfColaborador(String cpfColaborador){
         this.cpfColaborador = cpfColaborador;
     }
-    public int getCpfColaborador(){
+    public String getCpfColaborador(){
         return(this.cpfColaborador);
     }
     

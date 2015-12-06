@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import ufpr.cruel.TipoCliente;
+package ufpr.cruel;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+
 /**
  *
- * @author vishi_000
+ * @author Cristopher
  */
-public class Registro implements Serializable{
+public class Registro implements Serializable {
+    
     private Date dtHora;
-    private float valorCobrado;
-    private int cpfColaborador;
+    private double valorCobrado;
+    private String cpfColaborador;
     private TipoCliente tpCliente;
     
     public void setDtHora(Date dtHora){
@@ -23,17 +26,17 @@ public class Registro implements Serializable{
         return(this.dtHora);
     }
     
-    public void setValorCobrado(float valorCobrado){
+    public void setValorCobrado(double valorCobrado){
         this.valorCobrado = valorCobrado;
     }
-    public float getValorCobrado(){
+    public double getValorCobrado(){
         return(this.valorCobrado);
     }
     
-    public void setCpfColaborador(int cpfColaborador){
+    public void setCpfColaborador(String cpfColaborador){
         this.cpfColaborador = cpfColaborador;
     }
-    public int getCpfColaborador(){
+    public String getCpfColaborador(){
         return(this.cpfColaborador);
     }
     
@@ -43,4 +46,5 @@ public class Registro implements Serializable{
     public TipoCliente getTpCliente(){
         return(this.tpCliente);
     }
+    
 }
