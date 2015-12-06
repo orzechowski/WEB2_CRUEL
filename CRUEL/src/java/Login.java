@@ -40,18 +40,24 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
             String usu = request.getParameter("usuario");
             String sen = request.getParameter("senha");
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usu);
             
             Client client = ClientBuilder.newClient();
             Colaborador retorno = client
-                        .target("http://localhost:8080/GERENTECRUEL/webresources/Colaborador/" + usu + "/" +sen+ "/")
+                        .target("http://localhost:51270/GERENTECRUEL/webresources/Colaborador/" + usu + "/" +sen+ "/")
                         .request(MediaType.APPLICATION_JSON)
                         .get(Colaborador.class);
-                            
-            if ("nutricionista".equals(usu)){
+            
+            if( (retorno.getCpf() != null) ) {          
+                session.setAttribute("usuario", usu);
+                session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
+                session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
+            }
+                                        
+            if ("nutricionista".equals(session.getAttribute("cargo"))){
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
                 rd.forward(request,response);
             }

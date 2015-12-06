@@ -65,14 +65,15 @@ public class ServGerente extends HttpServlet {
                 
                 
             }else if (action.equals("buscatpcliente")){
-                             
+                //List<TipoCliente> l_tpCliente = new ArrayList();
                 Client client = ClientBuilder.newClient();
 
-                List<TipoCliente> retorno = client
-                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
+                List<TipoCliente> l_tpCliente = client
+                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<TipoCliente>>(){});
                 
+                request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
                 

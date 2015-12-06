@@ -65,13 +65,17 @@ public class TipoClienteResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TipoCliente> produceJSON() {
+    public TipoCliente[] produceJSON() {
         
         try{
             daoTipoCliente tc = new daoTipoCliente();
             List<TipoCliente> ltc = new ArrayList();
-            ltc=tc.getTudo();
-            return ltc;
+            
+            ltc = tc.getTudo();
+            TipoCliente[] array_tc = new TipoCliente[ltc.size()];
+            ltc.toArray(array_tc);
+            
+            return array_tc;
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
