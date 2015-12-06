@@ -12,15 +12,14 @@
         <title>CRUEL - Cadastro Tipo Cliente</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/login.css">
-		<link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">	
     </head>
+    
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>	
         <div class="container-fluid tudo"> 
