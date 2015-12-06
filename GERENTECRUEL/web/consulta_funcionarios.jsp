@@ -61,18 +61,18 @@
                         <div class="modal-body">
                             <div class="control-group">
                                 <label class="control-label" for="cargo">Cargo:</label>
-                                <input id="cargo" name="cargo" class="form-control" required type="text" value="">
+                                <input id="cargo" name="cargo" class="form-control" disabled type="text" value="">
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="nome">Nome Completo</label>
                                 <div class="controls">
-                                    <input id="nome" name="nome" class="form-control" required type="text" value="">
+                                    <input id="nome" name="nome" class="form-control" disabled type="text" value="">
                                 </div>
                             </div>   
                             <div class="control-group">
                                 <label class="control-label" for="cpf">CPF</label>
                                 <div class="controls">
-                                    <input id="cpf" name="cpf" class="form-control" disabled required type="text" placeholder="000.000.000-00" value="">
+                                    <input id="cpf" name="cpf" class="form-control" disabled type="text" placeholder="000.000.000-00" value="">
                                 </div>
                             </div>  
                             <div class="control-group">
@@ -86,7 +86,19 @@
                                 <div class="controls">
                                     <input id="endereco" name="endereco" class="form-control" required type="text" value="">
                                 </div>
-                            </div>   
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="senha">Senha</label>
+                                <div class="controls">
+                                    <input id="senha" name="senha" class="form-control" required type="password">
+                                </div>
+                            </div>
+                            <div class="control-group" id="confirma_div">
+                                <label class="control-label" for="senha">Confirmação de Senha</label>
+                                <div class="controls">
+                                    <input id="confirma_senha" name="confirma_senha" class="form-control" required type="password">
+                                </div>
+                            </div> 
                             <div class="control-group">
                                 <label class="control-label" for="telefone">Telefone</label>
                                 <div class="controls">
@@ -108,6 +120,21 @@
                 </div>
             </div>
         </div>
+	<script type="text/javascript">
+                
+                $("#senha").change(function(){
+                        $("#confirma_senha").val("");
+                        $("#confirma_div").attr('class', 'control-group has-warning');
+                        // 
+                });
+
+                $("#confirma_senha").change(function(){
+                      var pass = $("#senha").val();
+                      var conf = $("#confirma_senha").val();
+                      if (pass != conf) { alert("Senha nao confere."); }
+                });
+
+        </script>
 		<!-- MODAL INATIVAR Funcionario-->
         <div id="inativarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
