@@ -1,0 +1,40 @@
+MANHE MEU GIT NÃO QUER SYNCAR COMOFAS?/?///!!1
+
+1. Backup da pasta local inteira pra não perder as alterações que você tem
+2. No GitHub, clica com o direto no repositorio WEB2_CRUEL e Remove
+3. Cria uma pasta nova pra receber o novo clone do GitHub
+4. No github, Add repositorio (+), [Clone], orzechowski/WEB2_CRUEL
+	e escolhe a pasta que tu acabou de criar pra receber o repositório
+5. No NetBeans, File -> Abrir Projeto, e vai na pasta nova e acha o CRUEL
+6. Repete o 5. pro projeto do GERENTE_CRUEL
+
+ADD DRIVERS JDBC
+1. No projeto CRUEL, clica com o direito em Bibliotecas -> Adicionar Biblioteca
+	e seleciona "Driver JDBC do PostgreSQL"
+2. Repete 1. fazendo no projeto GERENTE_CRUEL
+
+DOWNGRADE GLASSFISH E ATRIBUIÇÃO DE SERVIDORES DIFERENTES
+1. Se o seu GlassFish não ta na versão 4.0, bora fazer "downgrade"
+2. Baixar ZIP do GlassFish 4.0 em http://download.java.net/glassfish/4.0/release/glassfish-4.0.zip
+3. Criar uma pasta "GlassFish_Server-4-0", "GlassFish_Server-4-0-Alt",
+	e extrair em cada uma delas o conteudo da pasta glassfish4 que estatá no .zip
+4. No NetBeans, menu Ferramentas -> Servidores
+5. Em baixo da lista de servidores, Adicionar Servidor
+		GlassFish Server
+		Nome: GlassFish4.0
+		PROXIMO ->
+		Localização: localização da pasta "GlassFish_Server-4-0"
+		Dominio: Local
+		PROXIMO ->
+		Dominio: Escolhe um nume qualquer aí
+		O resto deixa a configuração padrão, localhost, e tudo vazio
+		FINALIZAR
+6. Repetir o 5. mas usando o nome GlassFish4.0_ALT e colocando como localização
+	a pasta "GlassFish_Server-4-0-Alt"
+7. Clique com o direito no projeto CRUEL -> Propriedades -> Execução e
+	selecione o servidor GlassFish4.0
+8. Clique com o direito no projeto GERENTE_CRUEL -> Propriedades -> Execução e
+	selecione o servidor GlassFish4.0_ALT
+	
+Agora cada um deles roda em uma porta separada e talz mó lindo e a gente tem que lembrar
+de reconfigurar as portas em cada pc pra funcionar as requisições do WS
