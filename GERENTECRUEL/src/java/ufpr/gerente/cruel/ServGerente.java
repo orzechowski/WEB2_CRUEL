@@ -20,6 +20,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import ufpr.gerente.cruel.TipoCliente;
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.GenericType;
 
 /**
  *
@@ -62,14 +64,14 @@ public class ServGerente extends HttpServlet {
                 rd.forward(request, response);
                 
                 
-            }else if (action.equals("buscatpcli")){
+            }else if (action.equals("buscatpcliente")){
                              
                 Client client = ClientBuilder.newClient();
 
                 List<TipoCliente> retorno = client
                         .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
-                        .get(List<TipoCliente>.class<T>);
+                        .get(new GenericType<List<TipoCliente>>(){});
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
