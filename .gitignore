@@ -45,3 +45,5 @@ Temporary Items
 /CRUEL/build/
 CRUEL/web/loginCris.html
 /GERENTECRUEL/nbproject/private/
+/GERENTECRUEL/build/
+*.xml

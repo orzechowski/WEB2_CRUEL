@@ -15,8 +15,12 @@
 	<link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
 	<link rel="stylesheet" href="css/calendario.css">
+	<link rel="stylesheet" href="css/cardapio.css">
         <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/moment.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/cardapio.min.js"></script>
         <script src="js/calendario.min.js"></script>
         <script src="js/fullcalendar.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,7 +28,7 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        
+        <%@include file="/WEB-INF/jspf/modal_editar_cardapio.jspf" %>
 		<div class="container-fluid text-center tudo"> 
 			<div class="row meio">
 				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo ">
