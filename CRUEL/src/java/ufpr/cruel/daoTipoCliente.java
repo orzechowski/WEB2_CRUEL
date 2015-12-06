@@ -38,7 +38,7 @@ public class daoTipoCliente {
                 
                 TipoCliente     cli = new TipoCliente();
                                       
-                cli.setIdTipoCliente(rset.getInt("id_tipoc"));
+                cli.setIdTipoCliente(rset.getInt("id_tipo"));
                 cli.setDescricao(rset.getString("descricao"));
                 cli.setValor(rset.getDouble("valor"));
                 cli.setAtivo(rset.getBoolean("ativo"));

@@ -8,6 +8,7 @@ package ufpr.cruel.resource;
 import ufpr.cruel.TipoCliente;
 import ufpr.cruel.daoTipoCliente;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -64,15 +65,16 @@ public class TipoClienteResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public TipoCliente produceJSON() {
+    public List<TipoCliente> produceJSON() {
         
-        TipoCliente st = new TipoCliente();
-                    st.setIdTipoCliente(1);
-                    st.setDescricao("Professor2");
-                    st.setValor(3);
-                    st.setAtivo(true);
-        return st;
-        
+        try{
+            daoTipoCliente tc = new daoTipoCliente();
+            List<TipoCliente> ltc = new ArrayList();
+            ltc=tc.getTudo();
+            return ltc;
+        }catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     /*@Path("{listTipoCliente}")

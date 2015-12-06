@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import ufpr.cruel.Colaborador;
 
 /**
  *
@@ -40,6 +45,12 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usu);
             
+            Client client = ClientBuilder.newClient();
+            Colaborador retorno = client
+                        .target("http://localhost:8080/GERENTECRUEL/webresources/Colaborador/" + usu + "/" +sen+ "/")
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(Colaborador.class);
+                            
             if ("nutricionista".equals(usu)){
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
                 rd.forward(request,response);

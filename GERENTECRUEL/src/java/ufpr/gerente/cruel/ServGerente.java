@@ -60,6 +60,21 @@ public class ServGerente extends HttpServlet {
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
+                
+                
+            }else if (action.equals("buscatpcli")){
+                             
+                Client client = ClientBuilder.newClient();
+
+                List<TipoCliente> retorno = client
+                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(List<TipoCliente>.class<T>);
+                
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
+                rd.forward(request, response);
+                
+                
             }else if (action.equals("buscacolaborador")){
                 String filtroColaborador = request.getParameter("filtroColaborador");
                 //BUSCA NO BANCO

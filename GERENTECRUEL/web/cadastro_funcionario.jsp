@@ -13,13 +13,14 @@
         <title>CRUEL - Cadastro de Funcionário</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/login.css">
-		<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
         <div class="container-fluid tudo"> 
@@ -100,37 +101,31 @@
             </div>
         </div>
 	<script type="text/javascript">
-			$(document).ready(function(){
-			$('#crn').attr('disabled','disabled');        
-			$('select[name="cargo"]').on('change',function(){
-			var  nutri = $(this).val();
-				if(nutri == "Nutricionista"){           
-					$('#crn').removeAttr('disabled');          
-				}else{
-					$('#crn').attr('disabled','disabled'); 
-				}  
-			  });
-			});
+                $(document).ready(function(){
+                $('#crn').attr('disabled','disabled');        
+                $('select[name="cargo"]').on('change',function(){
+                var  nutri = $(this).val();
+                        if(nutri == "Nutricionista"){           
+                                $('#crn').removeAttr('disabled');          
+                        }else{
+                                $('#crn').attr('disabled','disabled'); 
+                        }  
+                  });
+                });
 		
-		  $("#senha").change(function(){
-			  $("#confirma_senha").val("");
-			  $("#confirma_div").attr('class', 'control-group has-warning');
-			  // 
-		  });
+                $("#senha").change(function(){
+                        $("#confirma_senha").val("");
+                        $("#confirma_div").attr('class', 'control-group has-warning');
+                        // 
+                });
 
-		  $("#confirma_senha").change(function(){
-			var pass = $("#senha").val();
-			var conf = $("#confirma_senha").val();
-			if (pass != conf) { alert("Senha n䯠confere."); }
-		  });
+                $("#confirma_senha").change(function(){
+                      var pass = $("#senha").val();
+                      var conf = $("#confirma_senha").val();
+                      if (pass != conf) { alert("Senha nao confere."); }
+                });
 
-		  /*$(document).ready(function() {        
-			$('#usuario').keyup(username_check);
-		  });   */
-
-    </script>
-    <script src="js/ie10-viewport-bug-workaround.js">
-    </script>	
-    </body>
+        </script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>	
     </body>
 </html>
