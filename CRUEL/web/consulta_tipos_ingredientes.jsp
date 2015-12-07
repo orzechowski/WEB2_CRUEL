@@ -22,7 +22,6 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        
         <!-- MODAL EDITAR Tipo de Ingrediente-->
         <div id="editarTipoIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -73,12 +72,12 @@
                                         <jsp:forward page="Nutricionista?action=buscatpingrediente" />
                                     </c:if>
                                     <!-- INICIO REPETICAO TIPO ITENS -->
-                                    <c:forEach var="tpingrediente" items="${l_tpingredientes}" >
+                                    <c:forEach var="tpingrediente" items="${l_tpingredientes}" varStatus="loop">
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
                                             <span><c:out value="${tpingrediente.descricao}"/></span>
                                             <div class="pull-right hidden-phone">
-						<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
+						<button class="btn btn-success btn-sm" data-toggle="modal" id="editar" data-id="${loop.index}" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
                                                     <span>Editar</span>
 						</button>
 						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>

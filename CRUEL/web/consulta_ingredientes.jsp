@@ -22,7 +22,22 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-     
+        <script>
+            $(document).on("click", "#editar", function () {
+            var id = $(this).data("id");
+            var lista_ingredientes = [];
+            <c:forEach var="ingrediente" items="${l_ingredientes}">
+                var ingrediente = {};
+                ingrediente.nome = "<c:out value="${ingrediente.nome}" />";
+                ingrediente.descricao = "<c:out value="${ingrediente.descricao}" />";
+                ingrediente.cargo = "<c:out value="${ingrediente.tipoIngrediente.idTipoIngrediente}" />";
+                lista_ingredientes.push(ingrediente);
+            </c:forEach>
+            $(".modal-body #nome").val(lista_ingredientes[id].nome);
+            $(".modal-body #selectbasic").val(lista_ingredientes[id].cargo);
+            $(".modal-body #descricao").val(lista_ingredientes[id].cpf);
+            });
+        </script>
         <!-- MODAL EDITAR Ingrediente-->
         <div id="editarIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -31,13 +46,31 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
                         <h4 class="modal-title" id="myModalLabel">Editar Ingredientes</h4>
                     </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success">Salvar Alterações</button>
-                    </div>
+                    <form class="form-horizontal" method="POST" action="Nutricionista?action=atualizaringrediente">	    				
+                        <div class="modal-body">
+                            <div class="control-group col-md-6">
+                                <label class="control-label" for="nome">Nome</label>
+                                <div class="controls">
+                                    <input id="nome" name="nome" class="form-control" required type="text">
+                                </div>
+                            </div> 				
+                            <div class="control-group col-md-6">
+                                <label class="control-label" for="tipoIngrediente">Tipo de Ingrediente</label>
+                                <select id="selectbasic" name="selectbasic" class="form-control">
+                                    <option value="1">Arroz</option>
+                                    <option value="2">Feijão</option>
+                                    <option value="3">Salada</option>
+                                    <option value="4">Carne</option>
+                                    <option value="5">Acompanhamento</option>
+                                    <option value="6">Sobremesa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <button id="submit" name="submit" class="btn btn-success">Salvar Alterações</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -80,7 +113,7 @@
                             <div class="list-content">
                                 <ul class="list-group text-center" >
                                     <!-- REPETIR COM A LISTA DE INGREDIENTES -->
-                                    <c:forEach var="ingrediente" items="${l_ingredientes}" >
+                                    <c:forEach var="ingrediente" items="${l_ingredientes}" varStatus="loop" >
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">               
                                             <div class="row">
@@ -95,7 +128,7 @@
 						</div>
 						<div class="col-md-3 col-lg-3 col-sm-3 ingrediente">
                                                     <div class="pull-right hidden-phone">
-							<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
+							<button class="btn btn-success btn-sm" id="editar" data-toggle="modal" data-target="#editarIngrediente" data-id="${loop.index}"><i class=" glyphicon glyphicon-pencil"></i>
                                                             <span>Editar</span>
 							</button>
 							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>

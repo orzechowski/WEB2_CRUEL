@@ -29,7 +29,7 @@
                             <h3 class="panel-title">Cadastro de Ingrediente</h3>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" method="POST" action="cadastraringrediente">	    				
+                            <form class="form-horizontal" method="POST" action="Nutricionista?action=cadastrar_ingrediente">	    				
                                 <div class="control-group col-md-6">
                                     <label class="control-label" for="nome">Nome</label>
                                     <div class="controls">

@@ -27,7 +27,6 @@
         <script>
             $(document).on("click", "#editar", function () {
             var id = $(this).data("id");
-            var aline = "sline";
             var lista_colaboradores = [];
             <c:forEach var="colaborador" items="${l_colaboradores}">
                 var colaborador = {};
@@ -90,13 +89,13 @@
                             <div class="control-group">
                                 <label class="control-label" for="senha">Senha</label>
                                 <div class="controls">
-                                    <input id="senha" name="senha" class="form-control" required type="password">
+                                    <input id="senha" name="senha" class="form-control" type="password">
                                 </div>
                             </div>
                             <div class="control-group" id="confirma_div">
                                 <label class="control-label" for="senha">Confirmação de Senha</label>
                                 <div class="controls">
-                                    <input id="confirma_senha" name="confirma_senha" class="form-control" required type="password">
+                                    <input id="confirma_senha" name="confirma_senha" class="form-control" type="password">
                                 </div>
                             </div> 
                             <div class="control-group">
