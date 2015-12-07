@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page buffer="10000kb" autoFlush="true" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,14 +30,17 @@
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
         <%@include file="/WEB-INF/jspf/modal_editar_cardapio.jspf" %>
-		<div class="container-fluid text-center tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo ">
-					<hr>
-					<div id="calendar"></div>
-				</div>
-			</div>
-		</div>
-	</body>
+        <c:if test="${listaIng == null}">
+            <jsp:forward page="Nutricionista?action=carregaingrediente" />                        
+        </c:if>
+        
+        <div class="container-fluid text-center tudo"> 
+            <div class="row meio">
+                <div class=" col-md-12 col-lg-12 col-sm-12 conteudo ">                                    
+                    <hr>
+                    <div id="calendar"></div>                                                      
+                </div>
+            </div>
+        </div>
     </body>
 </html>

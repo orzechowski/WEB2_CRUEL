@@ -102,6 +102,14 @@ public class ServNutricionista extends HttpServlet {
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
+            }else if (action.equals("carregaingrediente")){
+                List<Ingrediente> listaIng = new ArrayList();
+                try{listaIng = daoIng.getFiltrado("");}
+                catch(SQLException ex){/*IARIAIRRAI*/}
+                
+                request.setAttribute("listaIng", listaIng);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
+                rd.forward(request, response);                            
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
