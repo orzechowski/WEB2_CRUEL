@@ -32,27 +32,28 @@ public class Cardapio implements Serializable{
     public void setData(String data){
         this.data = data;
     }
-    private int getRefeicao(){
+    public int getRefeicao(){
         return this.refeicao;
     }
-    private void setRefeicao(int refeicao){
+    public void setRefeicao(int refeicao){
         this.refeicao = refeicao;
     }
-    private String getDescricaoRefeicao(){
+    public String getDescricaoRefeicao(){
         if (this.refeicao == 1)
             return "Almoco";
         else
            return "Jantar";
     }
-    private void setListaIngredientes(List<Ingrediente> listaIng){
+    public void setListaIngredientes(List<Ingrediente> listaIng){
         this.listaIngredientes = listaIng;
     }
     
-    private void addIngrediente(Ingrediente ing){
+    public void addIngrediente(Ingrediente ing){
         this.listaIngredientes.add(ing);
     }
     
-    private List<Ingrediente> getListaIngredientes(){
+    public List<Ingrediente> getListaIngredientes(){
         return this.listaIngredientes;
     }
+    
 }

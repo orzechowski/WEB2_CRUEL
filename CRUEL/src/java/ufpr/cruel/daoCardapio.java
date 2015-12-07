@@ -18,45 +18,120 @@ import java.util.List;
  */
 public class daoCardapio {
     
-    /****************************************************************
-     * 
-     * FUNÇÃO SÓ COPIADA, NÃO TRABALHEI NEM UM POUCO NELA AINDA!!!
-     * 
-     ****************************************************************/
+    private final String stmtGetPeriodo = "select * from cardapio as CAR where CAR.data between ? and ?";
+    private final String stmtGetAll = "select * from cardapio";
+    private final String stmtGetIngredientes = "select * from ingredientescardapio where id_cardapio=?";
+    
     public List<Cardapio> getPeriodo(String dtIni, String dtFin) throws SQLException{
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
+        PreparedStatement   stmtING = null;
         ResultSet           rset    = null;
+        ResultSet           rsetING = null;
         
         try{
                                   
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetPeriodo);
+            stmt.setString(1, dtIni);
+            stmt.setString(2, dtFin);
+            
+            stmtING = conn.prepareStatement(stmtGetIngredientes);
+            
             
             rset = stmt.executeQuery();
-            List<Registro> listaTodos = new ArrayList();
+            List<Cardapio> listaTodos = new ArrayList();
             
             while (rset.next()) {
-                TipoCliente tp = new TipoCliente();
-                Registro reg = new Registro();
+                Cardapio cardapio = new Cardapio();
+                List<Ingrediente> ingredientes = new ArrayList();
                 
-                tp.setIdTipoCliente(rset.getInt("id_tipo"));
-                tp.setDescricao(rset.getString("descricao"));
-                tp.setValor(rset.getDouble("valor"));
-                tp.setAtivo(rset.getBoolean("ativo"));
+                cardapio.setData(rset.getDate("data").toString());
+                cardapio.setIdCardapio(rset.getInt("id_cardapio"));
                 
-                reg.setCpfColaborador(rset.getString("cpf_colaborador"));
-                reg.setDtHora(rset.getDate("datahora"));
-                reg.setValorCobrado((float)rset.getDouble("valor_cobrado"));
-                reg.setTpCliente(tp);
-                
-                listaTodos.add(reg);
+                stmtING.setInt(1,cardapio.getIdCardapio());
+                rsetING = stmtING.executeQuery();
+                while (rset.next()) {
+                    
+                    Ingrediente novoING = new Ingrediente();
+                    TipoIngrediente novoTipo = new TipoIngrediente();
+                    
+                    novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
+                    novoTipo.setDescricao(rsetING.getString("tp_descricao"));
+                    
+                    novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
+                    novoING.setNome(rsetING.getString("nome"));
+                    novoING.setDescricao(rsetING.getString("descricao"));
+                    novoING.setTipoIngrediente(novoTipo);
+                    
+                    ingredientes.add(novoING);
+                }
+
+                listaTodos.add(cardapio);
             }
             
             return listaTodos;
             
         }catch(SQLException ex){
-            throw new RuntimeException("Erro ao buscar Ingredientes." +ex.getMessage());
+            throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
+        }finally{
+            try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public List<Cardapio> getAll() throws SQLException{
+        Connection          conn    = null;
+        PreparedStatement   stmt    = null;
+        PreparedStatement   stmtING = null;
+        ResultSet           rset    = null;
+        ResultSet           rsetING = null;
+        
+        try{
+                                  
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtGetAll);
+                        
+            stmtING = conn.prepareStatement(stmtGetIngredientes);
+            
+            
+            rset = stmt.executeQuery();
+            List<Cardapio> listaTodos = new ArrayList();
+            
+            while (rset.next()) {
+                Cardapio cardapio = new Cardapio();
+                List<Ingrediente> ingredientes = new ArrayList();
+                
+                cardapio.setData(rset.getDate("data").toString());
+                cardapio.setIdCardapio(rset.getInt("id_cardapio"));
+                
+                stmtING.setInt(1,cardapio.getIdCardapio());
+                rsetING = stmtING.executeQuery();
+                while (rset.next()) {
+                    
+                    Ingrediente novoING = new Ingrediente();
+                    TipoIngrediente novoTipo = new TipoIngrediente();
+                    
+                    novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
+                    novoTipo.setDescricao(rsetING.getString("tp_descricao"));
+                    
+                    novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
+                    novoING.setNome(rsetING.getString("nome"));
+                    novoING.setDescricao(rsetING.getString("descricao"));
+                    novoING.setTipoIngrediente(novoTipo);
+                    
+                    ingredientes.add(novoING);
+                }
+                
+                cardapio.setListaIngredientes(ingredientes);
+                listaTodos.add(cardapio);
+            }
+            
+            return listaTodos;
+            
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
