@@ -52,7 +52,7 @@
             },
             dayClick: function(date) {
                 var dt = $.fullCalendar.formatDate(date, "MM-dd-yyyy"); // Pega a data clicada.
-                var dtopen = $.fullCalendar.formatDate(date, "yyyy/MM/dd"); // Pega a data clicada.                
+                var dtopen = $.fullCalendar.formatDate(date, "dd/MM/yyyy"); // Pega a data clicada.                
                 
                 $("#nova_dt_refeicao").val(dtopen);
                 $(this).attr("data-toggle", "modal");

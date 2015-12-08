@@ -32,6 +32,7 @@ public class daoCardapio {
     
     private final String stmtInserirCardapio = "INSERT INTO cardapio(data, id_refeicao) VALUES (?,?)";
     private final String stmtInserirIngredientesCardapio = "INSERT INTO ingredientescardapio(id_cardapio, ingrediente) values (?,?)";
+    private final String stmtExcluirIngredientesCardapio = "DELETE FROM ingredientescardapio WHERE id_cardapio = ?";
     
     public List<Cardapio> getPeriodo(String dtIni, String dtFin) throws SQLException{
         Connection          conn    = null;
@@ -104,9 +105,9 @@ public class daoCardapio {
         
         try{
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date customDate = new Date();
-            String dataCAR = dateFormat.format(cardapio.getData());
-            sqlDate = new java.sql.Date(dateFormat.parse(dataCAR).getTime());
+            //Date customDate = new Date();
+            //String dataCAR = dateFormat.format(cardapio.getData());
+            sqlDate = new java.sql.Date(dateFormat.parse(cardapio.getData()).getTime());
         }catch(ParseException pEx){
             throw new RuntimeException("Erro ao converter data." + pEx.getMessage());
         }
@@ -115,7 +116,7 @@ public class daoCardapio {
             conn = ConnectionFactory.getConnection();
             stmtCAR = conn.prepareStatement(stmtInserirCardapio, PreparedStatement.RETURN_GENERATED_KEYS);
             stmtCAR.setDate(1, sqlDate);
-            stmtCAR.setInt(2, cardapio.getIdCardapio());
+            stmtCAR.setInt(2, cardapio.getRefeicao());
 
             stmtCAR.execute();
             rset = stmtCAR.getGeneratedKeys();
@@ -137,6 +138,52 @@ public class daoCardapio {
         }finally{
             //try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmtCAR.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+        
+    }
+    
+    public void Update(Cardapio cardapio) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmtEXC = null;
+        PreparedStatement stmtINGCAR = null;
+              
+        /*
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+        
+        try{
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            //Date customDate = new Date();
+            //String dataCAR = dateFormat.format(cardapio.getData());
+            sqlDate = new java.sql.Date(dateFormat.parse(cardapio.getData()).getTime());
+        }catch(ParseException pEx){
+            throw new RuntimeException("Erro ao converter data." + pEx.getMessage());
+        }
+        */
+        try {
+            conn = ConnectionFactory.getConnection();
+            
+            stmtEXC = conn.prepareStatement(stmtExcluirIngredientesCardapio);
+            stmtEXC.setInt(1,cardapio.getIdCardapio());
+
+            stmtEXC.execute();                    
+            
+
+            for(Ingrediente ING : cardapio.getListaIngredientes()){
+                stmtINGCAR = conn.prepareStatement(stmtInserirIngredientesCardapio);
+                stmtINGCAR.setInt(1, cardapio.getIdCardapio());
+                stmtINGCAR.setInt(2,ING.getIdIngrediente());
+
+                stmtINGCAR.execute();
+            }
+        
+            
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao Inserir Cardapio." +ex.getMessage());
+        }finally{
+            //try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmtEXC.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{stmtINGCAR.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
         

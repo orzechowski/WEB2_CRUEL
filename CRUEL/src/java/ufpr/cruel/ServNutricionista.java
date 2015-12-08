@@ -199,6 +199,11 @@ public class ServNutricionista extends HttpServlet {
                 c.addIngrediente(acompanhamento);
                 c.addIngrediente(sobremesa);
                 
+                try {
+                    daoCar.Update(c);
+                }catch(Exception ex){
+                    //NOPE
+                }
                 /*
                 PrintWriter out = response.getWriter(); 
                 out.print("Tipo de Refeição: ");
