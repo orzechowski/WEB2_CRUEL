@@ -27,6 +27,7 @@ public class daoIngrediente {
         + " or (TPI.descricao ilike '%{FILTRO}%')";
     
     private final String stmtInserir = "INSERT INTO ingrediente(nome,descricao,id_tipoingrediente) VALUES(?,?,?)";
+    private final String stmtExcluirDoCardapio = "DELETE FROM ingredientescardapio WHERE ingrediente = ?";
     private final String stmtExcluir = "DELETE FROM ingrediente WHERE id_ingrediente = ?";
     
     // TODO UPDATE ATUALIZA NOME E DESCRIÇÃO, MESMO QUE CONTINUEM OS MESMOS
@@ -97,13 +98,20 @@ public class daoIngrediente {
         
         Connection con = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmtConsist = null;
         
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(stmtExcluir);
+            stmtConsist = con.prepareStatement(stmtExcluirDoCardapio);
             
             stmt.setInt(1, ing.getIdIngrediente());
-            
+            stmtConsist.setInt(1, ing.getIdIngrediente());
+            try{
+                stmtConsist.executeUpdate();
+            }catch(SQLException ex) {
+                throw new RuntimeException("Erro ao excluir Ingrediente dos Cardapios: "+ex.getMessage());
+            }
             stmt.executeUpdate();
         }catch(SQLException ex){
                throw new RuntimeException("Erro ao excluir Ingrediente: "+ex.getMessage());            
