@@ -15,8 +15,9 @@
         <link rel="stylesheet" href="css/login.css">
 	<link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery.maskedinput.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -99,33 +100,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-	<script type="text/javascript">
-                $(document).ready(function(){
-                $('#crn').attr('disabled','disabled');        
-                $('select[name="cargo"]').on('change',function(){
-                var  nutri = $(this).val();
-                        if(nutri == "Nutricionista"){           
-                                $('#crn').removeAttr('disabled');          
-                        }else{
-                                $('#crn').attr('disabled','disabled'); 
-                        }  
-                  });
-                });
-		
-                $("#senha").change(function(){
-                        $("#confirma_senha").val("");
-                        $("#confirma_div").attr('class', 'control-group has-warning');
-                        // 
-                });
-
-                $("#confirma_senha").change(function(){
-                      var pass = $("#senha").val();
-                      var conf = $("#confirma_senha").val();
-                      if (pass != conf) { alert("Senha nao confere."); }
-                });
-
-        </script>
-        <script src="js/ie10-viewport-bug-workaround.js"></script>	
+        </div>	
     </body>
+    <script>
+        $(document).ready(function(){
+        $('#crn').attr('disabled','disabled');        
+        $('select[name="cargo"]').on('change',function(){
+        var  nutri = $(this).val();
+                if(nutri == 2){ 
+                        $('#crn').removeAttr('disabled');          
+                }else{
+                        $('#crn').attr('disabled','disabled'); 
+                }  
+          });
+        });
+
+        $("#senha").change(function(){
+                $("#confirma_senha").val("");
+                $("#confirma_div").attr('class', 'control-group has-warning');
+                // 
+        });
+
+        $("#confirma_senha").change(function(){
+              var pass = $("#senha").val();
+              var conf = $("#confirma_senha").val();
+              if (pass != conf) { alert("Senha nao confere."); }
+        });
+
+        jQuery(function($){
+        $("#cpf").mask("99999999999");
+        $("#telefone").mask("(99)9999-9999");
+        });
+    </script>
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
 </html>
