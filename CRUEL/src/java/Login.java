@@ -51,10 +51,22 @@ public class Login extends HttpServlet {
                         .request(MediaType.APPLICATION_JSON)
                         .get(Colaborador.class);
             
-            if( (retorno.getCpf() != null) ) {          
-                session.setAttribute("usuario", usu);
-                session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
-                session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
+            if( (retorno.getEmail()!= null) ) {  
+                if((retorno.getCargo().getDescricao().toLowerCase()).equals("gerente")){
+                    request.setAttribute("ERRMSG", "Não é permitido login de Gerente nesta aplicação");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                    rd.forward(request,response);
+                }
+                else{
+                    session.setAttribute("usuario", usu);
+                    session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
+                    session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
+                }
+            }
+            else{
+                request.setAttribute("ERRMSG", "Usuário ou Senha Inválidos");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request,response);
             }
                                         
             if ("nutricionista".equals(session.getAttribute("cargo"))){

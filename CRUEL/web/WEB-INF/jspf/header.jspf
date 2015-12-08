@@ -3,6 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="tp_usuario" value="${sessionScope.cargo}" /> 
+<script>
+    var err="<c:out value="${ERRMSG}"/>";
+    if (err.length > 0) {
+        alert(err);
+    }
+</script>    
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">

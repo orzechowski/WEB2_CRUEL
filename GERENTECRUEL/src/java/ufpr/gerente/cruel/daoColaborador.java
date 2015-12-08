@@ -22,7 +22,7 @@ public class daoColaborador {
             " CLB.senha,CLB.endereco,CLB.telefone,CLB.crn,CLB.ativo," +
             " CR.nome as cargo, CR.id_cargo" +
             " from colaborador as CLB join cargo as CR on CLB.id_cargo = CR.id_cargo" +
-            " where cpf = ? and senha=? and ativo=true";
+            " where email = ? and senha=? and ativo=true";
     
     private final String stmtInserir = "INSERTO INTO colaborador VALUES(?,?,?,?,?,?,?,?,?)";
     
@@ -50,7 +50,7 @@ public class daoColaborador {
             stmt.setString(2,senha);
             
             rset = stmt.executeQuery();
-            colabValidado.setCpf(null);
+            colabValidado.setEmail(null);
             
             
             while (rset.next()) {
