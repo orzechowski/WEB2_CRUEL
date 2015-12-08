@@ -136,11 +136,10 @@ public class ServGerente extends HttpServlet {
                     try{
                         daoColab.inserir(col);
                     }catch(Exception ex){
-                        //WAT DO?  ERRMSG no request?
+                        request.setAttribute("ERRMSG", "Erro ao cadastrar funcionário");
                     }
-                }else{ 
-                    /* Senha e confirmação não batem */
-                    /*Cris: Que? Wat? Que confirmação é essa, man?*/
+                }else{
+                    request.setAttribute("ERRMSG", "Senhas não são idênticas");
                 }
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_funcionario.jsp");
                 rd.forward(request, response); 

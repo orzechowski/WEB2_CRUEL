@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,8 @@
         <title>CRUEL - Cadastro Tipo Cliente</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/login.css">
-		<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/index.css">
+        <script src="js/jquery.maskedinput.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -35,7 +37,7 @@
                 </c:forEach>
                 $(".modal-body #descricao").val(lista_tpclientes[id].descricao);
                 $(".modal-body #valor").val(lista_tpclientes[id].valor);
-            });
+            });  
             </script>
         <div id="editarTpCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -53,7 +55,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="nome">Valor</label>
                                 <div class="controls">
-                                    <input id="valor" name="valor" class="form-control" type="text" value="" placeholder="R$ 0,00">
+                                    <input id="valor" name="valor" class="form-control" type="text" value="">
                                 </div>
                             </div>   
                         </div>
@@ -84,7 +86,9 @@
                                                     <span><c:out value="${tpCliente.descricao}" /></span>
 						</div>
 						<div class="col-md-5 col-lg-5 col-sm-5 ingrediente">
-                                                    <span><c:out value="${tpCliente.valor}" /></span>
+                                                    <span>
+                                                        <fmt:formatNumber value="${tpCliente.valor}" type="currency" />
+                                                    </span>
   						</div>
 						<div class="col-md-1 col-lg-1 col-sm-1 ingrediente">
                                                     <div class="pull-right hidden-phone">
