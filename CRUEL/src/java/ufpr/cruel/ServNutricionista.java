@@ -40,7 +40,8 @@ public class ServNutricionista extends HttpServlet {
             throws ServletException, IOException {
             String action = request.getParameter("action");
             daoTipoIngrediente daoTp = new daoTipoIngrediente();
-            daoIngrediente daoIng = new daoIngrediente();
+            daoIngrediente     daoIng = new daoIngrediente();
+            daoCardapio        daoCar = new daoCardapio();
             
             if (action.equals("addtping")){
                 String desc = request.getParameter("nome");
@@ -119,11 +120,18 @@ public class ServNutricionista extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
             }else if (action.equals("carregaingrediente")){
+                List<Cardapio>    listaCar = new ArrayList(); 
                 List<Ingrediente> listaIng = new ArrayList();
+                
                 try{listaIng = daoIng.getFiltrado("");}
                 catch(SQLException ex){/*IARIAIRRAI*/}
                 
+                try{listaCar = daoCar.getAll();}
+                catch(SQLException ex){/*IARIAIRRAI*/}
+                
                 request.setAttribute("listaIng", listaIng);
+                request.setAttribute("listaCar", listaCar);
+                
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
                 rd.forward(request, response);                            
             }else if (action.equals("excluiingrediente")){
@@ -131,6 +139,32 @@ public class ServNutricionista extends HttpServlet {
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_nutricionista.jsp");
                 rd.forward(request, response);                            
+            }else if (action.equals("adicionarCardapio")){
+                String almoco_arroz = request.getParameter("almoco_arroz");
+                String almoco_feijao = request.getParameter("almoco_feijao");
+                String almoco_salada = request.getParameter("almoco_salada");
+                String almoco_carne = request.getParameter("almoco_carne");
+                String almoco_acompanhamento = request.getParameter("almoco_acompanhamento");
+                String almoco_sobremesa = request.getParameter("almoco_sobremesa");
+                
+                String janta_arroz = request.getParameter("janta_arroz");
+                
+                PrintWriter out = response.getWriter(); 
+                out.print("Almoço: \n");
+                out.print("Arroz: ");
+                out.print(almoco_arroz);
+                out.print("\nFeijão: ");
+                out.print(almoco_feijao);
+                out.print("\nSalada: ");
+                out.print(almoco_salada);
+                out.print("\nCarne: ");
+                out.print(almoco_carne);
+                out.print("\nAcompanhamento: ");
+                out.print(almoco_acompanhamento);
+                out.print("\nSobremesa: ");
+                out.print(almoco_sobremesa);
+                out.print("\nJanta:\nArroz: ");
+                out.print(janta_arroz);
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);

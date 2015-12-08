@@ -107,7 +107,8 @@ public class daoCardapio {
                 
                 cardapio.setData(rset.getDate("data").toString());
                 cardapio.setIdCardapio(rset.getInt("id_cardapio"));
-           
+                cardapio.setRefeicao(rset.getInt("id_refeicao"));
+                
                 listaTodos.add(cardapio);
             }
             

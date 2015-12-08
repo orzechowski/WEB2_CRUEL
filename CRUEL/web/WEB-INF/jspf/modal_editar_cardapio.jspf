@@ -18,7 +18,7 @@
                             <ul class="dropdown-menu">
                                 <c:forEach var="ing" items="${listaIng}">
                                     <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 1}">
-                                        <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
+                                        <li value="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
                                     </c:if>
                                 </c:forEach>
                             </ul>
