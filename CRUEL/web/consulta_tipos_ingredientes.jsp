@@ -22,44 +22,6 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        <!-- MODAL EDITAR Tipo de Ingrediente-->
-        <div id="editarTipoIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                        <h4 class="modal-title" id="myModalLabel">Editar Tipo de Ingredientes</h4>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-success">Salvar Alterações</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-		<!-- MODAL remover Tipo de Ingrediente-->
-        <div id="removerTipoIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                        <h4 class="modal-title" id="myModalLabel">Remover Tipo de Ingrediente</h4>
-                    </div>
-                    <div class="modal-body">
-                        Tem certeza que deseja remover o Tipo de Ingrediente?
-                    </div>
-                    <div class="modal-footer">
-			<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-                            <span>Remover</span>
-			</button>
-                        <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 	<div class="container-fluid tudo"> 
             <div class="row meio">
 		<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
@@ -76,23 +38,11 @@
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
                                             <span><c:out value="${tpingrediente.descricao}"/></span>
-                                            <div class="pull-right hidden-phone">
-						<button class="btn btn-success btn-sm" data-toggle="modal" id="editar" data-id="${loop.index}" data-target="#editarTipoIngrediente"><i class=" glyphicon glyphicon-pencil"></i>
-                                                    <span>Editar</span>
-						</button>
-						<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerTipoIngrediente"><i class="glyphicon glyphicon-remove"></i>
-                                                    <span>Remover</span>
-						</button>
-                                            </div>
                                         </div>
                                     </li>
                                     </c:forEach>
 									<!-- FIM REPETICAO TIPO ITENS -->
                                 </ul>
-                            </div>
-                            <div class=" add-task-row">
-               <!-- <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a> -->
-				<a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
                             </div>
                         </div>
                     </section>    

@@ -37,6 +37,16 @@
             $(".modal-body #descricao").val(lista_ingredientes[id].descricao);
             document.getElementById(lista_ingredientes[id].tp_ingrediente).selected = true;
             });
+            $(document).on("click", "#excluir", function () {
+            var id = $(this).data("id");
+            var lista_ingredientes = [];
+            <c:forEach var="ingrediente" items="${l_ingredientes}">
+                var ingrediente = {};
+                ingrediente.id = <c:out value="${ingrediente.idIngrediente}" />;
+                lista_ingredientes.push(ingrediente);
+            </c:forEach>
+            $(".modal-body #idIngrediente").val(lista_ingredientes[id].id);
+            });
         </script>
         <!-- MODAL EDITAR Ingrediente-->
         <div id="editarIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -84,20 +94,22 @@
         <div id="removerIngrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <form method="POST" action="Nutricionista?action=ingrediente">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                        <h4 class="modal-title" id="myModalLabel">Remover Ingrediente</h4>
-                    </div>
-                    <div class="modal-body">
-                        Tem certeza que deseja remover o Ingrediente?
-                    </div>
-                    <div class="modal-footer">
-			<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"> </i>
-			<span>Remover</span>
-			</button>
-                        <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
-                    </div>
+                    <form method="POST" action="Nutricionista?action=excluiingrediente">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                            <h4 class="modal-title" id="myModalLabel">Remover Ingrediente</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="idIngrediente" name="idIngrediente" value="" />
+                            Tem certeza que deseja remover o Ingrediente?
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"> </i>
+                            <span>Remover</span>
+                            </button>
+                            <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -138,7 +150,7 @@
 							<button class="btn btn-success btn-sm" id="editar" data-toggle="modal" data-target="#editarIngrediente" data-id="${loop.index}"><i class=" glyphicon glyphicon-pencil"></i>
                                                             <span>Editar</span>
 							</button>
-							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removerIngrediente"><i class="glyphicon glyphicon-remove"></i>
+							<button class="btn btn-danger btn-sm" id="excluir" data-toggle="modal" data-target="#removerIngrediente" data-id="${loop.index}"><i class="glyphicon glyphicon-remove"></i>
                                                             <span>Remover</span>
 							</button>
                                                     </div>
