@@ -20,7 +20,10 @@ public class daoCardapio {
     
     private final String stmtGetPeriodo = "select * from cardapio as CAR where CAR.data between ? and ?";
     private final String stmtGetAll = "select * from cardapio";
-    private final String stmtGetIngredientes = "select * from ingredientescardapio where id_cardapio=?";
+    private final String stmtGetIngredientes = "select ING.id_ingrediente, ING.nome,ING.descricao,"
+            +" ING.id_tipoingrediente,TP.descricao as tp_descricao from ingredientescardapio as INC"
+            +" join ingrediente as ING on INC.ingrediente = ING.id_ingrediente join tipoingrediente as TP"
+            +" on ING.id_tipoingrediente = TP.id_tipoingrediente where INC.id_cardapio=?";
     
     public List<Cardapio> getPeriodo(String dtIni, String dtFin) throws SQLException{
         Connection          conn    = null;
