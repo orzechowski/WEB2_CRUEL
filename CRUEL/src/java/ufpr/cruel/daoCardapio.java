@@ -98,47 +98,46 @@ public class daoCardapio {
                                   
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetAll);
-                        
-            
-            
-            
+
             rset = stmt.executeQuery();
             List<Cardapio> listaTodos = new ArrayList();
             
             while (rset.next()) {
                 Cardapio cardapio = new Cardapio();
-                List<Ingrediente> ingredientes = new ArrayList();
                 
                 cardapio.setData(rset.getDate("data").toString());
                 cardapio.setIdCardapio(rset.getInt("id_cardapio"));
-
-                
+           
+                listaTodos.add(cardapio);
+            }
+            
+            for(Cardapio CARD : listaTodos){
                 try {
                     stmtING = conn.prepareStatement(stmtGetIngredientes);
-                    stmtING.setInt(1,cardapio.getIdCardapio());
+                    stmtING.setInt(1,CARD.getIdCardapio());
                     rsetING = stmtING.executeQuery();
+                    List<Ingrediente> ingredientes = new ArrayList();
                     
-                    while (rset.next()) {
+                    while (rsetING.next()) {
                     
-                    Ingrediente novoING = new Ingrediente();
-                    TipoIngrediente novoTipo = new TipoIngrediente();
+                        Ingrediente novoING = new Ingrediente();
+                        TipoIngrediente novoTipo = new TipoIngrediente();
+
+                        novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
+                        novoTipo.setDescricao(rsetING.getString("tp_descricao"));
+
+                        novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
+                        novoING.setNome(rsetING.getString("nome"));
+                        novoING.setDescricao(rsetING.getString("descricao"));
+                        novoING.setTipoIngrediente(novoTipo);
+
+                        ingredientes.add(novoING);
+                    }
                     
-                    novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
-                    novoTipo.setDescricao(rsetING.getString("tp_descricao"));
-                    
-                    novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
-                    novoING.setNome(rsetING.getString("nome"));
-                    novoING.setDescricao(rsetING.getString("descricao"));
-                    novoING.setTipoIngrediente(novoTipo);
-                    
-                    ingredientes.add(novoING);
-                }
+                    CARD.setListaIngredientes(ingredientes);
                 } catch (SQLException ex){
                     throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
-                }                
-                
-                cardapio.setListaIngredientes(ingredientes);
-                listaTodos.add(cardapio);
+                }
             }
             
             return listaTodos;
