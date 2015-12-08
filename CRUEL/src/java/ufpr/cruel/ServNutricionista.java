@@ -237,7 +237,7 @@ public class ServNutricionista extends HttpServlet {
                 String janta_carne             = request.getParameter("janta_carne");
                 String janta_acompanhamento    = request.getParameter("janta_acompanhamento");
                 String janta_sobremesa         = request.getParameter("janta_sobremesa");
-
+                
                 /* TIPO INGREDIENTE */
                 TipoIngrediente tp_arroz            = new TipoIngrediente();
                 TipoIngrediente tp_feijao           = new TipoIngrediente();
@@ -316,8 +316,11 @@ public class ServNutricionista extends HttpServlet {
                 j_cardapio.addIngrediente(j_acompanhamento);
                 j_cardapio.addIngrediente(j_sobremesa);
                 
+                try{daoCar.Inserir(a_cardapio);}
+                catch(SQLException ex){/*IARIAIRRAI*/}
+                try{daoCar.Inserir(j_cardapio);}
+                catch(SQLException ex){/*IARIAIRRAI*/}
                 
-                /*
                 PrintWriter out = response.getWriter(); 
                 out.print("Almoço: ");
                 out.print("\nData da Refeição: ");
@@ -350,7 +353,7 @@ public class ServNutricionista extends HttpServlet {
                 out.print(janta_acompanhamento);
                 out.print("\nSobremesa: ");
                 out.print(janta_sobremesa);
-                */
+                
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);

@@ -34,6 +34,9 @@
         </c:if>
 
         <script>
+        function dismiss_window(nome){
+            $("#"+nome).fadeOut();
+        }
         $(document).ready(function(){
             var date = new Date();
             var d = date.getDate();
@@ -49,7 +52,7 @@
             },
             dayClick: function(date) {
                 var dt = $.fullCalendar.formatDate(date, "MM-dd-yyyy"); // Pega a data clicada.
-                var dtopen = $.fullCalendar.formatDate(date, "yyyy-MM-dd"); // Pega a data clicada.                
+                var dtopen = $.fullCalendar.formatDate(date, "yyyy/MM/dd"); // Pega a data clicada.                
                 
                 $("#nova_dt_refeicao").val(dtopen);
                 $(this).attr("data-toggle", "modal");
@@ -241,7 +244,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Salvar Alterações</button>
-                                <button type="button" class="btn btn-danger">Fechar</button>
+                                <button type="button" class="btn btn-danger" onClick="dismiss_window('editarCardapio${b.data}-${b.refeicao}')">Fechar</button>
                             </div>
                         </form>
                    
