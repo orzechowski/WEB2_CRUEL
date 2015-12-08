@@ -39,9 +39,6 @@ public class daoCardapio {
             stmt.setString(1, dtIni);
             stmt.setString(2, dtFin);
             
-            stmtING = conn.prepareStatement(stmtGetIngredientes);
-            
-            
             rset = stmt.executeQuery();
             List<Cardapio> listaTodos = new ArrayList();
             
@@ -52,22 +49,28 @@ public class daoCardapio {
                 cardapio.setData(rset.getDate("data").toString());
                 cardapio.setIdCardapio(rset.getInt("id_cardapio"));
                 
-                stmtING.setInt(1,cardapio.getIdCardapio());
-                rsetING = stmtING.executeQuery();
-                while (rset.next()) {
+                try{
+                    stmtING = conn.prepareStatement(stmtGetIngredientes);
+                    stmtING.setInt(1,cardapio.getIdCardapio());
+                    rsetING = stmtING.executeQuery();
                     
-                    Ingrediente novoING = new Ingrediente();
-                    TipoIngrediente novoTipo = new TipoIngrediente();
-                    
-                    novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
-                    novoTipo.setDescricao(rsetING.getString("tp_descricao"));
-                    
-                    novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
-                    novoING.setNome(rsetING.getString("nome"));
-                    novoING.setDescricao(rsetING.getString("descricao"));
-                    novoING.setTipoIngrediente(novoTipo);
-                    
-                    ingredientes.add(novoING);
+                    while (rset.next()) {
+
+                        Ingrediente novoING = new Ingrediente();
+                        TipoIngrediente novoTipo = new TipoIngrediente();
+
+                        novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
+                        novoTipo.setDescricao(rsetING.getString("tp_descricao"));
+
+                        novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
+                        novoING.setNome(rsetING.getString("nome"));
+                        novoING.setDescricao(rsetING.getString("descricao"));
+                        novoING.setTipoIngrediente(novoTipo);
+
+                        ingredientes.add(novoING);
+                    }
+                }catch(SQLException ex){
+                    throw new RuntimeException("Erro ao buscar ingredientes do cardapio." +ex.getMessage());
                 }
 
                 listaTodos.add(cardapio);
@@ -96,7 +99,7 @@ public class daoCardapio {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetAll);
                         
-            stmtING = conn.prepareStatement(stmtGetIngredientes);
+            
             
             
             rset = stmt.executeQuery();
@@ -108,10 +111,14 @@ public class daoCardapio {
                 
                 cardapio.setData(rset.getDate("data").toString());
                 cardapio.setIdCardapio(rset.getInt("id_cardapio"));
+
                 
-                stmtING.setInt(1,cardapio.getIdCardapio());
-                rsetING = stmtING.executeQuery();
-                while (rset.next()) {
+                try {
+                    stmtING = conn.prepareStatement(stmtGetIngredientes);
+                    stmtING.setInt(1,cardapio.getIdCardapio());
+                    rsetING = stmtING.executeQuery();
+                    
+                    while (rset.next()) {
                     
                     Ingrediente novoING = new Ingrediente();
                     TipoIngrediente novoTipo = new TipoIngrediente();
@@ -126,6 +133,9 @@ public class daoCardapio {
                     
                     ingredientes.add(novoING);
                 }
+                } catch (SQLException ex){
+                    throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
+                }                
                 
                 cardapio.setListaIngredientes(ingredientes);
                 listaTodos.add(cardapio);
