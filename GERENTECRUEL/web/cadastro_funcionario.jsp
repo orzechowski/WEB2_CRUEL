@@ -128,7 +128,7 @@
         });
 
         jQuery(function($){
-        $("#cpf").mask("99999999999");
+        $("#cpf").mask("999.999.999-99");
         $("#telefone").mask("(99)9999-9999");
         });
     </script>
