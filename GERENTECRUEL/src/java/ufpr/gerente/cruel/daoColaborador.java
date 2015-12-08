@@ -35,6 +35,8 @@ public class daoColaborador {
             " where (CLB.cpf like '%{FILTRO}%') or (CLB.nome like '%{FILTRO}%')" +
             " or (CLB.crn like '%{FILTRO}%') and ativo=true";
     
+    private final String verifica_email_cpf = "SELECT count(email) FROM colaborador WHERE email=? or cpf=?";
+    
     public Colaborador login(String usuario, String senha) throws SQLException {
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
@@ -79,16 +81,17 @@ public class daoColaborador {
         }
     }
     
-    public void inserir(Colaborador colab) throws SQLException {
+    public void inserir(Colaborador colab) throws Exception {
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
         ResultSet           rset    = null;
         
         try{
-                                  
+            confereEmailCpf(colab.getEmail(),colab.getCpf());
+
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtInserir);
-          
+
             stmt.setString(1, colab.getCpf());
             stmt.setString(2, colab.getNome());
             stmt.setString(3, colab.getEmail());
@@ -98,12 +101,14 @@ public class daoColaborador {
             stmt.setString(7, colab.getCrn());
             stmt.setBoolean(8, colab.getAtivo());
             stmt.setInt(9, colab.getCargo().getIdCargo());
-            
-            
+
+
             stmt.executeUpdate();            
-                        
+
         }catch(SQLException ex){
             throw new RuntimeException("Erro ao inserir Colaborador." +ex.getMessage());
+        }catch(IllegalArgumentException ex){
+            throw new RuntimeException(ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
@@ -180,6 +185,36 @@ public class daoColaborador {
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
         
+    }
+    
+    public void confereEmailCpf(String email, String cpf) throws Exception {
+        Connection          conn    = null;
+        PreparedStatement   stmt    = null;
+        ResultSet           rset    = null;
+               
+        try{
+                                  
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtUpdate);
+            
+            stmt.setString(1, email);
+            stmt.setString(2, cpf);
+            
+            rset=stmt.executeQuery();
+
+            rset.next();
+            int num_rset = rset.getInt(1);
+            
+            if (num_rset > 0)
+                throw new IllegalArgumentException("Email ou CPF já existente");                
+                        
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao verificar Email e CPF." +ex.getMessage());
+        }finally{
+            try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
     }
     
 }
