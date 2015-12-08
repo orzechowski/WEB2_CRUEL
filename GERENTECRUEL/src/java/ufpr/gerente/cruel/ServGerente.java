@@ -57,7 +57,7 @@ public class ServGerente extends HttpServlet {
                 Client client = ClientBuilder.newClient();
 
                 client
-                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
+                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .post(Entity.json(tp));
                 
@@ -70,7 +70,7 @@ public class ServGerente extends HttpServlet {
                 Client client = ClientBuilder.newClient();
 
                 List<TipoCliente> l_tpCliente = client
-                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
+                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<TipoCliente>>(){});
                 
@@ -117,7 +117,10 @@ public class ServGerente extends HttpServlet {
                 Colaborador col = new Colaborador();
 
                 car.setIdCargo(id_cargo);
-
+                
+                cpf = cpf.replace(".", "").replace("-", "");
+                telefone = telefone.replace("(", "").replace(")", "").replace("-", "");
+                
                 col.setNome(nome);
                 col.setCpf(cpf);
                 col.setSenha(senha);
