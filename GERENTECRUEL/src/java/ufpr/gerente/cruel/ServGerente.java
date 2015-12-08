@@ -69,7 +69,7 @@ public class ServGerente extends HttpServlet {
                 Client client = ClientBuilder.newClient();
 
                 List<TipoCliente> l_tpCliente = client
-                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
+                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<TipoCliente>>(){});
                 
@@ -85,7 +85,7 @@ public class ServGerente extends HttpServlet {
                 Colaborador colaborador = new Colaborador();
                 Cargo c1 = new Cargo();
                 c1.setDescricao("outra");
-                colaborador.setAtivo(false);
+                colaborador.setAtivo(true);
                 colaborador.setNome(filtroColaborador);
                 colaborador.setCargo(c1);
                 l_colaboradores.add(colaborador);
@@ -94,7 +94,13 @@ public class ServGerente extends HttpServlet {
                 request.setAttribute("l_colaboradores", l_colaboradores);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_funcionarios.jsp");
                 rd.forward(request, response);
-            }else if(action.equals("cadastrarfuncionario")){
+            }else if(action.equals("atualizarfuncionario")){
+            String descricaoTpCliente = request.getParameter("descricao");
+            String valorTpCiente = request.getParameter("valor");
+            
+            
+            }
+            else if(action.equals("cadastrarfuncionario")){
                 String nome             = request.getParameter("nome");
                 String cpf              = request.getParameter("cpf");
                 String senha            = request.getParameter("senha");
