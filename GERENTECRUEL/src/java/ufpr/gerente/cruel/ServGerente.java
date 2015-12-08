@@ -47,6 +47,7 @@ public class ServGerente extends HttpServlet {
             if (action.equals("atualizarTpCliente")){
                 String nome     = request.getParameter("descricao");
                 String valor    = request.getParameter("valor");
+                valor = valor.replace(',', '.');
                 TipoCliente tp  = new TipoCliente();
                 tp.setDescricao(nome);
                 tp.setValor(Double.parseDouble(valor));

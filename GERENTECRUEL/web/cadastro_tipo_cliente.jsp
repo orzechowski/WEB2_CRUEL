@@ -3,7 +3,7 @@
     Created on : Nov 21, 2015, 5:26:58 PM
     Author     : Allan
 --%>
-
+<%@page buffer="10000kb" autoFlush="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.maskMoney.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -49,13 +50,14 @@
                     <form class="form-horizontal" method="POST" action="ServGerente?action=atualizarTpCliente">
                         <div class="modal-body">
                             <div class="control-group">
-                                <label class="control-label" for="cargo">Tipo</label>
+                                <label class="control-label" for="tipo">Tipo</label>
                                 <input id="descricao" name="descricao" class="form-control" type="text" value="">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="nome">Valor</label>
+                                <label class="control-label" for="valor">Valor</label>
                                 <div class="controls">
-                                    <input id="valor" name="valor" class="form-control" type="text" value="">
+                                    <input id="valor" name="valor" class="form-control" type="text">
+                                    <script type="text/javascript"> $("#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:""});</script>
                                 </div>
                             </div>   
                         </div>
@@ -110,4 +112,5 @@
             </div>
         </div>
     </body>
+    
 </html>
