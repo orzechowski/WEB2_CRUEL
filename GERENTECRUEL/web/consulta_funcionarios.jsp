@@ -26,29 +26,29 @@
         <!-- MODAL EDITAR Funcionario-->
         <script>
             $(document).on("click", "#editar", function () {
-            var id = $(this).data("id");
-            var lista_colaboradores = [];
-            <c:forEach var="colaborador" items="${l_colaboradores}">
-                var colaborador = {};
-                colaborador.nome = "<c:out value="${colaborador.nome}" />";
-                colaborador.cpf = "<c:out value="${colaborador.cpf}" />";
-                colaborador.email = "<c:out value="${colaborador.email}" />";
-                colaborador.cargo = "<c:out value="${colaborador.cargo.descricao}" />";
-                colaborador.endereco = "<c:out value="${colaborador.endereco}" />";
-                colaborador.telefone = "<c:out value="${colaborador.telefone}" />";
-                colaborador.crn = "<c:out value="${colaborador.crn}" />";
-                colaborador.ativo = <c:out value="${colaborador.ativo}" />;
-                lista_colaboradores.push(colaborador);
-            </c:forEach>
-            $(".modal-body #nome").val(lista_colaboradores[id].nome);
-            $(".modal-body #cargo").val(lista_colaboradores[id].cargo);
-            $(".modal-body #cpf").val(lista_colaboradores[id].cpf);
-            $(".modal-body #email").val(lista_colaboradores[id].email);
-            $(".modal-body #endereco").val(lista_colaboradores[id].endereco);
-            $(".modal-body #telefone").val(lista_colaboradores[id].telefone);
-            $(".modal-body #crn").val(lista_colaboradores[id].crn);
+                var id = $(this).data("id");
+                var lista_colaboradores = [];
+                <c:forEach var="colaborador" items="${l_colaboradores}">
+                    var colaborador = {};
+                    colaborador.nome = "<c:out value="${colaborador.nome}" />";
+                    colaborador.cpf = "<c:out value="${colaborador.cpf}" />";
+                    colaborador.email = "<c:out value="${colaborador.email}" />";
+                    colaborador.cargo = "<c:out value="${colaborador.cargo.descricao}" />";
+                    colaborador.endereco = "<c:out value="${colaborador.endereco}" />";
+                    colaborador.telefone = "<c:out value="${colaborador.telefone}" />";
+                    colaborador.crn = "<c:out value="${colaborador.crn}" />";
+                    colaborador.ativo = <c:out value="${colaborador.ativo}" />;
+                    lista_colaboradores.push(colaborador);
+                </c:forEach>
+                $(".modal-body #nome").val(lista_colaboradores[id].nome);
+                $(".modal-body #cargo").val(lista_colaboradores[id].cargo);
+                $(".modal-body #cpf").val(lista_colaboradores[id].cpf);
+                $(".modal-body #email").val(lista_colaboradores[id].email);
+                $(".modal-body #endereco").val(lista_colaboradores[id].endereco);
+                $(".modal-body #telefone").val(lista_colaboradores[id].telefone);
+                $(".modal-body #crn").val(lista_colaboradores[id].crn);
             });
-        </script>
+            </script>
         <div id="editarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -121,36 +121,58 @@
         </div>
 	<script type="text/javascript">
                 
-                $("#senha").change(function(){
-                        $("#confirma_senha").val("");
-                        $("#confirma_div").attr('class', 'control-group has-warning');
-                        // 
-                });
+            $("#senha").change(function(){
+                    $("#confirma_senha").val("");
+                    $("#confirma_div").attr('class', 'control-group has-warning');
+                    // 
+            });
 
-                $("#confirma_senha").change(function(){
-                      var pass = $("#senha").val();
-                      var conf = $("#confirma_senha").val();
-                      if (pass != conf) { alert("Senha nao confere."); }
-                });
-
+            $("#confirma_senha").change(function(){
+                  var pass = $("#senha").val();
+                  var conf = $("#confirma_senha").val();
+                  if (pass != conf) { alert("Senha nao confere."); }
+            });
+            
         </script>
 		<!-- MODAL INATIVAR Funcionario-->
+        <script>
+            $(document).on("click", "#inativar", function () {
+                var id = $(this).data("id");
+                var lista_colaboradores = [];
+                <c:forEach var="colaborador" items="${l_colaboradores}">
+                    var colaborador = {};
+                    colaborador.cpf = "<c:out value="${colaborador.cpf}" />";
+                    colaborador.a = <c:out value="${colaborador.ativo}" />;
+                    colaborador.ativo = !colaborador.a;
+                    lista_colaboradores.push(colaborador);
+                </c:forEach>
+                    
+                $(".modal-body #cpfColaborador").val(lista_colaboradores[id].cpf);
+                $(".modal-body #ativo").val(lista_colaboradores[id].ativo)
+            });
+        </script>
         <div id="inativarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                        <h4 class="modal-title" id="myModalLabel">Inativar Funcionário</h4>
+                        <h4 class="modal-title" id="myModalLabel">Inativar/Ativar Funcionário</h4>
                     </div>
-                    <div class="modal-body">
-                        Tem certeza que deseja desativar o Funcionário?
-                    </div>
-                    <div class="modal-footer">
-			<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#inativarGerente"><i class="glyphicon glyphicon-remove"></i>
-                            <span>Desativar</span>
-			</button>
-                        <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
-                    </div>
+                    <form method="POST" action="ServGerente?action=desativarfuncionario">
+                        <div class="modal-body">
+                            Tem certeza que deseja desativar/ativar o Funcionário?
+                            <input type="hidden" id="cpfColaborador" name="cpfColaborador" value=""/>
+                            <input type="hidden" id="ativo" name="ativo" value=""/>
+                        </div>
+                        <div class="modal-footer">
+                        
+                            
+                            <button class="btn btn-sm" data-toggle="modal" data-target="#inativarGerente"><i class="glyphicon glyphicon-remove"></i>
+                                <span>Desativar/Ativar</span>
+                            </button>
+                            <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -200,9 +222,19 @@
 							<button class="btn btn-success btn-sm" id="editar" data-toggle="modal" data-target="#editarFuncionario" data-id="${loop.index}"><i class=" glyphicon glyphicon-pencil"></i>
                                                             <span>Editar</span>
 							</button>
-							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#inativarFuncionario"><i class="glyphicon glyphicon-remove"></i>
-                                                            <span>Remover</span>
-							</button>
+                                                        <c:choose>
+                                                            <c:when test="${colaborador.ativo}">
+                                                                <button class="btn btn-danger btn-sm" id="inativar" data-toggle="modal" data-target="#inativarFuncionario" data-id="${loop.index}"><i class="glyphicon glyphicon-remove"></i>
+                                                                    <span>Inativar</span>
+                                                                </button>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <button class="btn btn-success btn-sm" id="inativar" data-toggle="modal" data-target="#inativarFuncionario" data-id="${loop.index}"><i class="glyphicon glyphicon-ok"></i>
+                                                                    <span>Ativar</span>
+                                                                </button>
+                                                            </c:otherwise>
+                                                        </c:choose>
+							
                                                     </div>
 						</div>
                                             </div>
