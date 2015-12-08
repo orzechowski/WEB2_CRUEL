@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -24,6 +27,9 @@ public class daoCardapio {
             +" ING.id_tipoingrediente,TP.descricao as tp_descricao from ingredientescardapio as INC"
             +" join ingrediente as ING on INC.ingrediente = ING.id_ingrediente join tipoingrediente as TP"
             +" on ING.id_tipoingrediente = TP.id_tipoingrediente where INC.id_cardapio=?";
+    
+    private final String stmtInserirCardapio = "INSERT INTO cardapio(data, id_refeicao) VALUES (?,?)";
+    private final String stmtInserirIngredientesCardapio = "INSERT INTO ingredientescardapio(id_cardapio, ingrediente) values (?,?)";
     
     public List<Cardapio> getPeriodo(String dtIni, String dtFin) throws SQLException{
         Connection          conn    = null;
@@ -85,6 +91,52 @@ public class daoCardapio {
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
+    }
+    
+    public void Inserir(Cardapio cardapio) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmtCAR = null;
+        PreparedStatement stmtINGCAR = null;
+        ResultSet rset = null;
+        /*
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        java.sql.Date cardaa;
+        cardaa = new java.sql.Date.valueOf(cardapio.getData());
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmtCAR.setDate(1, cardapio.getDataFormatada());
+        */
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmtCAR = conn.prepareStatement(stmtInserirCardapio, PreparedStatement.RETURN_GENERATED_KEYS);
+            stmtCAR.setString(1, cardapio.getData());
+            stmtCAR.setInt(2, cardapio.getIdCardapio());
+
+            stmtCAR.execute();
+            rset = stmtCAR.getGeneratedKeys();
+
+            rset.next();
+            int idCAR = rset.getInt(1);
+
+            for(Ingrediente ING : cardapio.getListaIngredientes()){
+                stmtINGCAR = conn.prepareStatement(stmtInserirIngredientesCardapio);
+                stmtINGCAR.setInt(1, idCAR);
+                stmtINGCAR.setInt(2,ING.getIdIngrediente());
+
+                stmtINGCAR.execute();
+            }
+        
+            
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao Inserir Cardapio." +ex.getMessage());
+        }finally{
+            //try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmtCAR.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+        
     }
     
     public List<Cardapio> getAll() throws SQLException{
