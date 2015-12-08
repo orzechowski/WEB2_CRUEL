@@ -9,11 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import jdk.nashorn.internal.runtime.ParserException;
 
 /**
  *
@@ -98,20 +100,21 @@ public class daoCardapio {
         PreparedStatement stmtCAR = null;
         PreparedStatement stmtINGCAR = null;
         ResultSet rset = null;
-        /*
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
         
-        java.sql.Date cardaa;
-        cardaa = new java.sql.Date.valueOf(cardapio.getData());
+        try{
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date customDate = new Date();
+            String dataCAR = dateFormat.format(cardapio.getData());
+            sqlDate = new java.sql.Date(dateFormat.parse(dataCAR).getTime());
+        }catch(ParseException pEx){
+            throw new RuntimeException("Erro ao converter data." + pEx.getMessage());
+        }
 
         try {
             conn = ConnectionFactory.getConnection();
-            stmtCAR.setDate(1, cardapio.getDataFormatada());
-        */
-        try {
-            conn = ConnectionFactory.getConnection();
             stmtCAR = conn.prepareStatement(stmtInserirCardapio, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmtCAR.setString(1, cardapio.getData());
+            stmtCAR.setDate(1, sqlDate);
             stmtCAR.setInt(2, cardapio.getIdCardapio());
 
             stmtCAR.execute();
