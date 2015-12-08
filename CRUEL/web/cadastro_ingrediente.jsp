@@ -47,6 +47,12 @@
                                         <option value="6">Sobremesa</option>
                                     </select>
                                 </div>
+                                <div class="control-group col-md-12">
+                                    <label class="control-label" for="nome">Descrição</label>
+                                    <div class="controls">
+                                        <input id="descricao" name="descricao" class="form-control" required type="text">
+                                    </div>
+                                </div>
                                 <div class="control-group pull-right">
                                     <label class="control-label" for="submit"></label>
                                     <div class="controls">

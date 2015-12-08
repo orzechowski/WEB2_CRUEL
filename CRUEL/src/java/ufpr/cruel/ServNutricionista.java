@@ -89,16 +89,32 @@ public class ServNutricionista extends HttpServlet {
                 rd.forward(request, response);
             }else if (action.equals("cadastrar_ingrediente")){
                 String nome         = request.getParameter("nome");
+                String descricao    = request.getParameter("descricao");
                 int tpIngrediente   = Integer.parseInt(request.getParameter("selectbasic"));
                 Ingrediente i       = new Ingrediente();
                 TipoIngrediente t   = new TipoIngrediente();
-                
                 t.setIdTipoIngrediente(tpIngrediente);
+                String descricaoTpIngrediente = null;
+                switch (tpIngrediente)
+                {
+                    case 1:
+                        descricaoTpIngrediente = "Arroz";
+                    case 2:
+                        descricaoTpIngrediente = "Feijao";
+                    case 3:
+                        descricaoTpIngrediente = "Salada";
+                    case 4:
+                        descricaoTpIngrediente = "Carne";
+                    case 5:
+                        descricaoTpIngrediente = "Acompanhamento";
+                    case 6:
+                        descricaoTpIngrediente = "Sobremesa";
+                }
+                t.setDescricao(descricaoTpIngrediente);
                 i.setTipoIngrediente(t);
                 i.setNome(nome);
-                
-                //DAO PRONTA, É SÓ CRIAR O OBJETO A SER INSERIDO E MANDAR ESSE COMANDO ABAIXO
-                //daoIng.inserir(i);
+                i.setDescricao(descricao);
+                daoIng.inserir(i);
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
@@ -109,6 +125,11 @@ public class ServNutricionista extends HttpServlet {
                 
                 request.setAttribute("listaIng", listaIng);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
+                rd.forward(request, response);                            
+            }else if (action.equals("excluiingrediente")){
+                String idIngrediente    = request.getParameter("idIngrediente");
+                
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_nutricionista.jsp");
                 rd.forward(request, response);                            
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
