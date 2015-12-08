@@ -44,8 +44,8 @@ public class ServGerente extends HttpServlet {
             String action = request.getParameter("action");
             daoColaborador daoColab = new daoColaborador();
             
-            if (action.equals("addtpcli")){
-                String nome     = request.getParameter("nome");
+            if (action.equals("atualizarTpCliente")){
+                String nome     = request.getParameter("descricao");
                 String valor    = request.getParameter("valor");
                 TipoCliente tp  = new TipoCliente();
                 tp.setDescricao(nome);
