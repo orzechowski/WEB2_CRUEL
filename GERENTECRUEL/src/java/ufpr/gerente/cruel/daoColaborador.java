@@ -35,7 +35,7 @@ public class daoColaborador {
             " where (CLB.cpf like '%{FILTRO}%') or (CLB.nome like '%{FILTRO}%')" +
             " or (CLB.crn like '%{FILTRO}%') and ativo=true";
     
-    private final String verifica_email_cpf = "SELECT count(email) FROM colaborador WHERE email=? or cpf=?";
+    private final String stmtConfereEmailCpf = "SELECT count(email) FROM colaborador WHERE email=? or cpf=?";
     
     public Colaborador login(String usuario, String senha) throws SQLException {
         Connection          conn    = null;
@@ -195,7 +195,7 @@ public class daoColaborador {
         try{
                                   
             conn = ConnectionFactory.getConnection();
-            stmt = conn.prepareStatement(stmtUpdate);
+            stmt = conn.prepareStatement(stmtConfereEmailCpf);
             
             stmt.setString(1, email);
             stmt.setString(2, cpf);
