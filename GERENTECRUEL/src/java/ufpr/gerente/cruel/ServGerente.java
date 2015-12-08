@@ -42,6 +42,7 @@ public class ServGerente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String action = request.getParameter("action");
+            daoColaborador daoColab = new daoColaborador();
             
             if (action.equals("addtpcli")){
                 String nome     = request.getParameter("nome");
@@ -56,7 +57,7 @@ public class ServGerente extends HttpServlet {
                 Client client = ClientBuilder.newClient();
 
                 client
-                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
+                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .post(Entity.json(tp));
                 
@@ -69,7 +70,7 @@ public class ServGerente extends HttpServlet {
                 Client client = ClientBuilder.newClient();
 
                 List<TipoCliente> l_tpCliente = client
-                        .target("http://localhost:8080/CRUEL/webresources/TipoCliente")
+                        .target("http://localhost:51165/CRUEL/webresources/TipoCliente")
                         .request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<TipoCliente>>(){});
                 
@@ -80,9 +81,10 @@ public class ServGerente extends HttpServlet {
                 
             }else if (action.equals("buscacolaborador")){
                 String filtroColaborador = request.getParameter("filtroColaborador");
-                //BUSCA NO BANCO
-                List <Colaborador> l_colaboradores = new ArrayList <>();               
-                Colaborador colaborador = new Colaborador();
+                List <Colaborador> l_colaboradores = new ArrayList();  
+                l_colaboradores = daoColab.getFiltrado(filtroColaborador);
+                
+                /*Colaborador colaborador = new Colaborador();
                 Cargo c1 = new Cargo();
                 c1.setDescricao("outra");
                 colaborador.setAtivo(true);
@@ -90,7 +92,7 @@ public class ServGerente extends HttpServlet {
                 colaborador.setCargo(c1);
                 l_colaboradores.add(colaborador);
                 l_colaboradores.add(colaborador);
-                l_colaboradores.add(colaborador);
+                l_colaboradores.add(colaborador);*/
                 request.setAttribute("l_colaboradores", l_colaboradores);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_funcionarios.jsp");
                 rd.forward(request, response);
@@ -128,9 +130,14 @@ public class ServGerente extends HttpServlet {
                     
                 request.setAttribute("col", col);
                 if (senha.equals(confirma_senha)){
-                    /* INCLUSAO NO BANCO */
+                    try{
+                        daoColab.inserir(col);
+                    }catch(Exception ex){
+                        //WAT DO?  ERRMSG no request?
+                    }
                 }else{ 
                     /* Senha e confirmação não batem */
+                    /*Cris: Que? Wat? Que confirmação é essa, man?*/
                 }
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_funcionario.jsp");
                 rd.forward(request, response); 

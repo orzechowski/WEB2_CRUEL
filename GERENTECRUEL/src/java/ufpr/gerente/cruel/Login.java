@@ -50,17 +50,23 @@ public class Login extends HttpServlet {
             Colaborador retorno = new Colaborador();
             retorno=dc.login(usu,sen);
             
-            if( (retorno.getCpf() != null) ) {          
-                session.setAttribute("usuario", usu);
-                session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
-                session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
-            }
-                                        
-            if ("nutricionista".equals(session.getAttribute("cargo"))){
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
-                rd.forward(request,response);
+            
+            if( (retorno.getEmail()!= null) ) {  
+                if(!(retorno.getCargo().getDescricao().toLowerCase()).equals("gerente")){
+                    request.setAttribute("ERRMSG", "Somente o Gerente pode se loggar nesta aplicação");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                    rd.forward(request,response);
+                }
+                else{
+                    session.setAttribute("usuario", usu);
+                    session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
+                    session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                    rd.forward(request,response);
+                }
             }
             else{
+                request.setAttribute("ERRMSG", "Usuário ou Senha Inválidos");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request,response);
             }
