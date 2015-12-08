@@ -99,7 +99,7 @@ public class daoCardapio {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetAll);
                         
-            stmtING = conn.prepareStatement(stmtGetIngredientes);
+            
             
             
             rset = stmt.executeQuery();
@@ -111,10 +111,14 @@ public class daoCardapio {
                 
                 cardapio.setData(rset.getDate("data").toString());
                 cardapio.setIdCardapio(rset.getInt("id_cardapio"));
+
                 
-                stmtING.setInt(1,cardapio.getIdCardapio());
-                rsetING = stmtING.executeQuery();
-                while (rset.next()) {
+                try {
+                    stmtING = conn.prepareStatement(stmtGetIngredientes);
+                    stmtING.setInt(1,cardapio.getIdCardapio());
+                    rsetING = stmtING.executeQuery();
+                    
+                    while (rset.next()) {
                     
                     Ingrediente novoING = new Ingrediente();
                     TipoIngrediente novoTipo = new TipoIngrediente();
@@ -129,6 +133,9 @@ public class daoCardapio {
                     
                     ingredientes.add(novoING);
                 }
+                } catch (SQLException ex){
+                    throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
+                }                
                 
                 cardapio.setListaIngredientes(ingredientes);
                 listaTodos.add(cardapio);
