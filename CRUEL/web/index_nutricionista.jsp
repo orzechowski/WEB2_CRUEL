@@ -39,7 +39,8 @@
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-
+  
+  
             $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -49,14 +50,20 @@
             dayClick: function(date) {
                 var dt = $.fullCalendar.formatDate(date, "MM-dd-yyyy"); // Pega a data clicada.
                 var dtopen = $.fullCalendar.formatDate(date, "yyyy-MM-dd"); // Pega a data clicada.                
-
+                
+                $("#nova_dt_refeicao").val(dtopen);
                 $(this).attr("data-toggle", "modal");
-                if (!document.getElementById("editarCardapio"+dtopen)) {
-                    $("#testvalor").val(dt);
-                    $(this).attr("data-target", "#editarCardapio");
+                $(this).attr("data-target", "#editarCardapio");
+            },
+            eventClick: function(event, jsEvent, view){
+                var dt = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd");
+
+                if (event.title == "Almoço"){
+                   $("#editarCardapio"+dt+"-2").fadeOut();
+                   $("#editarCardapio"+dt+"-1").fadeIn();
                 }else{
-                    $("#testvalor"+dtopen).val(dt);
-                    $(this).attr("data-target", "#editarCardapio"+dtopen);
+                   $("#editarCardapio"+dt+"-1").fadeOut();
+                   $("#editarCardapio"+dt+"-2").fadeIn();
                 }
             },
             editable: true,
@@ -77,37 +84,42 @@
         </script>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
         <%@include file="/WEB-INF/jspf/modal_editar_cardapio.jspf" %>     
-        <c:set var="lag" value="" />
-        <c:forEach var="b" items="${listaCar}">
-            <div id="editarCardapio${b.data}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+        <c:forEach var="b" items="${listaCar}" >
+            <div id="editarCardapio${b.data}-${b.refeicao}" style="display:none" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                            <h4 class="modal-title" id="myModalLabel">Editar Cardápio</h4>
-                            <input type="text" id="testvalor${b.data}" value="" /> 
+                            <h4 class="modal-title" id="myModalLabel">Editar Cardápio</h4>                
                         </div>
-                        <form id="almoco${b.data}" method="POST" action="Nutricionista?action=adicionarCardapio">
+                        <form id="almoco${b.data}-${b.refeicao}" method="POST" action="Nutricionista?action=alterarCardapio">
+                            <input type="hidden" name="tp_refeicao" value="${b.refeicao}" />
+                            <input type="hidden" name="dt_refeicao" value="${b.data}" />
+                            <input type="hidden" name="id_refeicao" value="${b.idCardapio}" />
                             <div class="modal-almocojanta">
-                                <div id="edit-almoco" class="edit-almoco">
-                                    <p class="modal-title" id="myModalLabel">Almoço</p>                        
+                                    <p class="modal-title" id="myModalLabel">
+                                        <c:choose>
+                                            <c:when test="${b.refeicao == 1}">Almoço</c:when>
+                                            <c:otherwise>Janta</c:otherwise>
+                                        </c:choose>
+                                    </p>                    
                                         Arroz:
                                         <div  class="btn-group"> 
                                             <select name="almoco_arroz">
                                                 <option value="0">Arroz</option>
                                                 <c:forEach var="ing" items="${listaIng}">
-                                                    <c:if test="${b.getRefeicao() == 1}">
                                                         <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 1}">
-                                                            <c:choose>
-                                                                <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                    <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:if>
-                                                    </c:if>
+                                                            <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                                <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 1}">
+                                                                    <c:choose>
+                                                                        <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
+                                                                            <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:if>                                            
                                                 </c:forEach>
                                             </select>
                                         </div>
@@ -117,17 +129,19 @@
                                         <select name="almoco_feijao">
                                             <option value="0">Feijão</option>
                                             <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${b.getRefeicao() == 1}">
-                                                    <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 2}">
-                                                        <c:choose>
-                                                            <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
+                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 2}">
+                                                    <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                        <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 2}">
+                                                            <c:choose>
+                                                                <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
+                                                                    <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
                                         </select>
@@ -138,17 +152,19 @@
                                         <select name="almoco_salada">
                                             <option value="0">Salada</option>
                                             <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${b.getRefeicao() == 1}">
-                                                    <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 3}">
-                                                        <c:choose>
-                                                            <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
+                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 3}">
+                                                    <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                        <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 3}">
+                                                            <c:choose>
+                                                                <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
+                                                                    <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
                                         </select>
@@ -159,17 +175,19 @@
                                         <select name="almoco_carne">
                                             <option value="0">Carne</option>
                                             <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${b.getRefeicao() == 1}">
-                                                    <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 4}">
-                                                        <c:choose>
-                                                            <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
+                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 4}">
+                                                    <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                        <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 4}">
+                                                            <c:choose>
+                                                                <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
+                                                                    <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
                                         </select>
@@ -180,17 +198,19 @@
                                         <select name="almoco_acompanhamento">
                                             <option value="0">Acompanhamento</option>
                                                 <c:forEach var="ing" items="${listaIng}">
-                                                    <c:if test="${b.getRefeicao() == 1}">
-                                                        <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 5}">
-                                                            <c:choose>
-                                                                <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                    <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:if>
+                                                    <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 5}">
+                                                        <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                            <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 5}">
+                                                                <c:choose>
+                                                                    <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
+                                                                        <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:if>
+                                                        </c:forEach>
                                                     </c:if>
                                                 </c:forEach>
                                             </select>
@@ -201,33 +221,11 @@
                                         <select name="almoco_sobremesa">
                                             <option value="0">Sobremesa</option>
                                             <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${b.getRefeicao() == 1}">
-                                                    <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 6}">
-                                                        <c:choose>
-                                                            <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
-                                                                <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${ing.getIdIngrediente()}"><c:out value="${ing.nome}" /></option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
-                                                </c:if>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="edit-janta" class="edit-janta">
-                                    <p class="modal-title" id="myModalLabel">Janta</p>
-                                        Arroz:
-                                        <div class="btn-group"> 
-                                            <select name="janta_arroz">
-                                                <option value="0">Arroz</option>
-                                                <c:forEach var="ing" items="${listaIng}">
-                                                    <c:if test="${b.getRefeicao() == 2}">
-                                                        <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 1}">
+                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 6}">
+                                                    <c:forEach var="blista" items="${b.listaIngredientes}">
+                                                        <c:if test="${blista.tipoIngrediente.getIdTipoIngrdiente() == 6}">
                                                             <c:choose>
-                                                                <c:when test="${fn:contains(b.getListaIngredientes(), ing.getIdIngrediente())}">
+                                                                <c:when test="${blista.getIdIngrediente() == ing.getIdIngrediente()}">
                                                                     <option value="${ing.getIdIngrediente()}" selected><c:out value="${ing.nome}" /></option>
                                                                 </c:when>
                                                                 <c:otherwise>
@@ -235,89 +233,19 @@
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </c:if>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                    <br>
-                                    Feijão:
-                                    <div class="btn-group"> 
-                                        <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Feijão
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 2}">
-                                                    <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </ul>
+                                        </select>
                                     </div>
-                                    <br>
-                                    Salada:
-                                    <div class="btn-group"> 
-                                        <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Salada
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 3}">
-                                                    <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </div>
-                                    <br>
-                                    Carne:
-                                    <div class="btn-group"> 
-                                        <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Carne
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 4}">
-                                                    <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        Acompanhamento:
-                                        <div class="btn-group"> 
-                                            <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Acompanhamento
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 5}">
-                                                    <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    Sobremesa:
-                                    <div class="btn-group"> 
-                                        <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Sobremesa
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach var="ing" items="${listaIng}">
-                                                <c:if test="${ing.tipoIngrediente.getIdTipoIngrdiente() == 6}">
-                                                    <li id-data="${ing.getIdIngrediente()}"><a href="#"><c:out value="${ing.nome}" /></a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Salvar Alterações</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-danger">Fechar</button>
                             </div>
                         </form>
+                   
                     </div>
-                </div>
             </div>
             <!-- FIM MODAL DE EDIÇÃO DO CARDÁPIO -->
         </c:forEach>

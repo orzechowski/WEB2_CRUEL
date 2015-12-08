@@ -6,6 +6,7 @@
 package ufpr.cruel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,8 @@ public class Cardapio implements Serializable{
     private int refeicao;
     private List<Ingrediente> listaIngredientes;
     
-    Cardapio(){    
+    Cardapio(){
+        listaIngredientes = new ArrayList();
     }
     public int getIdCardapio(){
         return this.idCardapio;
