@@ -8,6 +8,7 @@ package ufpr.gerente.cruel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -37,12 +41,22 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
             String usu = request.getParameter("usuario");
             String sen = request.getParameter("senha");
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usu);
             
-            if ("nutricionista".equals(usu)){
+            daoColaborador dc = new daoColaborador();   
+            Colaborador retorno = new Colaborador();
+            retorno=dc.login(usu,sen);
+            
+            if( (retorno.getCpf() != null) ) {          
+                session.setAttribute("usuario", usu);
+                session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
+                session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
+            }
+                                        
+            if ("nutricionista".equals(session.getAttribute("cargo"))){
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
                 rd.forward(request,response);
             }
@@ -50,6 +64,8 @@ public class Login extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request,response);
             }
+        }catch(SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
