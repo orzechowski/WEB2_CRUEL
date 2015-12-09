@@ -58,4 +58,60 @@ public class Cardapio implements Serializable{
         return this.listaIngredientes;
     }
     
+    public String getDia(){
+        String[] splited = (this.getData()).split("-");
+        
+        return splited[0];
+    }
+    public String getMes(){
+        String[] splited = (this.getData()).split("-");
+        
+        String mes = splited[1];
+        String mesLit = "";
+        
+        switch(mes){
+            case "01":
+                mesLit = "JAN";
+                break;
+            case "02":
+                mesLit = "FEV";
+                break;
+            case "03":
+                mesLit = "MAR";
+                break;
+            case "04":
+                mesLit = "ABR";
+                break;
+            case "05":
+                mesLit = "MAI";
+                break;
+            case "06":
+                mesLit = "JUL";
+                break;
+            case "07":
+                mesLit = "JUL";
+                break;
+            case "08":
+                mesLit = "AGO";
+                break;
+            case "09":
+                mesLit = "SET";
+                break;
+            case "10":
+                mesLit = "OUT";
+                break;
+            case "11":
+                mesLit = "NOV";
+                break;
+            case "12":
+                mesLit = "DEZ";
+                break;
+            default:
+                mesLit = "DEZ";
+                break;
+                        
+        }
+        return mesLit;
+    }
+    
 }
