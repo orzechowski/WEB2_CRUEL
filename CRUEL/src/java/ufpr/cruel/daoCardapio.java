@@ -24,6 +24,7 @@ import jdk.nashorn.internal.runtime.ParserException;
 public class daoCardapio {
     
     private final String stmtGetPeriodo = "select * from cardapio as CAR where CAR.data between current_date and current_date+7;";
+    private final String stmtGetSemana = "select * from cardapio as CAR where CAR.data between CURRENT_DATE and (CURRENT_DATE+5)";
     private final String stmtGetAll = "select * from cardapio";
     private final String stmtGetIngredientes = "select ING.id_ingrediente, ING.nome,ING.descricao,"
             +" ING.id_tipoingrediente,TP.descricao as tp_descricao from ingredientescardapio as INC"
@@ -200,6 +201,71 @@ public class daoCardapio {
                                   
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetAll);
+
+            rset = stmt.executeQuery();
+            List<Cardapio> listaTodos = new ArrayList();
+            
+            while (rset.next()) {
+                Cardapio cardapio = new Cardapio();
+                
+                cardapio.setData(rset.getDate("data").toString());
+                cardapio.setIdCardapio(rset.getInt("id_cardapio"));
+                cardapio.setRefeicao(rset.getInt("id_refeicao"));
+                
+                listaTodos.add(cardapio);
+            }
+            
+            for(Cardapio CARD : listaTodos){
+                try {
+                    stmtING = conn.prepareStatement(stmtGetIngredientes);
+                    stmtING.setInt(1,CARD.getIdCardapio());
+                    rsetING = stmtING.executeQuery();
+                    List<Ingrediente> ingredientes = new ArrayList();
+                    
+                    while (rsetING.next()) {
+                    
+                        Ingrediente novoING = new Ingrediente();
+                        TipoIngrediente novoTipo = new TipoIngrediente();
+
+                        novoTipo.setIdTipoIngrediente(rsetING.getInt("id_tipoingrediente"));
+                        novoTipo.setDescricao(rsetING.getString("tp_descricao"));
+
+                        novoING.setIdIngrediente(rsetING.getInt("id_ingrediente"));
+                        novoING.setNome(rsetING.getString("nome"));
+                        novoING.setDescricao(rsetING.getString("descricao"));
+                        novoING.setTipoIngrediente(novoTipo);
+
+                        ingredientes.add(novoING);
+                    }
+                    
+                    CARD.setListaIngredientes(ingredientes);
+                } catch (SQLException ex){
+                    throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
+                }
+            }
+            
+            return listaTodos;
+            
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao buscar Cardapio." +ex.getMessage());
+        }finally{
+            try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public List<Cardapio> getSemana() throws SQLException{
+        Connection          conn    = null;
+        PreparedStatement   stmt    = null;
+        PreparedStatement   stmtING = null;
+        ResultSet           rset    = null;
+        ResultSet           rsetING = null;
+        
+        try{
+                                  
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtGetSemana);
 
             rset = stmt.executeQuery();
             List<Cardapio> listaTodos = new ArrayList();

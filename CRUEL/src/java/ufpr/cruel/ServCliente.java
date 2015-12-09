@@ -38,14 +38,12 @@ public class ServCliente extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         daoCardapio daoCar = new daoCardapio();
-        Date dt_inic = new Date();
-        Date dt_fim = new Date();
         
         if (action.equals("buscaCardapio")){
                 List <Cardapio> l_cardapio = new ArrayList();
                 
                 try{
-                    l_cardapio  = daoCar.getPeriodo("2015-12-09","2015-12-18");                    
+                    l_cardapio  = daoCar.getSemana();                    
                 } catch(SQLException ex){
                     //MAGIC
                 }
