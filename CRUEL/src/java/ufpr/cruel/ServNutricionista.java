@@ -204,27 +204,8 @@ public class ServNutricionista extends HttpServlet {
                 }catch(Exception ex){
                     //NOPE
                 }
-                /*
-                PrintWriter out = response.getWriter(); 
-                out.print("Tipo de Refeição: ");
-                out.print(tp_refeicao);
-                out.print("\nData da Refeição: ");
-                out.print(dt_refeicao);
-                out.print("\nId Refeição: ");
-                out.print(id_refeicao);
-                out.print("\nArroz: ");
-                out.print(almoco_arroz);
-                out.print("\nFeijão: ");
-                out.print(almoco_feijao);
-                out.print("\nSalada: ");
-                out.print(almoco_salada);
-                out.print("\nCarne: ");
-                out.print(almoco_carne);
-                out.print("\nAcompanhamento: ");
-                out.print(almoco_acompanhamento);
-                out.print("\nSobremesa: ");
-                out.print(almoco_sobremesa);
-                */
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
+                rd.forward(request, response);                            
             }else if (action.equals("cadastrarCardapio")){
                 /* PARAMETROS */
                 String almoco_arroz             = request.getParameter("almoco_arroz");
@@ -326,39 +307,8 @@ public class ServNutricionista extends HttpServlet {
                 try{daoCar.Inserir(j_cardapio);}
                 catch(SQLException ex){/*IARIAIRRAI*/}
                 
-                PrintWriter out = response.getWriter(); 
-                out.print("Almoço: ");
-                out.print("\nData da Refeição: ");
-                out.print(dt_refeicao);
-                out.print("\nArroz: ");
-                out.print(almoco_arroz);
-                out.print("\nFeijão: ");
-                out.print(almoco_feijao);
-                out.print("\nSalada: ");
-                out.print(almoco_salada);
-                out.print("\nCarne: ");
-                out.print(almoco_carne);
-                out.print("\nAcompanhamento: ");
-                out.print(almoco_acompanhamento);
-                out.print("\nSobremesa: ");
-                out.print(almoco_sobremesa);
-                
-                out.print("\nJanta: ");
-                out.print("\nData da Refeição: ");
-                out.print(dt_refeicao);
-                out.print("\nArroz: ");
-                out.print(janta_arroz);
-                out.print("\nFeijão: ");
-                out.print(janta_feijao);
-                out.print("\nSalada: ");
-                out.print(janta_salada);
-                out.print("\nCarne: ");
-                out.print(janta_carne);
-                out.print("\nAcompanhamento: ");
-                out.print(janta_acompanhamento);
-                out.print("\nSobremesa: ");
-                out.print(janta_sobremesa);
-                
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
+                rd.forward(request, response);                            
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
