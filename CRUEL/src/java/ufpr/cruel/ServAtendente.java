@@ -7,6 +7,11 @@ package ufpr.cruel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,9 +36,27 @@ public class ServAtendente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        
+        String action = request.getParameter("action");
+            daoTipoCliente daoTpCliente = new daoTipoCliente();
+            
+            if (action.equals("buscatpcliente")){
+             List <TipoCliente> l_tpCliente = new ArrayList();
+
+                try{
+                    l_tpCliente = daoTpCliente.getTudo();                    
+                } catch(SQLException ex){
+                    
+                }
+                request.setAttribute("l_tpCliente", l_tpCliente);
+                RequestDispatcher rd = request.getRequestDispatcher("/registro_entradas.jsp");
+                rd.forward(request, response);
+            }else{
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+            }
+            
+            
+              
         //INSERIR REGISTRO(REGISTRAR ENTRADA)
         //CRIAR DAOREGISTRO
         //DAO.INSERIR(TIPOCLIENTE,SESSIONSCOPE.CPF_USUARIO)
