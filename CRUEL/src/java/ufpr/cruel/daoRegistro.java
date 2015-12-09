@@ -27,6 +27,12 @@ public class daoRegistro {
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
             + " where datahora between ? and ?";
     
+    private final String stmtGetDia = "select REG.datahora,REG.valor_cobrado,"
+            + " REG.cpf_colaborador,"
+            + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
+            + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
+            + " where datahora < CURRENT_DATE";
+    
     public void inserir (TipoCliente cli, String user){
         
         Connection con = null;
@@ -58,6 +64,47 @@ public class daoRegistro {
                                   
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetPeriodo);
+            
+            rset = stmt.executeQuery();
+            List<Registro> listaTodos = new ArrayList();
+            
+            while (rset.next()) {
+                TipoCliente tp = new TipoCliente();
+                Registro reg = new Registro();
+                
+                tp.setIdTipoCliente(rset.getInt("id_tipo"));
+                tp.setDescricao(rset.getString("descricao"));
+                tp.setValor(rset.getDouble("valor"));
+                tp.setAtivo(rset.getBoolean("ativo"));
+                
+                reg.setCpfColaborador(rset.getString("cpf_colaborador"));
+                reg.setDtHora(rset.getDate("datahora"));
+                reg.setValorCobrado((float)rset.getDouble("valor_cobrado"));
+                reg.setTpCliente(tp);
+                
+                listaTodos.add(reg);
+            }
+            
+            return listaTodos;
+            
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao buscar Ingredientes." +ex.getMessage());
+        }finally{
+            try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public List<Registro> getDia() throws SQLException{
+        Connection          conn    = null;
+        PreparedStatement   stmt    = null;
+        ResultSet           rset    = null;
+        
+        try{
+                                  
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtGetDia);
             
             rset = stmt.executeQuery();
             List<Registro> listaTodos = new ArrayList();
