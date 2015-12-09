@@ -47,3 +47,6 @@ CRUEL/web/loginCris.html
 /GERENTECRUEL/nbproject/private/
 /GERENTECRUEL/build/
 *.xml
+*.xml
+CRUEL/nbproject/genfiles.properties
+*.properties
