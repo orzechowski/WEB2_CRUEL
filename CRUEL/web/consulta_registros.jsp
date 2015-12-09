@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : consulta_registros
     Created on : Nov 21, 2015, 5:39:34 PM
     Author     : Allan
@@ -65,7 +65,7 @@
                                 <c:forEach var="r" items="${l_registro}">
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
-                                            <span><h3>${r.getTpCliente.descricao}</h3>
+                                            <span><h3>${r.getTpCliente().descricao}</h3>
                                                 ${r.getDtHora()} - 
                                                 <fmt:formatNumber value="${r.valorCobrado}" type="currency" />
                                             </span>

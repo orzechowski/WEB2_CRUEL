@@ -31,7 +31,7 @@ public class daoRegistro {
             + " REG.cpf_colaborador,"
             + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
-            + " where datahora < CURRENT_DATE";
+            + " --where datahora <= CURRENT_DATE";
     
     public void inserir (TipoCliente cli, String user){
         
