@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +23,9 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
+        <c:if test="${l_tpCliente == null}">]
+            <jsp:forward page="ServAtendente?action=buscatpcliente_2" /> 
+        </c:if>
         <!-- MODAL EDITAR REGISTRO-->
           <div id="editarRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -39,114 +44,49 @@
                 </div>
             </div>
           </div>
-		<div class="container-fluid tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
-				
+        <div class="container-fluid tudo"> 
+            <div class="row meio">
+                <div class=" col-md-12 col-lg-12 col-sm-12 conteudo">
                     <section class="panel-consulta">
-                              <h1>Registros</h1>
-                              <div class="panel-body">
-
-                                <form class="form-inline well">
-                                    <legend>Filtro de Busca</legend>
-                                    <fieldset>
-
-                                    <div class="form-group">
-                                        <label for="filtroCalendario1">Data: </label>
-                                        <input type="date" class="form-control" id="filtroCalendario1" placeholder="31/01/2015">
-                                    </div>
-                                    <button type="submit" class="btn btn-default">Buscar</button>
-                                    </fieldset>
-                                </form>
-
-                                  <div class="list-content">
-
-                                      <ul class="list-group">
-                                          <li class="list-group-item clearfix">
-                                             <div class="task-title">
-                                                  <span class="label label-success">Aluno</span>
-                                                  <span>24/10/2015 - 12:35:13</span>
-                                                  <div class="pull-right hidden-phone">
-                                                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
-                                                          <span>Editar</span>
-                                                      </button>
-                                                      <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                                          <span>Remover</span>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <!-- INICIO ITEMS 2-->
-                                          <li class="list-group-item clearfix">
-                                             <div class="task-title">
-                                                  <span class="label label-success">Professor</span>
-                                                  <span>24/10/2015 - 12:37:13</span>
-                                                  <div class="pull-right hidden-phone">
-                                                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
-                                                          <span>Editar</span>
-                                                      </button>
-                                                      <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                                          <span>Remover</span>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <li class="list-group-item clearfix">
-                                             <div class="task-title">
-                                                  <span class="label label-success">Servidor</span>
-                                                  <span>24/10/2015 - 12:39:44</span>
-                                                  <div class="pull-right hidden-phone">
-                                                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
-                                                          <span>Editar</span>
-                                                      </button>
-                                                      <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                                          <span>Remover</span>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <li class="list-group-item clearfix">
-                                             <div class="task-title">
-                                                  <span class="label label-success">Visitante</span>
-                                                  <span>24/10/2015 - 12:44:04</span>
-                                                  <div class="pull-right hidden-phone">
-                                                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
-                                                          <span>Editar</span>
-                                                      </button>
-                                                      <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                                          <span>Remover</span>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <li class="list-group-item clearfix">
-                                             <div class="task-title">
-                                                  <span class="label label-success">Aluno</span>
-                                                  <span>24/10/2015 - 12:55:10</span>
-                                                  <div class="pull-right hidden-phone">
-                                                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
-                                                          <span>Editar</span>
-                                                      </button>
-                                                      <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
-                                                          <span>Remover</span>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <!-- FIM ITEMS 2 -->
-                                      </ul>
-
-                                  </div>
-
-                                  <div class=" add-task-row">
-                                      <!-- <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a> -->
-                                      <a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
-                                  </div>
-                              </div>
-                          </section>
-                    
-				</div>
-			</div>
-		</div>
-    </body>
+                        <h1>Registros</h1>
+                        <div class="panel-body">
+                        <form class="form-inline well">
+                            <legend>Filtro de Busca</legend>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="filtroCalendario1">Data: </label>
+                                    <input type="date" class="form-control" id="filtroCalendario1" placeholder="31/01/2015">
+                                </div>
+                                <button type="submit" class="btn btn-default">Buscar</button>
+                            </fieldset>
+                        </form>
+                        <div class="list-content">
+                            <ul class="list-group">
+                                <c:forEach var="tp" items="${l_tpCliente}">
+                                    <li class="list-group-item clearfix">
+                                        <div class="task-title">
+                                            <span><h3>${tp.descricao}</h3><fmt:formatNumber value="${tp.valor}" type="currency" /></span>                                           
+                                            <div class="pull-right hidden-phone">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
+                                                    <span>Editar</span>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
+                                                    <span>Remover</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                        <div class=" add-task-row">
+                            <!-- <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a> -->
+                            <a class="btn btn-default btn-sm pull-right" href="#">Exibir Mais</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

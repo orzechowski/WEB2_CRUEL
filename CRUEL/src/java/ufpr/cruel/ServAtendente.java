@@ -42,7 +42,8 @@ public class ServAtendente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
+            String action = request.getParameter("action");
+            
             daoTipoCliente daoTpCliente = new daoTipoCliente();
             daoRegistro daoReg = new daoRegistro();
             if (action.equals("buscatpcliente")){
@@ -55,6 +56,17 @@ public class ServAtendente extends HttpServlet {
                 }
                 request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = request.getRequestDispatcher("/registro_entradas.jsp");
+                rd.forward(request, response);
+            }else if (action.equals("buscatpcliente_2")){
+             List <TipoCliente> l_tpCliente = new ArrayList();
+
+                try{
+                    l_tpCliente = daoTpCliente.getTudo();                    
+                } catch(SQLException ex){
+                    
+                }
+                request.setAttribute("l_tpCliente", l_tpCliente);
+                RequestDispatcher rd = request.getRequestDispatcher("/consulta_registros.jsp");
                 rd.forward(request, response);
             }else if (action.equals("registrar")){
                 String descricaoTpCliente         = request.getParameter("descricaoTpCliente");
