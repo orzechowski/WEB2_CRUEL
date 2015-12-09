@@ -204,8 +204,7 @@ public class ServNutricionista extends HttpServlet {
                 }catch(Exception ex){
                     //NOPE
                 }
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
-                rd.forward(request, response);                            
+                response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
             }else if (action.equals("cadastrarCardapio")){
                 /* PARAMETROS */
                 String almoco_arroz             = request.getParameter("almoco_arroz");
@@ -307,8 +306,7 @@ public class ServNutricionista extends HttpServlet {
                 try{daoCar.Inserir(j_cardapio);}
                 catch(SQLException ex){/*IARIAIRRAI*/}
                 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
-                rd.forward(request, response);                            
+                response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
