@@ -30,17 +30,17 @@
                               <h1>Relatório de Registros Mensal</h1>
                               <div class="panel-body">
 
-                                <form class="form-horizontal well">
+                                <form class="form-horizontal well" method="POST" action="ServGerente?action=relatorioMensal">
                                     <legend>Selecione o mês e o ano desejados:</legend>
                                     <fieldset>
 
                                     <div class="control-group col-md-6">
                                     <label class="control-label" for="selectAno">Ano:</label>
                                     <select id="selectbasic" name="selectAno" class="form-control">
-                                        <option value="1">2015</option>
-                                        <option value="2">2014</option>
-                                        <option value="3">2013</option>
-                                        <option value="4">2012</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
                                     </select>
                                     </div>
                                     

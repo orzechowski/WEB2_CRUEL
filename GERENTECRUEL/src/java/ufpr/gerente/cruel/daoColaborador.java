@@ -24,7 +24,7 @@ public class daoColaborador {
             " from colaborador as CLB join cargo as CR on CLB.id_cargo = CR.id_cargo" +
             " where email = ? and senha=? and ativo=true";
     
-    private final String stmtInserir = "INSERTO INTO colaborador VALUES(?,?,?,?,?,?,?,?,?)";
+    private final String stmtInserir = "INSERT INTO colaborador VALUES(?,?,?,?,?,?,?,?,?)";
     
     private final String stmtUpdate = "UPDATE colaborador SET email=?,senha=?,endereco=?,telefone=?  WHERE cpf=?";
     

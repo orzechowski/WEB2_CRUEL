@@ -29,17 +29,17 @@
                               <h1>Relatório de Registros Anual</h1>
                               <div class="panel-body">
 
-                                <form class="form-horizontal well">
+                                  <form class="form-horizontal well" method="POST" action="ServGerente?action=relatorioAnual">
                                     <legend>Selecione o ano desejado:</legend>
                                     <fieldset>
 
                                     <div class="control-group col-md-12">
                                     <label class="control-label" for="selectAno">Ano:</label>
                                     <select id="selectbasic" name="selectAno" class="form-control">
-                                        <option value="1">2012</option>
-                                        <option value="2">2013</option>
-                                        <option value="3">2014</option>
-                                        <option value="4">2015</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2015">2015</option>
                                     </select>
                                     </div>
                                                                            

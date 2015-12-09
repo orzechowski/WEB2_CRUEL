@@ -6,8 +6,13 @@
 package ufpr.gerente.cruel;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +27,10 @@ import javax.ws.rs.core.MediaType;
 import ufpr.gerente.cruel.TipoCliente;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
+
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.util.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -80,6 +89,93 @@ public class ServGerente extends HttpServlet {
                 rd.forward(request, response);
                 
                 
+            }else if (action.equals("relatorioMensal")){
+                Connection conn = null;
+                String filtroAno    = request.getParameter("selectAno");
+                String filtroMes    = request.getParameter("selectMes");
+                
+                try{
+                    conn = ConnectionFactory.getConnectionReport();
+                    
+                    try{
+                    
+                    String relMensal = request.getContextPath() + "/registrosCRUEL.jasper";
+                    String host = "http://" + request.getServerName() + ":" + request.getServerPort();
+                    URL relURL = new URL(host + relMensal);
+
+                    HashMap params = new HashMap();
+                    double dtAno = Double.parseDouble(filtroAno);
+                    double dtMes = Double.parseDouble(filtroMes);
+                    params.put("dtAno", dtAno);
+                    params.put("dtMes", dtMes);
+                    byte[] bytes = JasperRunManager.runReportToPdf(relURL.openStream(), params, conn);
+                    
+                    if (bytes != null) {
+                        response.setContentType("application/pdf");
+                        OutputStream ops = null;
+                        ops = response.getOutputStream();
+                        ops.write(bytes);
+                    }
+                    }catch(JRException jrEx){
+                        //MAGIC OVERFLOW
+                        jrEx.printStackTrace();
+                        request.setAttribute("ERRMSG", "Erro ao carregar relatório" + jrEx.getMessage());
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/gerar_relatorio_mensal.jsp");
+                        rd.forward(request, response);
+                    }
+
+                }catch(SQLException sqlEx){
+                    request.setAttribute("ERRMSG", "Erro ao na conexão com banco de dados");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/gerar_relatorio_mensal.jsp");
+                    rd.forward(request, response);
+                }finally{
+                    try{conn.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+                }
+                
+
+            
+            }else if (action.equals("relatorioAnual")){
+               Connection conn = null;
+                String filtroAno    = request.getParameter("selectAno");
+                
+                try{
+                    conn = ConnectionFactory.getConnectionReport();
+                    
+                    try{
+                    
+                    String relMensal = request.getContextPath() + "/registrosCRUEL_Anual.jasper";
+                    String host = "http://" + request.getServerName() + ":" + request.getServerPort();
+                    URL relURL = new URL(host + relMensal);
+
+                    HashMap params = new HashMap();
+                    double dtAno = Double.parseDouble(filtroAno);
+                    
+                    params.put("dtAno", dtAno);
+                    byte[] bytes = JasperRunManager.runReportToPdf(relURL.openStream(), params, conn);
+                    
+                    if (bytes != null) {
+                        response.setContentType("application/pdf");
+                        OutputStream ops = null;
+                        ops = response.getOutputStream();
+                        ops.write(bytes);
+                    }
+                    }catch(JRException jrEx){
+                        //MAGIC OVERFLOW
+                        jrEx.printStackTrace();
+                        request.setAttribute("ERRMSG", "Erro ao carregar relatório" + jrEx.getMessage());
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/gerar_relatorio_mensal.jsp");
+                        rd.forward(request, response);
+                    }
+
+                }catch(SQLException sqlEx){
+                    request.setAttribute("ERRMSG", "Erro ao na conexão com banco de dados");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/gerar_relatorio_mensal.jsp");
+                    rd.forward(request, response);
+                }finally{
+                    try{conn.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+                }             
+                
+            
             }else if (action.equals("buscacolaborador")){
                 String filtroColaborador = request.getParameter("filtroColaborador");
                 List <Colaborador> l_colaboradores = new ArrayList();  

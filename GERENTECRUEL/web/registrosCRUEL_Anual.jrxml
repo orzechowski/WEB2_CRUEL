@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2015-12-09T02:39:42 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="registrosCRUEL" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14c6f52d-8cd4-40a6-ac84-b293f5bbeb0b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CRUEL"/>
+	<parameter name="dtAno" class="java.lang.Double">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[2015.0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtMes" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[12.0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select REG.datahora, REPLACE(to_char(valor_cobrado, 'FM99.00'),'.',',')as valor_cobrado, TP.descricao
+from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo
+ where date_part('year',REG.datahora)=$P{dtAno}]]>
+	</queryString>
+	<field name="datahora" class="java.sql.Timestamp"/>
+	<field name="valor_cobrado" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="10" width="100" height="30" uuid="596aaeef-bb5c-4d85-8df9-44021ebf4f11"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[CRUEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="34" width="330" height="30" uuid="3601c762-7dca-42af-96da-0f29b477bad7"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Cadastro do R.U. Para Estudantes Legais]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="6" y="5" width="550" height="1" uuid="ad94197a-815b-496f-9b5a-752241cd602d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="110" y="55" width="330" height="30" uuid="fb8223d8-b32d-4dec-a92a-3945bb8dff47"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Registro De Pessoas Legais]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="6" y="82" width="550" height="1" uuid="14022b21-9ec3-4c9f-86cc-6b40ae278587">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="16" width="120" height="19" uuid="c0c5a899-d6bc-481e-bea6-2f8a3275b265"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Ano de Referência:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="217" y="16" width="70" height="18" uuid="13049276-f94e-4697-a0fd-2b3a3358719c"/>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtAno}.intValue()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="18" uuid="d8e691fa-eb23-48b5-b46e-030f992999df"/>
+				<text><![CDATA[Registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="18" uuid="c849d6d9-1a5f-455f-8562-b2375b9962a4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Valor Cobrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="18" uuid="3c4755dd-5961-4a15-bf4d-f6042714ff2d"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Dia/Horário]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" x="76" y="19" width="410" height="1" uuid="dde22d36-a9e0-4bf2-a5fe-6bc27062b363">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="10" width="100" height="30" uuid="26e117fb-713b-4ad1-87d5-215d708a4481"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="10" width="100" height="30" uuid="00c44817-4058-4228-a701-fd1db1fea85f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["R$" + $F{valor_cobrado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="10" width="100" height="30" uuid="b35c7f81-695d-4425-81b7-3954152a3826"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{datahora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="475" y="15" width="100" height="20" uuid="960e921b-7579-408e-af1f-57842df1d3ab"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="0" width="100" height="30" uuid="d42e7bf7-e7bb-4fb4-a878-e12b88a379a2"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="8dba1d9d-37e0-4ead-b8cc-77534332724a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

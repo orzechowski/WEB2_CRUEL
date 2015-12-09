@@ -39,4 +39,24 @@ public class ConnectionFactory {
         catch (SQLException ex){
             throw new RuntimeException("Não foi possível se conectar ao banco de dados" + ex.getMessage());}
     }
+    public static Connection getConnectionReport() throws SQLException{
+        Connection conn = null;
+        
+        try {
+            
+            Class.forName("org.postgresql.Driver");
+            
+            String dbUrl = "jdbc:postgresql://localhost:5432/CRUEL_ORG";
+            String dbUser = "postgres";
+            String dbPwd = "admin";
+            
+            conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
+            
+            return conn;
+        }catch (ClassNotFoundException ex){
+            throw new RuntimeException("Erro no driver do BD" + ex.getMessage());}
+            
+        catch (SQLException ex){
+            throw new RuntimeException("Não foi possível se conectar ao banco de dados" + ex.getMessage());}
+    }
 }
