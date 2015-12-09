@@ -4,7 +4,10 @@
     Author     : Allan
 --%>
 
+<%@page buffer="10000kb" autoFlush="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,310 +26,61 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-		<!-- MODAL DE EDIÇÃO DO CARDÁPIO -->
-		<div id="editarCardapio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-						<h4 class="modal-title" id="myModalLabel">Editar Cardápio</h4>
-					</div>
-					<div class="modal-almocojanta">
-						<div id="edit-almoco" class="edit-almoco">
-                            <p class="modal-title" id="myModalLabel">Almoço</p>
-                            Arroz:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Arroz
-                                    <span class="caret"></span  >
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Arroz a Grega</a></li>
-                                    <li><a href="#">Arroz com Carneiro</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Feijão:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Feijão
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Feijão Preto</a></li>
-                                    <li><a href="#">Feijão Carioca</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Salada:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Salada
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Alface</a></li>
-                                    <li><a href="#">Tomate com amendoim</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Carne:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Carne
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Frango Verde</a></li>
-                                    <li><a href="#">Bife a Fantasia</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                Acompanhamento:
-                                <div class="btn-group"> 
-                                    <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Acompanhamento
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Batata Chips</a></li>
-                                        <li><a href="#">Farofa</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            Sobremesa:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Sobremesa
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Sorvete</a></li>
-                                    <li><a href="#">Manjar</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div id="edit-janta" class="edit-janta">
-                            <p class="modal-title" id="myModalLabel">Janta</p>
-							Arroz:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Arroz
-                                    <span class="caret"></span  >
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Arroz a Grega</a></li>
-                                    <li><a href="#">Arroz com Carneiro</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Feijão:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Feijão
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Feijão Preto</a></li>
-                                    <li><a href="#">Feijão Carioca</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Salada:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Salada
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Alface</a></li>
-                                    <li><a href="#">Tomate com amendoim</a></li>
-                                </ul>
-                            </div>
-                            <br>
-                            Carne:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Carne
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Frango Verde</a></li>
-                                    <li><a href="#">Bife a Fantasia</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                Acompanhamento:
-                                <div class="btn-group"> 
-                                    <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Acompanhamento
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Batata Chips</a></li>
-                                        <li><a href="#">Farofa</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            Sobremesa:
-                            <div class="btn-group"> 
-                                <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Sobremesa
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Sorvete</a></li>
-                                    <li><a href="#">Manjar</a></li>
-                                </ul>
-                            </div>
-                        </div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-success">Salvar Alterações</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- FIM MODAL DE EDIÇÃO DO CARDÁPIO -->
-        
+		        
 		<div class="container-fluid text-center tudo"> 
-			<div class="row meio">
-				<div class=" col-md-12 col-lg-12 col-sm-12 conteudo ">
-					<div id="cardapio-semana" class="row">
-						<div>
-							<h3>Cardápio da Semana</h3>
-						</div>
-						<table class="list-group segunda-feira">
-							<tr>
-								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">05</p>
-									<p class="lista-mes">OUT</p>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="not-active list-group-item">
-										Almoço
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="not-active list-group-item">
-										Janta
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-						</table>
-
-						<table class="list-group terca-feira">
-							<tr>
-								<td rowspan="3" class="lista-data-ativo list-group-item list-group-item-success">
-									<p class="lista-dia-ativo">06</p>
-									<p class="lista-mes-ativo">OUT</p>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="dia-ativo list-group-item list-group-item-success">
-										Almoço
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="dia-ativo list-group-item list-group-item-success">
-										Janta
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-						</table>
-						
-						<table class="list-group quarta-feira">
-							<tr>
-								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">07</p>
-									<p class="lista-mes">OUT</p>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="list-group-item">
-										Almoço
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="list-group-item">
-										Janta
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-						</table>
-						
-						<table class="list-group quinta-feira">
-							<tr>
-								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">08</p>
-									<p class="lista-mes">OUT</p>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="list-group-item">
-										Almoço
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="list-group-item">
-										Janta
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-						</table>
-						
-						<table class="list-group sexta-feira">
-							<tr>
-								<td rowspan="3" class="not-active list-group-item lista-data">
-									<p class="lista-dia">09</p>
-									<p class="lista-mes">OUT</p>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td data-toggle="modal" data-target="#editarCardapio">
-									<a href="#alterar_cardapio" class="list-group-item">
-										Almoço
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>
-									<a href="#alterar_cardapio" class="list-group-item">
-										Janta
-										<br>Arroz, Feijão, Batata, Salada, Carne, Sorvete
-									</a>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
+                    <div class="row meio">
+                        <div class=" col-md-12 col-lg-12 col-sm-12 conteudo ">
+                            <div id="cardapio-semana" class="row">
+                                <div>
+                                    <h3>Cardápio dos Próximos Dias</h3>
+                                </div>
+                                <c:if test="${l_cardapio == null}">
+                                    <jsp:forward page="ServCliente?action=buscaCardapio"/>
+                                </c:if>
+                                
+                                <!-- INICIO REPETICAO CARDAPIO -->
+                                
+                                <c:forEach var="cardapio" items="${l_cardapio}">
+                                    <c:if test="${cardapio.refeicao == 1}">
+                                <table class="list-group segunda-feira">
+                                    <tr>
+                                            <td rowspan="3" class="not-active list-group-item lista-data">
+                                                <p class="lista-dia"><fmt:formatDate value="${cardapio.data}" pattern="dd" /></p>
+                                                <p class="lista-mes"><fmt:formatDate value="${cardapio.data}" pattern="MMM" /></p>
+                                            </td>
+                                            <td></td>
+                                    </tr>
+                                    <tr>
+                                            <td></td>
+                                            <td>
+                                                <a class="list-group-item">                                              
+                                                    Almoço
+                                                    <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
+                                                            <c:out value="${ingrediente.nome}"/>
+                                                        </c:forEach>
+                                                </a>
+                                            </td>
+                                    </tr>
+                                    </c:if>
+                                    <c:if test="${cardapio.refeicao == 1}">
+                                    <tr>
+                                            <td></td>
+                                            <td>
+                                                <a class="list-group-item">
+                                                    Janta
+                                                    <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
+                                                            <c:out value="${ingrediente.nome}"/>
+                                                        </c:forEach>
+                                                    
+                                                </a>
+                                            </td>
+                                    </tr>
+                                </table>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
 		</div>
     </body>
 </html>

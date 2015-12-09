@@ -23,7 +23,7 @@ import jdk.nashorn.internal.runtime.ParserException;
  */
 public class daoCardapio {
     
-    private final String stmtGetPeriodo = "select * from cardapio as CAR where CAR.data between ? and ?";
+    private final String stmtGetPeriodo = "select * from cardapio as CAR where CAR.data between current_date and current_date+7;";
     private final String stmtGetAll = "select * from cardapio";
     private final String stmtGetIngredientes = "select ING.id_ingrediente, ING.nome,ING.descricao,"
             +" ING.id_tipoingrediente,TP.descricao as tp_descricao from ingredientescardapio as INC"
