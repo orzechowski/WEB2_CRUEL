@@ -23,8 +23,8 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        <c:if test="${l_tpCliente == null}">]
-            <jsp:forward page="ServAtendente?action=buscatpcliente_2" /> 
+        <c:if test="${l_registro == null}">]
+            <jsp:forward page="ServAtendente?action=buscaRegistros" /> 
         </c:if>
         <!-- MODAL EDITAR REGISTRO-->
           <div id="editarRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -62,10 +62,13 @@
                         </form>
                         <div class="list-content">
                             <ul class="list-group">
-                                <c:forEach var="tp" items="${l_tpCliente}">
+                                <c:forEach var="r" items="${l_registro}">
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
-                                            <span><h3>${tp.descricao}</h3><fmt:formatNumber value="${tp.valor}" type="currency" /></span>                                           
+                                            <span><h3>${r.getTpCliente.descricao}</h3>
+                                                ${r.getDtHora()} - 
+                                                <fmt:formatNumber value="${r.valorCobrado}" type="currency" />
+                                            </span>
                                             <div class="pull-right hidden-phone">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
                                                     <span>Editar</span>
