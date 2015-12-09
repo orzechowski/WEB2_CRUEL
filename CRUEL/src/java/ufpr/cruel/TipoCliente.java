@@ -22,6 +22,9 @@ public class TipoCliente {
     public int getIdTipoCliente(){
         return(this.idTpCliente);
     }
+    public int getidTpCliente(){
+        return(this.idTpCliente);
+    }
     
     public void setDescricao(String descricao){
         this.descricao = descricao;
