@@ -9,14 +9,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +44,7 @@ public class ServAtendente extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
             daoTipoCliente daoTpCliente = new daoTipoCliente();
-            
+            daoRegistro daoReg = new daoRegistro();
             if (action.equals("buscatpcliente")){
              List <TipoCliente> l_tpCliente = new ArrayList();
 
@@ -50,7 +56,24 @@ public class ServAtendente extends HttpServlet {
                 request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = request.getRequestDispatcher("/registro_entradas.jsp");
                 rd.forward(request, response);
-            }else{
+            }else if (action.equals("registrar")){
+                String descricaoTpCliente         = request.getParameter("descricaoTpCliente");
+                double valorCobrado              = Double.parseDouble(request.getParameter("valorCobrado"));
+                int    idTpCliente         = Integer.parseInt(request.getParameter("idTpCliente"));
+                TipoCliente tp  = new TipoCliente();
+                tp.setIdTipoCliente(idTpCliente);
+                tp.setDescricao(descricaoTpCliente);
+                tp.setValor(valorCobrado);
+                HttpSession session = request.getSession();
+                String usuario = (String)session.getAttribute("usu");
+                daoReg.inserir(tp,usuario );
+                request.setAttribute("ERRMSG", "Registro efetuado com sucesso");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/registro_entradas.jsp");
+                rd.forward(request, response);
+            
+            
+            }
+            else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }

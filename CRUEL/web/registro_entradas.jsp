@@ -28,20 +28,20 @@
         </c:if>
                         
         <%@include file="/WEB-INF/jspf/header.jspf" %>
-        <!-- MODAL EDITAR REGISTRO-->
+        <!-- MODAL REGISTRO ALUNO-->
         <div id="registrarEntradaAluno" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
-                        <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
+                        <h4 class="modal-title" id="myModalLabel">Registrar</h4>
                     </div>
                     <div class="modal-body">
                         <h3>Aluno</h3>
                         <span><b>Valor:</b>
                         <c:forEach var="tpCliente" items="${l_tpCliente}" varStatus="loop" >
                             <c:if test="${tpCliente.descricao == 'Aluno'}">
-                                <c:set var="id" value="${tpCliente.idTpCliente}" />
+                                <c:set var="id" value="${loop.index}" />
                                 <fmt:formatNumber value="${tpCliente.valor}" type="currency" />
                             </c:if>
                         </c:forEach>
@@ -49,19 +49,126 @@
                         <span><b>Entrada: </b>
                             <jsp:useBean id="now" class="java.util.Date" scope="request" />
                             <fmt:formatDate value="${now}" pattern="dd/MM/yyyy hh:mm" />
+                      
                         </span>
                     </div>
                     <div class="modal-footer">
                         <form  method="POST" action="ServAtendente?action=registrar">
-                            <input type="text" id="idTpCliente" name="idTpCliente" value="${id}" />
-                            <input type="text" id="descricaoTpCliente" name="descricaoTpCliente" value="${l_tpCliente[id].descricao}" />
-                            <input type="text" id="valorCobrado" name="valorCobrado" value="${l_tpCliente[id].valorCobrado}" />
-                            <input type="text" id="dtHora" name="dtHora" value="${now}" />
-                            <input type="text" id="cpfColaborador" name="cpfColaborador" value="${usu}" />
-                            
-                            <button type="button" class="btn btn-success">Salvar Alterações</button>
-                        </form>
+                            <input type="text" hidden id="idTpCliente" name="idTpCliente" value="${l_tpCliente[id].idTpCliente}" />
+                            <input type="text" hidden id="descricaoTpCliente" name="descricaoTpCliente" value="${l_tpCliente[id].descricao}" />
+                            <input type="text" hidden id="valorCobrado" name="valorCobrado" value="${l_tpCliente[id].valor}" />
+                                   
+                            <button class="btn btn-success">Salvar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL REGISTRO Professor-->
+        <div id="registrarEntradaProfessor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                        <h4 class="modal-title" id="myModalLabel">Registrar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Professor</h3>
+                        <span><b>Valor:</b>
+                        <c:forEach var="tpCliente" items="${l_tpCliente}" varStatus="loop" >
+                            <c:if test="${tpCliente.descricao == 'Professor'}">
+                                <c:set var="id" value="${loop.index}" />
+                                <fmt:formatNumber value="${tpCliente.valor}" type="currency" />
+                            </c:if>
+                        </c:forEach>
+                        </span><br/>
+                        <span><b>Entrada: </b>
+                            <fmt:formatDate value="${now}" pattern="dd/MM/yyyy hh:mm" />
+                      
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <form  method="POST" action="ServAtendente?action=registrar">
+                            <input type="text" hidden id="idTpCliente" name="idTpCliente" value="${l_tpCliente[id].idTpCliente}" />
+                            <input type="text" hidden id="descricaoTpCliente" name="descricaoTpCliente" value="${l_tpCliente[id].descricao}" />
+                            <input type="text" hidden id="valorCobrado" name="valorCobrado" value="${l_tpCliente[id].valor}" />
+                                   
+                            <button class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL REGISTRO SERVIDOR-->
+        <div id="registrarEntradaServidor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                        <h4 class="modal-title" id="myModalLabel">Registrar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Servidor</h3>
+                        <span><b>Valor:</b>
+                        <c:forEach var="tpCliente" items="${l_tpCliente}" varStatus="loop" >
+                            <c:if test="${tpCliente.descricao == 'Servidor'}">
+                                <c:set var="id" value="${loop.index}" />
+                                <fmt:formatNumber value="${tpCliente.valor}" type="currency" />
+                            </c:if>
+                        </c:forEach>
+                        </span><br/>
+                        <span><b>Entrada: </b>
+                            <fmt:formatDate value="${now}" pattern="dd/MM/yyyy hh:mm" />
+                      
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <form  method="POST" action="ServAtendente?action=registrar">
+                            <input type="text" hidden id="idTpCliente" name="idTpCliente" value="${l_tpCliente[id].idTpCliente}" />
+                            <input type="text" hidden id="descricaoTpCliente" name="descricaoTpCliente" value="${l_tpCliente[id].descricao}" />
+                            <input type="text" hidden id="valorCobrado" name="valorCobrado" value="${l_tpCliente[id].valor}" />
+                                   
+                            <button class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL REGISTRO VISITANTE-->
+        <div id="registrarEntradaVisitante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                        <h4 class="modal-title" id="myModalLabel">Registrar</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Visitante</h3>
+                        <span><b>Valor:</b>
+                        <c:forEach var="tpCliente" items="${l_tpCliente}" varStatus="loop" >
+                            <c:if test="${tpCliente.descricao == 'Visitante'}">
+                                <c:set var="id" value="${loop.index}" />
+                                <fmt:formatNumber value="${tpCliente.valor}" type="currency" />
+                            </c:if>
+                        </c:forEach>
+                        </span><br/>
+                        <span><b>Entrada: </b>
+                            <fmt:formatDate value="${now}" pattern="dd/MM/yyyy hh:mm" />
+                      
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <form  method="POST" action="ServAtendente?action=registrar">
+                            <input type="text" hidden id="idTpCliente" name="idTpCliente" value="${l_tpCliente[id].idTpCliente}" />
+                            <input type="text" hidden id="descricaoTpCliente" name="descricaoTpCliente" value="${l_tpCliente[id].descricao}" />
+                            <input type="text" hidden id="valorCobrado" name="valorCobrado" value="${l_tpCliente[id].valor}" />
+                                   
+                            <button class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -80,17 +187,17 @@
                             </div> 
                             <div class="col-md-4">
                                 <div class="well">
-                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntrada">Professor</button>
+                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntradaProfessor">Professor</button>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="well">
-                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntrada">Servidor</button>
+                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntradaServidor">Servidor</button>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="well">
-                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntrada">Visitante</button>
+                                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#registrarEntradaVisitante">Visitante</button>
                                 </div>
                             </div> 
                         </div>
