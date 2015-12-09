@@ -61,7 +61,7 @@ public class Cardapio implements Serializable{
     public String getDia(){
         String[] splited = (this.getData()).split("-");
         
-        return splited[0];
+        return splited[2];
     }
     public String getMes(){
         String[] splited = (this.getData()).split("-");

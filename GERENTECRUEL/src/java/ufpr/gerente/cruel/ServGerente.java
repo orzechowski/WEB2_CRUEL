@@ -93,7 +93,7 @@ public class ServGerente extends HttpServlet {
                         .get(new GenericType<List<Cardapio>>(){});
                 
                 request.setAttribute("l_cardapio", l_cardapio);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
                 
             

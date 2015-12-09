@@ -33,7 +33,7 @@
                             <div id="cardapio-semana" class="row">
                                 <div>
                                     <h3>Cardápio dos Próximos Dias</h3>
-                                </div>
+                                </div><br>
                                 <c:if test="${l_cardapio == null}">
                                     <jsp:forward page="ServAtendente?action=buscaCardapio"/>
                                 </c:if>
@@ -43,38 +43,36 @@
                                 <c:forEach var="cardapio" items="${l_cardapio}">
                                     <c:if test="${cardapio.refeicao == 1}">
                                 <table class="list-group">
-                                    <tr>
-                                            <td rowspan="3" class="not-active list-group-item lista-data">
-                                                <p class="lista-dia"><fmt:formatDate value="${cardapio.data}" pattern="dd" /></p>
-                                                <p class="lista-mes"><fmt:formatDate value="${cardapio.data}" pattern="MMM" /></p>
+                                    <tbody>
+                                        <tr>
+                                            <td class="not-active list-group-item lista-data">
+                                                <p class="lista-dia"><c:out value="${cardapio.getDia()}"/></p>
+                                                <p class="lista-mes"><c:out value="${cardapio.getMes()}"/></p>
                                             </td>
-                                            <td></td>
-                                    </tr>
-                                    <tr>
-                                            <td></td>
                                             <td>
                                                 <a class="list-group-item">                                              
                                                     Almoço
                                                     <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
-                                                            <c:out value="${ingrediente.nome}"/>
+                                                            <c:out value="${ingrediente.nome}"/>,
                                                         </c:forEach>
                                                 </a>
                                             </td>
-                                    </tr>
-                                    </c:if>
-                                    <c:if test="${cardapio.refeicao == 1}">
-                                    <tr>
-                                            <td></td>
-                                            <td>
-                                                <a class="list-group-item">
-                                                    Janta
-                                                    <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
-                                                            <c:out value="${ingrediente.nome}"/>
-                                                        </c:forEach>
-                                                    
-                                                </a>
-                                            </td>
-                                    </tr>
+                                        
+                                        </c:if>
+                                        <c:if test="${cardapio.refeicao == 2}">
+                                        
+                                            
+                                                <td>
+                                                    <a class="list-group-item">
+                                                        Janta
+                                                        <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
+                                                                <c:out value="${ingrediente.nome}"/>,
+                                                            </c:forEach>
+
+                                                    </a>
+                                                </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                     </c:if>
                                 </c:forEach>
