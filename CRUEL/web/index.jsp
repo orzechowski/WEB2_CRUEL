@@ -35,7 +35,7 @@
                                     <h3>Cardápio dos Próximos Dias</h3>
                                 </div>
                                 <c:if test="${l_cardapio == null}">
-                                    <jsp:forward page="ServCliente?action=buscaCardapio"/>
+                                    <jsp:forward page="ServAtendente?action=buscaCardapio"/>
                                 </c:if>
                                 
                                 <!-- INICIO REPETICAO CARDAPIO -->

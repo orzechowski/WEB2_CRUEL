@@ -45,12 +45,13 @@ public class ServCliente extends HttpServlet {
                 try{
                     l_cardapio  = daoCar.getSemana();                    
                 } catch(SQLException ex){
-                    //MAGIC
+                    ex.printStackTrace();
                 }
                 
                 request.setAttribute("l_cardapio ", l_cardapio );
-                RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
+                
             }
     }
 

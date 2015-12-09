@@ -45,6 +45,8 @@ public class ServAtendente extends HttpServlet {
         String action = request.getParameter("action");
             daoTipoCliente daoTpCliente = new daoTipoCliente();
             daoRegistro daoReg = new daoRegistro();
+            daoCardapio darCar = new daoCardapio();
+            
             if (action.equals("buscatpcliente")){
              List <TipoCliente> l_tpCliente = new ArrayList();
 
@@ -55,6 +57,18 @@ public class ServAtendente extends HttpServlet {
                 }
                 request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = request.getRequestDispatcher("/registro_entradas.jsp");
+                rd.forward(request, response);
+            }else if (action.equals("buscaCardapio")){
+             List <Cardapio> l_cardapio = new ArrayList();
+
+                try{
+                    l_cardapio = darCar.getSemana();
+                } catch(SQLException ex){
+                    ex.printStackTrace();
+                }
+                
+                request.setAttribute("l_cardapio", l_cardapio);
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }else if (action.equals("registrar")){
                 String descricaoTpCliente         = request.getParameter("descricaoTpCliente");
