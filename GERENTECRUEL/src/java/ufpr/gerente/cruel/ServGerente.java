@@ -60,9 +60,7 @@ public class ServGerente extends HttpServlet {
                 TipoCliente tp  = new TipoCliente();
                 tp.setDescricao(nome);
                 tp.setValor(Double.parseDouble(valor));
-                
                 tp.setAtivo(true);
-                //AQUI VAI INSERÇÃO DO BANCO
                 
                 Client client = ClientBuilder.newClient();
 
@@ -74,9 +72,7 @@ public class ServGerente extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
                 
-                
             }else if (action.equals("buscatpcliente")){
-                //List<TipoCliente> l_tpCliente = new ArrayList();
                 Client client = ClientBuilder.newClient();
 
                 List<TipoCliente> l_tpCliente = client
@@ -87,7 +83,20 @@ public class ServGerente extends HttpServlet {
                 request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_tipo_cliente.jsp");
                 rd.forward(request, response);
+                   
+            }else if (action.equals("buscacardapio")){
+                Client client = ClientBuilder.newClient();
+
+                List<Cardapio> l_cardapio = client
+                        .target("http://localhost:8080/CRUEL/webresources/Cardapio")
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(new GenericType<List<Cardapio>>(){});
                 
+                request.setAttribute("l_cardapio", l_cardapio);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+                
+            
                 
             }else if (action.equals("relatorioMensal")){
                 Connection conn = null;

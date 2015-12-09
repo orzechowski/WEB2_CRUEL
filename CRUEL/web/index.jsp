@@ -42,7 +42,7 @@
                                 
                                 <c:forEach var="cardapio" items="${l_cardapio}">
                                     <c:if test="${cardapio.refeicao == 1}">
-                                <table class="list-group segunda-feira">
+                                <table class="list-group">
                                     <tr>
                                             <td rowspan="3" class="not-active list-group-item lista-data">
                                                 <p class="lista-dia"><fmt:formatDate value="${cardapio.data}" pattern="dd" /></p>

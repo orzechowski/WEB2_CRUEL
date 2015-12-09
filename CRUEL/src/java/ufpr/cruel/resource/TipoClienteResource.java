@@ -36,16 +36,9 @@ public class TipoClienteResource {
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of TipoClienteResource
-     */
     public TipoClienteResource() {
     }
-    
-    /**
-     * PUT method for updating or creating an instance of TipoClienteResource
-     * @param content representation for the resource
-     */
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String putJson( TipoCliente tipocliente) {
@@ -58,33 +51,24 @@ public class TipoClienteResource {
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        /*String output = tipocliente.toString();
-        return Response.status(200).entity(output).build();*/
     }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public TipoCliente[] produceJSON() {
+    public List<TipoCliente> produceJSON() {
         
         try{
             daoTipoCliente tc = new daoTipoCliente();
             List<TipoCliente> ltc = new ArrayList();
             
             ltc = tc.getTudo();
-            TipoCliente[] array_tc = new TipoCliente[ltc.size()];
+            /*TipoCliente[] array_tc = new TipoCliente[ltc.size()];
             ltc.toArray(array_tc);
             
-            return array_tc;
+            return array_tc;*/
+            return ltc;
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    
-    /*@Path("{listTipoCliente}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<TipoCliente> getList() {
-        return "Chegou aqui";
-    }; */
 }
