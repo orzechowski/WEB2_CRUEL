@@ -156,9 +156,19 @@ insert into tipocliente (descricao,valor,ativo) values ('Servidor', 2.75 , true)
 insert into tipocliente (descricao,valor,ativo) values ('Aluno', 33.1 , true);
 insert into tipocliente (descricao,valor,ativo) values ('Visitante', 3.14 , false);
 
-insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values (now(),1.3333,'11223344511',1);
-insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values (now(),2.75,'11223344511',2);
-insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values (now(),33.1,'11223344511',3);
-insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values (now(),3.14,'11223344511',4);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-10 01:33:45',1.3333,'11223344511',1);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-10 01:33:46',2.75,'11223344511',2);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-10 01:33:47',33.1,'11223344511',3);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-10 01:33:48',3.14,'11223344511',4);
+
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-09 01:33:45',1.3333,'11223344511',1);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-09 01:33:46',2.75,'11223344511',2);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-09 01:33:47',33.1,'11223344511',3);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-09 01:33:48',3.14,'11223344511',4);
+
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-08 01:33:45',1.3333,'11223344511',1);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-08 01:33:46',2.75,'11223344511',2);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-08 01:33:47',33.1,'11223344511',3);
+insert into registro(datahora,valor_cobrado,cpf_colaborador,categoria_cliente) values ('2015-12-08 01:33:48',3.14,'11223344511',4);
 
 

@@ -1,3 +1,5 @@
+package ufpr.cruel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,6 +8,8 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +46,19 @@ public class Login extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             String usu = request.getParameter("usuario");
-            String sen = request.getParameter("senha");
+            
+            //Preparar HASH MD5 senha
+            
+            StringBuffer md5Senha = new StringBuffer();
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(request.getParameter("senha").getBytes());
+            
+            byte byteData[] = md.digest();
+            for( int i = 0; i < byteData.length; i++){
+                md5Senha.append(Integer.toString( (byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            
+            String sen = md5Senha.toString();
             HttpSession session = request.getSession();
             
             Client client = ClientBuilder.newClient();
@@ -58,7 +74,7 @@ public class Login extends HttpServlet {
                     rd.forward(request,response);
                 }
                 else{
-                    session.setAttribute("usuario", usu);
+                    session.setAttribute("usuario", retorno.getCpf());
                     session.setAttribute("idcargo", retorno.getCargo().getIdCargo());
                     session.setAttribute("cargo", (retorno.getCargo().getDescricao()).toLowerCase() );
                 }
@@ -77,6 +93,8 @@ public class Login extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request,response);
             }
+        }catch(NoSuchAlgorithmException ex){
+            throw new RuntimeException(ex.getMessage());
         }
     }
 
