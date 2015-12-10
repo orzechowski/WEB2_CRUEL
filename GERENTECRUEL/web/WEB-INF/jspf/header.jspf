@@ -39,7 +39,6 @@
                                 </c:if>
                                 <c:if test="${tp_usuario == 'nutricionista'}">    
                                     <li><a href="./cadastro_ingrediente.jsp">Ingrediente</a></li>
-                                    <li><a href="./cadastro_tipo_ingrediente.jsp">Tipo de Ingrediente</a></li>
                                 </c:if>
                             </ul>
                         </div>
