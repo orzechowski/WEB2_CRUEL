@@ -28,11 +28,13 @@
             var lista_ingredientes = [];
             <c:forEach var="ingrediente" items="${l_ingredientes}">
                 var ingrediente = {};
+                ingrediente.id   = "<c:out value="${ingrediente.idIngrediente}" />";
                 ingrediente.nome = "<c:out value="${ingrediente.nome}" />";
                 ingrediente.descricao = "<c:out value="${ingrediente.descricao}" />";
                 ingrediente.tp_ingrediente = "<c:out value="${ingrediente.tipoIngrediente.descricao}" />";
                 lista_ingredientes.push(ingrediente);
             </c:forEach>
+            $(".modal-body #id_ingrediente").val(lista_ingredientes[id].id);
             $(".modal-body #nome").val(lista_ingredientes[id].nome);
             $(".modal-body #descricao").val(lista_ingredientes[id].descricao);
             document.getElementById(lista_ingredientes[id].tp_ingrediente).selected = true;
@@ -58,6 +60,7 @@
                     </div>
                     <form class="form-horizontal" method="POST" action="Nutricionista?action=atualizaringrediente">	    				
                         <div class="modal-body">
+                            <input type="hidden" id="id_ingrediente" name="id_ingrediente" class="form-control" required type="text">
                             <div class="control-group">
                                 <label class="control-label" for="nome">Nome</label>
                                 <div class="controls">

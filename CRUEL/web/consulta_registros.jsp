@@ -35,7 +35,7 @@
                         <h4 class="modal-title" id="myModalLabel">Editar Registro</h4>
                     </div>
                     <div class="modal-body">
-                        ...
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -66,7 +66,7 @@
                                     <li class="list-group-item clearfix">
                                         <div class="task-title">
                                             <span><h3>${r.getTpCliente().descricao}</h3>
-                                                ${r.getDtHora()} - 
+                                                <fmt:formatDate value="${r.getDtHora()}" type="both" /> - 
                                                 <fmt:formatNumber value="${r.valorCobrado}" type="currency" />
                                             </span>
                                             <div class="pull-right hidden-phone">
