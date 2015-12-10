@@ -8,6 +8,7 @@ package ufpr.gerente.cruel;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import static java.lang.Boolean.parseBoolean;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -207,6 +208,19 @@ public class ServGerente extends HttpServlet {
             String valorTpCiente = request.getParameter("valor");
             
             
+            }else if(action.equals("desativarfuncionario")){
+                String cpf              = request.getParameter("cpfColaborador");
+                boolean ativo           = parseBoolean(request.getParameter("ativo"));
+                Colaborador col = new Colaborador();
+                col.setCpf(cpf);
+                col.setAtivo(ativo);
+                try{
+                        daoColaborador.trocaStatus(col);
+                        request.setAttribute("ERRMSG", "Funcionário Ativado/Desativado");
+                    }catch(Exception ex){
+                        request.setAttribute("ERRMSG", "Erro ao ativar/desativar");
+                    }
+                response.sendRedirect(request.getContextPath() + "/consulta_funcionarios.jsp");
             }
             else if(action.equals("cadastrarfuncionario")){
                 String nome             = request.getParameter("nome");
