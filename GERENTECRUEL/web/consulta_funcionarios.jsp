@@ -17,7 +17,6 @@
 	<link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <script src="js/jquery.min.js"></script>
-        <script src="js/jquery.maskedinput.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,25 +48,10 @@
                 $(".modal-body #telefone").val(lista_colaboradores[id].telefone);
                 $(".modal-body #crn").val(lista_colaboradores[id].crn);
             });
-
-            $(document).ready(function(){
-            $('#crn').attr('disabled','disabled');        
-            $('select[name="cargo"]').on('change',function(){
-            var  nutri = $(this).val();
-                    if(nutri == 2){ 
-                            $('#crn').removeAttr('disabled'); 
-                            $('#crn').attr('required','required');
-                    }else{
-                            $('#crn').attr('disabled','disabled');
-
-                    }  
-              });
-            });
-
             $("#senha").change(function(){
-                    $("#confirma_senha").val("");
-                    $("#confirma_div").attr('class', 'control-group has-warning');
-                    // 
+                $("#confirma_senha").val("");
+                $("#confirma_div").attr('class', 'control-group has-warning');
+                // 
             });
 
             $("#confirma_senha").change(function(){
@@ -75,16 +59,16 @@
                   var conf = $("#confirma_senha").val();
                   if (pass != conf) { alert("Senha nao confere."); }
             });
+            
             $("#email").change(function(){
             var em = $("#email").val();
             var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
             if (!filter.test(em))  
-                {   
+            {   
                 alert("Email inválido") ;
-                }  
-            });
-        </script>
-        <script src="js/ie10-viewport-bug-workaround.js"></script>
+            }  
+        });
+            </script>
         <div id="editarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -110,28 +94,28 @@
                                     <input id="cpf" name="cpf" class="form-control" readonly type="text" placeholder="000.000.000-00" value="">
                                 </div>
                             </div>  
-                            <div class="control-group" id="email_div">
-                                    <label class="control-label" for="email">Email</label>
-                                    <div class="controls">
-                                        <input id="email" name="email" class="form-control" maxlength="30" required type="text">
-                                    </div>
+                            <div class="control-group">
+                                <label class="control-label" for="email">Email</label>
+                                <div class="controls">
+                                    <input id="email" name="email" class="form-control" required type="text" value="">
                                 </div>
+                            </div>
                             <div class="control-group">
                                 <label class="control-label" for="endereco">Endereço</label>
                                 <div class="controls">
-                                    <input id="endereco" name="endereco" class="form-control" maxlength="80" required type="text" value="">
+                                    <input id="endereco" name="endereco" class="form-control" required type="text" value="">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="senha">Senha</label>
                                 <div class="controls">
-                                    <input id="senha" name="senha" class="form-control" required type="password">
+                                    <input id="senha" name="senha" class="form-control" type="password">
                                 </div>
                             </div>
                             <div class="control-group" id="confirma_div">
                                 <label class="control-label" for="senha">Confirmação de Senha</label>
                                 <div class="controls">
-                                    <input id="confirma_senha" name="confirma_senha" required class="form-control" type="password">
+                                    <input id="confirma_senha" name="confirma_senha" class="form-control" type="password">
                                 </div>
                             </div> 
                             <div class="control-group">
@@ -143,7 +127,7 @@
                             <div class="control-group" id="crn_div">
                                 <label class="control-label" for="crn">CRN</label>
                                 <div class="controls">
-                                    <input id="crn" name="crn" class="form-control" maxlength="10" disabled type="text" value="">
+                                    <input id="crn" name="crn" class="form-control" disabled type="text" value="">
                                 </div>
                             </div>                
                         </div>
@@ -155,7 +139,21 @@
                 </div>
             </div>
         </div>
+	<script type="text/javascript">
+                
+            $("#senha").change(function(){
+                    $("#confirma_senha").val("");
+                    $("#confirma_div").attr('class', 'control-group has-warning');
+                    // 
+            });
 
+            $("#confirma_senha").change(function(){
+                  var pass = $("#senha").val();
+                  var conf = $("#confirma_senha").val();
+                  if (pass != conf) { alert("Senha nao confere."); }
+            });
+            
+        </script>
 		<!-- MODAL INATIVAR Funcionario-->
         <script>
             $(document).on("click", "#inativar", function () {
