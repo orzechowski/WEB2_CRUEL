@@ -89,9 +89,9 @@ public class ServAtendente extends HttpServlet {
                 tp.setDescricao(descricaoTpCliente);
                 tp.setValor(valorCobrado);
                 HttpSession session = request.getSession();
-                String usuario = (String)session.getAttribute("usu");
+                String usuario = (String)session.getAttribute("usuario");
                 daoReg.inserir(tp,usuario );
-                request.setAttribute("ERRMSG", "Registro efetuado com sucesso");
+                request.setAttribute("ERRMSG", "Registro efetuado com sucesso"+usuario);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/registro_entradas.jsp");
                 rd.forward(request, response);
             
