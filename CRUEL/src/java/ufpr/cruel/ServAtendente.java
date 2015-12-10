@@ -41,7 +41,7 @@ public class ServAtendente extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
             String action = request.getParameter("action");
             
             daoTipoCliente daoTpCliente = new daoTipoCliente();
@@ -59,7 +59,45 @@ public class ServAtendente extends HttpServlet {
                 request.setAttribute("l_tpCliente", l_tpCliente);
                 RequestDispatcher rd = request.getRequestDispatcher("/registro_entradas.jsp");
                 rd.forward(request, response);
-            }else if (action.equals("buscaRegistros")){
+            }else if (action.equals("editarRegistro")){
+                String strdtHora              = request.getParameter("dtHora");
+                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                 try{
+                 Date dtHora = simpleDateFormat.parse(strdtHora);
+                 int    idTpCliente         = Integer.parseInt(request.getParameter("idTpCliente"));
+                 
+                 TipoCliente tp  = new TipoCliente();
+                 Registro r = new Registro();
+                 tp.setIdTipoCliente(idTpCliente);
+                 r.setTpCliente(tp);
+                 r.setDtHora(dtHora);
+                 HttpSession session = request.getSession();
+                 String usuario = (String)session.getAttribute("usuario");
+                 daoReg.update( r,usuario );
+                 request.setAttribute("ERRMSG", "Registro atualizado com sucesso");
+                 
+                 }catch(ParseException ex){}
+                 
+                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_registro.jsp");
+                 rd.forward(request, response);
+            }
+            else if (action.equals("excluiregistro")){
+                String strdtHora              = request.getParameter("dtHora");
+                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                 try{
+                 Date dtHora = simpleDateFormat.parse(strdtHora);
+                 int    idTpCliente         = Integer.parseInt(request.getParameter("idTpCliente"));
+                 Registro r = new Registro();
+                 r.setDtHora(dtHora);
+                 daoReg.excluir( r );
+                 request.setAttribute("ERRMSG", "Registro excluido com sucesso");
+                 
+                 }catch(ParseException ex){}
+                 
+                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_registro.jsp");
+                 rd.forward(request, response);
+            }
+            else if (action.equals("buscaRegistros")){
              List <Registro> l_registro = new ArrayList();
 
                 try{
@@ -91,7 +129,7 @@ public class ServAtendente extends HttpServlet {
                 HttpSession session = request.getSession();
                 String usuario = (String)session.getAttribute("usuario");
                 daoReg.inserir(tp,usuario );
-                request.setAttribute("ERRMSG", "Registro efetuado com sucesso"+usuario);
+                request.setAttribute("ERRMSG", "Registro efetuado com sucesso");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/registro_entradas.jsp");
                 rd.forward(request, response);
             
@@ -121,7 +159,11 @@ public class ServAtendente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ServAtendente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -135,7 +177,11 @@ public class ServAtendente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ServAtendente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
