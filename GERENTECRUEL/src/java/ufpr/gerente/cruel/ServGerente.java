@@ -51,6 +51,7 @@ public class ServGerente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
             daoColaborador daoColab = new daoColaborador();
             

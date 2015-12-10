@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +30,7 @@ public class daoRegistro {
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
             + " where datahora between ? and ? order by REG.datahora desc";
     
-    private final String stmtGetDia = "select REG.datahora,REG.valor_cobrado,"
+    private final String stmtGetDia = "select to_char(REG.datahora,'DD/MM/YYYY HH24:MI:SS')as datahora,REG.valor_cobrado,"
             + " REG.cpf_colaborador,"
             + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
@@ -122,8 +125,18 @@ public class daoRegistro {
                 tp.setValor(rset.getDouble("valor"));
                 tp.setAtivo(rset.getBoolean("ativo"));
                 
+                //Date dtHora = new Date(rset.getDate("datahora").getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                try{
+                    Date dtHora = sdf.parse(rset.getString("datahora"));
+                    reg.setDtHora(dtHora);
+                }catch(ParseException pEx){
+                    throw new RuntimeException(pEx.getMessage());
+                }
+                
+                
                 reg.setCpfColaborador(rset.getString("cpf_colaborador"));
-                reg.setDtHora(rset.getDate("datahora"));
+                
                 reg.setValorCobrado((float)rset.getDouble("valor_cobrado"));
                 reg.setTpCliente(tp);
                 

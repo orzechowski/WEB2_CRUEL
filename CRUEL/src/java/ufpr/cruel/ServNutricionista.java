@@ -38,6 +38,7 @@ public class ServNutricionista extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
             daoTipoIngrediente daoTp = new daoTipoIngrediente();
             daoIngrediente     daoIng = new daoIngrediente();

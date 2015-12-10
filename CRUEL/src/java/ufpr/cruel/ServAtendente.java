@@ -42,6 +42,7 @@ public class ServAtendente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+            request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
             
             daoTipoCliente daoTpCliente = new daoTipoCliente();
