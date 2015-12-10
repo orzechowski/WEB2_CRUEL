@@ -27,6 +27,7 @@ public class daoColaborador {
     private final String stmtInserir = "INSERT INTO colaborador VALUES(?,?,?,?,?,?,?,?,?)";
     
     private final String stmtUpdate = "UPDATE colaborador SET email=?,senha=?,endereco=?,telefone=?  WHERE cpf=?";
+    private final String stmtUpdateStatus = "UPDATE colaborador SET ativo=?  WHERE cpf=?";
     
     private final String stmtGetFiltrado = "select CLB.cpf,CLB.nome,CLB.email," +
             " CLB.senha,CLB.endereco,CLB.telefone,CLB.crn,CLB.ativo," +
@@ -210,6 +211,30 @@ public class daoColaborador {
                         
         }catch(SQLException ex){
             throw new RuntimeException("Erro ao verificar Email e CPF." +ex.getMessage());
+        }finally{
+            try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
+            try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
+            try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public void trocaStatus(Colaborador colab) throws SQLException {
+        Connection          conn    = null;
+        PreparedStatement   stmt    = null;
+        ResultSet           rset    = null;
+               
+        try{
+                                  
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtUpdateStatus);
+            
+            stmt.setBoolean(1, colab.getAtivo());
+            stmt.setString(2, colab.getCpf());            
+            
+            stmt.executeUpdate();            
+                        
+        }catch(SQLException ex){
+            throw new RuntimeException("Erro ao atualizar Colaborador." +ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
