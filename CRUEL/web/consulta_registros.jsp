@@ -73,7 +73,7 @@
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarRegistro"><i class=" glyphicon glyphicon-pencil"></i>
                                                     <span>Editar</span>
                                                 </button>
-                                                <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluirRegistro"><i class="glyphicon glyphicon-remove"></i>
                                                     <span>Remover</span>
                                                 </button>
                                             </div>
