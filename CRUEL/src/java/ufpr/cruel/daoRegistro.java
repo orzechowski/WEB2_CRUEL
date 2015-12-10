@@ -34,6 +34,7 @@ public class daoRegistro {
             + " --where datahora <= CURRENT_DATE";
     
     private final String stmtUpdate = "UPDATE registro SET valor_cobrado=?, cpf_colaborador=?, categoria_cliente=? WHERE datahora=?";
+    private final String stmtExcluir = "DELETE FROM registro where datahora=?";
     
     public void inserir (TipoCliente cli, String user){
         
@@ -136,6 +137,49 @@ public class daoRegistro {
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}
             try{conn.close();   }catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public void update(Registro reg, String user){
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        
+        try{
+            con  = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtUpdate);
+            
+            stmt.setDouble(1, reg.getValorCobrado());
+            stmt.setString(2, user);
+            stmt.setInt(3, reg.getTpCliente().getIdTipoCliente());
+            stmt.setTimestamp(4, new java.sql.Timestamp((reg.getDtHora()).getTime()));
+            
+            stmt.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Erro ao atualizar Registro ");
+            throw new RuntimeException(e);
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage());}
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
+        }
+    }
+    
+    public void excluir(Registro reg){
+        Connection        con      = null;
+        PreparedStatement stmt     = null;
+        
+        try{
+            con  = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(stmtExcluir);
+            
+            stmt.setTimestamp(1, new java.sql.Timestamp((reg.getDtHora()).getTime()));
+            
+            stmt.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Erro ao excluir Registro ");
+            throw new RuntimeException(e);
+        }finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao finalizar transação: "+ex.getMessage());}
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao finalizar conexão: "+ex.getMessage());}
         }
     }
 }
