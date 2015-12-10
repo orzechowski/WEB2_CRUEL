@@ -151,60 +151,68 @@ public class ServNutricionista extends HttpServlet {
                 String dt_refeicao              = request.getParameter("dt_refeicao");
                 int    id_refeicao              = Integer.parseInt(request.getParameter("id_refeicao"));
                 
-                /* TIPO INGREDIENTE */
-                TipoIngrediente tp_arroz            = new TipoIngrediente();
-                TipoIngrediente tp_feijao           = new TipoIngrediente();
-                TipoIngrediente tp_salada           = new TipoIngrediente();
-                TipoIngrediente tp_carne            = new TipoIngrediente();
-                TipoIngrediente tp_acompanhamento   = new TipoIngrediente();
-                TipoIngrediente tp_sobremesa        = new TipoIngrediente();
+                /* Caso algum elemento não tenha sido selecionado */
+                if(almoco_arroz.equals("0") || almoco_feijao.equals("0") || almoco_salada.equals("0")
+                    || almoco_carne.equals("0") || almoco_acompanhamento.equals("0") || almoco_sobremesa.equals("0")
+                ){
+                    request.setAttribute("ERRMSG", "Favor preencher todos os ingredientes.");
+                    response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
+                }else{
+                    /* TIPO INGREDIENTE */
+                    TipoIngrediente tp_arroz            = new TipoIngrediente();
+                    TipoIngrediente tp_feijao           = new TipoIngrediente();
+                    TipoIngrediente tp_salada           = new TipoIngrediente();
+                    TipoIngrediente tp_carne            = new TipoIngrediente();
+                    TipoIngrediente tp_acompanhamento   = new TipoIngrediente();
+                    TipoIngrediente tp_sobremesa        = new TipoIngrediente();
 
-                tp_arroz.setIdTipoIngrediente(1);
-                tp_feijao.setIdTipoIngrediente(2);
-                tp_salada.setIdTipoIngrediente(3);
-                tp_carne.setIdTipoIngrediente(4);
-                tp_acompanhamento.setIdTipoIngrediente(5);
-                tp_sobremesa.setIdTipoIngrediente(6);
-                
-                /* INGREDIENTES */
-                Ingrediente arroz           = new Ingrediente();
-                Ingrediente feijao          = new Ingrediente();
-                Ingrediente salada          = new Ingrediente();
-                Ingrediente carne           = new Ingrediente();
-                Ingrediente acompanhamento  = new Ingrediente();
-                Ingrediente sobremesa       = new Ingrediente();  
-               
-                arroz.setIdIngrediente(Integer.parseInt(almoco_arroz));
-                arroz.setTipoIngrediente(tp_arroz);
-                feijao.setIdIngrediente(Integer.parseInt(almoco_feijao));
-                feijao.setTipoIngrediente(tp_feijao);
-                salada.setIdIngrediente(Integer.parseInt(almoco_salada));
-                salada.setTipoIngrediente(tp_salada);
-                carne.setIdIngrediente(Integer.parseInt(almoco_carne));
-                carne.setTipoIngrediente(tp_carne);
-                acompanhamento.setIdIngrediente(Integer.parseInt(almoco_acompanhamento));
-                acompanhamento.setTipoIngrediente(tp_acompanhamento);
-                sobremesa.setIdIngrediente(Integer.parseInt(almoco_sobremesa));
-                sobremesa.setTipoIngrediente(tp_sobremesa);
-                
-                /* CARDAPIO */
-                Cardapio c = new Cardapio();
-                c.setData(dt_refeicao);
-                c.setIdCardapio(id_refeicao);
-                c.setRefeicao(Integer.parseInt(tp_refeicao));
-                c.addIngrediente(arroz);
-                c.addIngrediente(feijao);
-                c.addIngrediente(salada);
-                c.addIngrediente(carne);
-                c.addIngrediente(acompanhamento);
-                c.addIngrediente(sobremesa);
-                
-                try {
-                    daoCar.Update(c);
-                }catch(Exception ex){
-                    //NOPE
+                    tp_arroz.setIdTipoIngrediente(1);
+                    tp_feijao.setIdTipoIngrediente(2);
+                    tp_salada.setIdTipoIngrediente(3);
+                    tp_carne.setIdTipoIngrediente(4);
+                    tp_acompanhamento.setIdTipoIngrediente(5);
+                    tp_sobremesa.setIdTipoIngrediente(6);
+
+                    /* INGREDIENTES */
+                    Ingrediente arroz           = new Ingrediente();
+                    Ingrediente feijao          = new Ingrediente();
+                    Ingrediente salada          = new Ingrediente();
+                    Ingrediente carne           = new Ingrediente();
+                    Ingrediente acompanhamento  = new Ingrediente();
+                    Ingrediente sobremesa       = new Ingrediente();  
+
+                    arroz.setIdIngrediente(Integer.parseInt(almoco_arroz));
+                    arroz.setTipoIngrediente(tp_arroz);
+                    feijao.setIdIngrediente(Integer.parseInt(almoco_feijao));
+                    feijao.setTipoIngrediente(tp_feijao);
+                    salada.setIdIngrediente(Integer.parseInt(almoco_salada));
+                    salada.setTipoIngrediente(tp_salada);
+                    carne.setIdIngrediente(Integer.parseInt(almoco_carne));
+                    carne.setTipoIngrediente(tp_carne);
+                    acompanhamento.setIdIngrediente(Integer.parseInt(almoco_acompanhamento));
+                    acompanhamento.setTipoIngrediente(tp_acompanhamento);
+                    sobremesa.setIdIngrediente(Integer.parseInt(almoco_sobremesa));
+                    sobremesa.setTipoIngrediente(tp_sobremesa);
+
+                    /* CARDAPIO */
+                    Cardapio c = new Cardapio();
+                    c.setData(dt_refeicao);
+                    c.setIdCardapio(id_refeicao);
+                    c.setRefeicao(Integer.parseInt(tp_refeicao));
+                    c.addIngrediente(arroz);
+                    c.addIngrediente(feijao);
+                    c.addIngrediente(salada);
+                    c.addIngrediente(carne);
+                    c.addIngrediente(acompanhamento);
+                    c.addIngrediente(sobremesa);
+
+                    try {
+                        daoCar.Update(c);
+                    }catch(Exception ex){
+                        //NOPE
+                    }
+                    response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
                 }
-                response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
             }else if (action.equals("cadastrarCardapio")){
                 /* PARAMETROS */
                 String almoco_arroz             = request.getParameter("almoco_arroz");
@@ -223,90 +231,95 @@ public class ServNutricionista extends HttpServlet {
                 String janta_acompanhamento    = request.getParameter("janta_acompanhamento");
                 String janta_sobremesa         = request.getParameter("janta_sobremesa");
                 
-                /* TIPO INGREDIENTE */
-                TipoIngrediente tp_arroz            = new TipoIngrediente();
-                TipoIngrediente tp_feijao           = new TipoIngrediente();
-                TipoIngrediente tp_salada           = new TipoIngrediente();
-                TipoIngrediente tp_carne            = new TipoIngrediente();
-                TipoIngrediente tp_acompanhamento   = new TipoIngrediente();
-                TipoIngrediente tp_sobremesa        = new TipoIngrediente();
+                if (almoco_carne.equals(janta_carne) || almoco_sobremesa.equals(janta_sobremesa)){                   
+                    request.setAttribute("ERRMSG", "Carne/Sobremesa do Almoço e Janta não podem ser iguais.");
+                    response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
+                }else{
+                    /* TIPO INGREDIENTE */
+                    TipoIngrediente tp_arroz            = new TipoIngrediente();
+                    TipoIngrediente tp_feijao           = new TipoIngrediente();
+                    TipoIngrediente tp_salada           = new TipoIngrediente();
+                    TipoIngrediente tp_carne            = new TipoIngrediente();
+                    TipoIngrediente tp_acompanhamento   = new TipoIngrediente();
+                    TipoIngrediente tp_sobremesa        = new TipoIngrediente();
 
-                tp_arroz.setIdTipoIngrediente(1);
-                tp_feijao.setIdTipoIngrediente(2);
-                tp_salada.setIdTipoIngrediente(3);
-                tp_carne.setIdTipoIngrediente(4);
-                tp_acompanhamento.setIdTipoIngrediente(5);
-                tp_sobremesa.setIdTipoIngrediente(6);
-                
-                /* INGREDIENTES */
-                Ingrediente a_arroz           = new Ingrediente();
-                Ingrediente a_feijao          = new Ingrediente();
-                Ingrediente a_salada          = new Ingrediente();
-                Ingrediente a_carne           = new Ingrediente();
-                Ingrediente a_acompanhamento  = new Ingrediente();
-                Ingrediente a_sobremesa       = new Ingrediente();
-                
-                Ingrediente j_arroz           = new Ingrediente();
-                Ingrediente j_feijao          = new Ingrediente();
-                Ingrediente j_salada          = new Ingrediente();
-                Ingrediente j_carne           = new Ingrediente();
-                Ingrediente j_acompanhamento  = new Ingrediente();
-                Ingrediente j_sobremesa       = new Ingrediente();  
-                
-                a_arroz.setIdIngrediente(Integer.parseInt(almoco_arroz));
-                a_arroz.setTipoIngrediente(tp_arroz);
-                a_feijao.setIdIngrediente(Integer.parseInt(almoco_feijao));
-                a_feijao.setTipoIngrediente(tp_feijao);
-                a_salada.setIdIngrediente(Integer.parseInt(almoco_salada));
-                a_salada.setTipoIngrediente(tp_salada);
-                a_carne.setIdIngrediente(Integer.parseInt(almoco_carne));
-                a_carne.setTipoIngrediente(tp_carne);
-                a_acompanhamento.setIdIngrediente(Integer.parseInt(almoco_acompanhamento));
-                a_acompanhamento.setTipoIngrediente(tp_acompanhamento);
-                a_sobremesa.setIdIngrediente(Integer.parseInt(almoco_sobremesa));
-                a_sobremesa.setTipoIngrediente(tp_sobremesa);
-                
-                j_arroz.setIdIngrediente(Integer.parseInt(janta_arroz));
-                j_arroz.setTipoIngrediente(tp_arroz);
-                j_feijao.setIdIngrediente(Integer.parseInt(janta_feijao));
-                j_feijao.setTipoIngrediente(tp_feijao);
-                j_salada.setIdIngrediente(Integer.parseInt(janta_salada));
-                j_salada.setTipoIngrediente(tp_salada);
-                j_carne.setIdIngrediente(Integer.parseInt(janta_carne));
-                j_carne.setTipoIngrediente(tp_carne);
-                j_acompanhamento.setIdIngrediente(Integer.parseInt(janta_acompanhamento));
-                j_acompanhamento.setTipoIngrediente(tp_acompanhamento);
-                j_sobremesa.setIdIngrediente(Integer.parseInt(janta_sobremesa));
-                j_sobremesa.setTipoIngrediente(tp_sobremesa);
-                
-                /* CARDAPIO ALMOÇO */
-                Cardapio a_cardapio = new Cardapio();
-                a_cardapio.setData(dt_refeicao);
-                a_cardapio.setRefeicao(1);
-                a_cardapio.addIngrediente(a_arroz);
-                a_cardapio.addIngrediente(a_feijao);
-                a_cardapio.addIngrediente(a_salada);
-                a_cardapio.addIngrediente(a_carne);
-                a_cardapio.addIngrediente(a_acompanhamento);
-                a_cardapio.addIngrediente(a_sobremesa);
-                
-                /* CARDAPIO JANTA */
-                Cardapio j_cardapio = new Cardapio();
-                j_cardapio.setData(dt_refeicao);
-                j_cardapio.setRefeicao(2);
-                j_cardapio.addIngrediente(j_arroz);
-                j_cardapio.addIngrediente(j_feijao);
-                j_cardapio.addIngrediente(j_salada);
-                j_cardapio.addIngrediente(j_carne);
-                j_cardapio.addIngrediente(j_acompanhamento);
-                j_cardapio.addIngrediente(j_sobremesa);
-                
-                try{daoCar.Inserir(a_cardapio);}
-                catch(SQLException ex){/*IARIAIRRAI*/}
-                try{daoCar.Inserir(j_cardapio);}
-                catch(SQLException ex){/*IARIAIRRAI*/}
-                
-                response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
+                    tp_arroz.setIdTipoIngrediente(1);
+                    tp_feijao.setIdTipoIngrediente(2);
+                    tp_salada.setIdTipoIngrediente(3);
+                    tp_carne.setIdTipoIngrediente(4);
+                    tp_acompanhamento.setIdTipoIngrediente(5);
+                    tp_sobremesa.setIdTipoIngrediente(6);
+
+                    /* INGREDIENTES */
+                    Ingrediente a_arroz           = new Ingrediente();
+                    Ingrediente a_feijao          = new Ingrediente();
+                    Ingrediente a_salada          = new Ingrediente();
+                    Ingrediente a_carne           = new Ingrediente();
+                    Ingrediente a_acompanhamento  = new Ingrediente();
+                    Ingrediente a_sobremesa       = new Ingrediente();
+
+                    Ingrediente j_arroz           = new Ingrediente();
+                    Ingrediente j_feijao          = new Ingrediente();
+                    Ingrediente j_salada          = new Ingrediente();
+                    Ingrediente j_carne           = new Ingrediente();
+                    Ingrediente j_acompanhamento  = new Ingrediente();
+                    Ingrediente j_sobremesa       = new Ingrediente();  
+
+                    a_arroz.setIdIngrediente(Integer.parseInt(almoco_arroz));
+                    a_arroz.setTipoIngrediente(tp_arroz);
+                    a_feijao.setIdIngrediente(Integer.parseInt(almoco_feijao));
+                    a_feijao.setTipoIngrediente(tp_feijao);
+                    a_salada.setIdIngrediente(Integer.parseInt(almoco_salada));
+                    a_salada.setTipoIngrediente(tp_salada);
+                    a_carne.setIdIngrediente(Integer.parseInt(almoco_carne));
+                    a_carne.setTipoIngrediente(tp_carne);
+                    a_acompanhamento.setIdIngrediente(Integer.parseInt(almoco_acompanhamento));
+                    a_acompanhamento.setTipoIngrediente(tp_acompanhamento);
+                    a_sobremesa.setIdIngrediente(Integer.parseInt(almoco_sobremesa));
+                    a_sobremesa.setTipoIngrediente(tp_sobremesa);
+
+                    j_arroz.setIdIngrediente(Integer.parseInt(janta_arroz));
+                    j_arroz.setTipoIngrediente(tp_arroz);
+                    j_feijao.setIdIngrediente(Integer.parseInt(janta_feijao));
+                    j_feijao.setTipoIngrediente(tp_feijao);
+                    j_salada.setIdIngrediente(Integer.parseInt(janta_salada));
+                    j_salada.setTipoIngrediente(tp_salada);
+                    j_carne.setIdIngrediente(Integer.parseInt(janta_carne));
+                    j_carne.setTipoIngrediente(tp_carne);
+                    j_acompanhamento.setIdIngrediente(Integer.parseInt(janta_acompanhamento));
+                    j_acompanhamento.setTipoIngrediente(tp_acompanhamento);
+                    j_sobremesa.setIdIngrediente(Integer.parseInt(janta_sobremesa));
+                    j_sobremesa.setTipoIngrediente(tp_sobremesa);
+
+                    /* CARDAPIO ALMOÇO */
+                    Cardapio a_cardapio = new Cardapio();
+                    a_cardapio.setData(dt_refeicao);
+                    a_cardapio.setRefeicao(1);
+                    a_cardapio.addIngrediente(a_arroz);
+                    a_cardapio.addIngrediente(a_feijao);
+                    a_cardapio.addIngrediente(a_salada);
+                    a_cardapio.addIngrediente(a_carne);
+                    a_cardapio.addIngrediente(a_acompanhamento);
+                    a_cardapio.addIngrediente(a_sobremesa);
+
+                    /* CARDAPIO JANTA */
+                    Cardapio j_cardapio = new Cardapio();
+                    j_cardapio.setData(dt_refeicao);
+                    j_cardapio.setRefeicao(2);
+                    j_cardapio.addIngrediente(j_arroz);
+                    j_cardapio.addIngrediente(j_feijao);
+                    j_cardapio.addIngrediente(j_salada);
+                    j_cardapio.addIngrediente(j_carne);
+                    j_cardapio.addIngrediente(j_acompanhamento);
+                    j_cardapio.addIngrediente(j_sobremesa);
+
+                    try{daoCar.Inserir(a_cardapio);}
+                    catch(SQLException ex){/*IARIAIRRAI*/}
+                    try{daoCar.Inserir(j_cardapio);}
+                    catch(SQLException ex){/*IARIAIRRAI*/}
+
+                    response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
+                }
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);

@@ -37,6 +37,7 @@
         function dismiss_window(nome){
             $("#"+nome).fadeOut();
         }
+        
         $(document).ready(function(){
             var date = new Date();
             var d = date.getDate();
@@ -51,12 +52,14 @@
                 right: ''
             },
             dayClick: function(date) {
-                var dt = $.fullCalendar.formatDate(date, "MM-dd-yyyy"); // Pega a data clicada.
+                var dt = $.fullCalendar.formatDate(date, "yyyy-MM-dd"); // Pega a data clicada.
                 var dtopen = $.fullCalendar.formatDate(date, "dd/MM/yyyy"); // Pega a data clicada.                
                 
-                $("#nova_dt_refeicao").val(dtopen);
-                $(this).attr("data-toggle", "modal");
-                $(this).attr("data-target", "#editarCardapio");
+                if((document.getElementById("editarCardapio"+dt+"-1") === null) && (document.getElementById("editarCardapio"+dt+"-2") === null)){
+                    $("#nova_dt_refeicao").val(dtopen);
+                    $(this).attr("data-toggle", "modal");
+                    $(this).attr("data-target", "#editarCardapio");
+                }
             },
             eventClick: function(event, jsEvent, view){
                 var dt = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd");
