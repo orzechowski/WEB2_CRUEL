@@ -210,20 +210,21 @@ public class ServGerente extends HttpServlet {
             String endereco = request.getParameter("endereco");
             String telefone = request.getParameter("telefone");
             String cpf = request.getParameter("cpf");
-            String nome = request.getParameter("nome");
             Colaborador col = new Colaborador();
+            cpf = cpf.replace(".", "").replace("-", "");
+            telefone = telefone.replace("(", "").replace(")", "").replace("-", "");
             col.setCpf(cpf);
-            if (!"".equals(senha) && (senha.equals(confirma_senha))){
-                col.setSenha(senha);
-            }
+            col.setSenha(senha);
             col.setEmail(email);
             col.setEndereco(endereco);
             col.setTelefone(telefone);
             try{
+                if (senha.equals(confirma_senha)){
                 daoColab.update(col);
                 request.setAttribute("ERRMSG", "Funcionário editado com successo");
+               }
             }catch(Exception ex){
-                request.setAttribute("ERRMSG", "Erro ao editar funcionário");
+                request.setAttribute("ERRMSG", "Erro ao editar funcionário"+ex);
             }
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_funcionarios.jsp");
                 rd.forward(request, response);

@@ -44,7 +44,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="nome">Nome Completo</label>
                                     <div class="controls">
-                                        <input id="nome" name="nome" class="form-control" required type="text" value="${col.nome}">
+                                        <input id="nome" name="nome" class="form-control" maxlength="50"required type="text" value="${col.nome}">
                                     </div>
                                 </div>   
                                 <div class="control-group">
@@ -65,16 +65,16 @@
                                         <input id="confirma_senha" name="confirma_senha" class="form-control" required type="password">
                                     </div>
                                 </div> 
-                                <div class="control-group">
+                                <div class="control-group" id="email_div">
                                     <label class="control-label" for="email">Email</label>
                                     <div class="controls">
-                                        <input id="email" name="email" class="form-control" required type="text" value="${col.email}">
+                                        <input id="email" name="email" class="form-control" maxlength="30" required type="text" value="${col.email}">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="endereco">Endereço</label>
                                     <div class="controls">
-                                        <input id="endereco" name="endereco" class="form-control" required type="text" value="${col.endereco}">
+                                        <input id="endereco" name="endereco" maxlength="80" class="form-control" required type="text" value="${col.endereco}">
                                     </div>
                                 </div>   
                                 <div class="control-group">
@@ -86,7 +86,7 @@
                                 <div class="control-group" id="crn_div">
                                     <label class="control-label" for="crn">CRN</label>
                                     <div class="controls">
-                                        <input id="crn" name="crn" class="form-control" disabled type="text" value="${col.crn}">
+                                        <input id="crn" name="crn" class="form-control" maxlength="10" disabled type="text" value="${col.crn}">
                                     </div>
                                 </div>             
                                 <div class="control-group pull-right">
@@ -108,9 +108,11 @@
         $('select[name="cargo"]').on('change',function(){
         var  nutri = $(this).val();
                 if(nutri == 2){ 
-                        $('#crn').removeAttr('disabled');          
+                        $('#crn').removeAttr('disabled'); 
+                        $('#crn').attr('required','required');
                 }else{
-                        $('#crn').attr('disabled','disabled'); 
+                        $('#crn').attr('disabled','disabled');
+                        
                 }  
           });
         });
@@ -120,7 +122,17 @@
                 $("#confirma_div").attr('class', 'control-group has-warning');
                 // 
         });
-
+        
+        $("#email").change(function(){
+            var em = $("#email").val();
+            var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+            if (!filter.test(em))  
+            {   
+                $("#email_div").attr('class', 'control-group has-warning');
+                alert("Email inválido") ;
+            }  
+        });
+            
         $("#confirma_senha").change(function(){
               var pass = $("#senha").val();
               var conf = $("#confirma_senha").val();
