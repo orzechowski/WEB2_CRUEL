@@ -33,6 +33,8 @@ public class daoRegistro {
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
             + " --where datahora <= CURRENT_DATE";
     
+    private final String stmtUpdate = "UPDATE registro SET valor_cobrado=?, cpf_colaborador=?, categoria_cliente=? WHERE datahora=?";
+    
     public void inserir (TipoCliente cli, String user){
         
         Connection con = null;
@@ -78,7 +80,7 @@ public class daoRegistro {
                 tp.setAtivo(rset.getBoolean("ativo"));
                 
                 reg.setCpfColaborador(rset.getString("cpf_colaborador"));
-                reg.setDtHora(rset.getDate("datahora"));
+                reg.setDtHora(rset.getTimestamp("datahora"));
                 reg.setValorCobrado((float)rset.getDouble("valor_cobrado"));
                 reg.setTpCliente(tp);
                 
