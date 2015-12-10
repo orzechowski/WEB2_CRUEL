@@ -72,18 +72,18 @@
                         <div class="modal-body">
                             <div class="control-group">
                                 <label class="control-label" for="cargo">Cargo:</label>
-                                <input id="cargo" name="cargo" class="form-control" disabled type="text" value="">
+                                <input id="cargo" name="cargo" class="form-control" readonly type="text" value="">
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="nome">Nome Completo</label>
                                 <div class="controls">
-                                    <input id="nome" name="nome" class="form-control" disabled type="text" value="">
+                                    <input id="nome" name="nome" class="form-control" readonly type="text" value="">
                                 </div>
                             </div>   
                             <div class="control-group">
                                 <label class="control-label" for="cpf">CPF</label>
                                 <div class="controls">
-                                    <input id="cpf" name="cpf" class="form-control" disabled type="text" placeholder="000.000.000-00" value="">
+                                    <input id="cpf" name="cpf" class="form-control" readonly type="text" placeholder="000.000.000-00" value="">
                                 </div>
                             </div>  
                             <div class="control-group">
