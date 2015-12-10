@@ -31,7 +31,7 @@ public class daoIngrediente {
     private final String stmtExcluir = "DELETE FROM ingrediente WHERE id_ingrediente = ?";
     
     // TODO UPDATE ATUALIZA NOME E DESCRIÇÃO, MESMO QUE CONTINUEM OS MESMOS
-    private final String stmtUpdate = "UPDATE ingrediente SET nome=?, descricao=? WHERE id_ingrediente=?";
+    private final String stmtUpdate = "UPDATE ingrediente SET nome=?, descricao=?, id_tipoingrediente=? WHERE id_ingrediente=?";
     
     public List<Ingrediente> getFiltrado(String filtro) throws SQLException{
         Connection          conn    = null;
@@ -133,7 +133,8 @@ public class daoIngrediente {
             
             stmt.setString(1, ing.getNome());
             stmt.setString(2, ing.getDescricao());
-            stmt.setInt(3, ing.getIdIngrediente());
+            stmt.setInt(3, ing.getTipoIngrediente().getIdTipoIngrdiente());
+            stmt.setInt(4, ing.getIdIngrediente());
             
             stmt.executeUpdate();
         }catch(SQLException e) {

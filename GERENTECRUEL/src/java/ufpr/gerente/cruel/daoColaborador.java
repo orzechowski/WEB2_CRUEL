@@ -5,6 +5,7 @@
  */
 package ufpr.gerente.cruel;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,10 +94,24 @@ public class daoColaborador {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtInserir);
 
+            
+            //Preparar HASH MD5 senha
+            StringBuffer md5Senha = new StringBuffer();
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(colab.getSenha().getBytes());
+            
+            byte byteData[] = md.digest();
+            for( int i = 0; i < byteData.length; i++){
+                md5Senha.append(Integer.toString( (byteData[i] & 0xff) + 0x100, 16).substring(1));
+            } 
+                     
+            
+            
+            //Set values
             stmt.setString(1, colab.getCpf());
             stmt.setString(2, colab.getNome());
             stmt.setString(3, colab.getEmail());
-            stmt.setString(4, colab.getSenha());
+            stmt.setString(4, md5Senha.toString());
             stmt.setString(5, colab.getEndereco());
             stmt.setString(6, colab.getTelefone());
             stmt.setString(7, colab.getCrn());
