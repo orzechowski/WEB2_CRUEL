@@ -63,16 +63,7 @@ public class ServNutricionista extends HttpServlet {
                 } catch(SQLException ex){
                     //MAGIC
                 }
-                /*
-               Ingrediente ingrediente = new Ingrediente();
-               TipoIngrediente t1 = new TipoIngrediente();
-                ingrediente.setNome(filtroIngrediente);
-                //ingrediente.setDescricao("feijao preto");
-                t1.setDescricao("outra");
-                ingrediente.setTipoIngrediente(t1);
-                l_ingredientes.add(ingrediente);
-                l_ingredientes.add(ingrediente);
-                l_ingredientes.add(ingrediente);*/
+                
                 request.setAttribute("l_ingredientes", l_ingredientes);
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);
@@ -119,6 +110,23 @@ public class ServNutricionista extends HttpServlet {
                 
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
+            }else if(action.equals("atualizaringrediente")){
+                int id_ingrediente = Integer.parseInt(request.getParameter("id_ingrediente"));
+                String nome = request.getParameter("nome");
+                int tipo = Integer.parseInt(request.getParameter("selectbasic"));
+                String descricao = request.getParameter("descricao");
+                
+                TipoIngrediente tp = new TipoIngrediente();
+                Ingrediente i = new Ingrediente();
+                
+                tp.setIdTipoIngrediente(tipo);
+                i.setIdIngrediente(id_ingrediente);
+                i.setNome(nome);
+                i.setDescricao(descricao);
+                i.setTipoIngrediente(tp);
+                
+                daoIng.update(i);
+                response.sendRedirect(request.getContextPath() + "/consulta_ingredientes.jsp");
             }else if (action.equals("carregaingrediente")){
                 List<Cardapio>    listaCar = new ArrayList(); 
                 List<Ingrediente> listaIng = new ArrayList();
@@ -135,9 +143,14 @@ public class ServNutricionista extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index_nutricionista.jsp");
                 rd.forward(request, response);                            
             }else if (action.equals("excluiingrediente")){
-                String idIngrediente    = request.getParameter("idIngrediente");
+                int idIngrediente    = Integer.parseInt(request.getParameter("idIngrediente"));
                 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_nutricionista.jsp");
+                Ingrediente i = new Ingrediente();
+                i.setIdIngrediente(idIngrediente);
+                
+                daoIng.excluir(i);
+                
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_ingredientes.jsp");
                 rd.forward(request, response);                            
             }else if (action.equals("alterarCardapio")){
                 /* PARAMETROS */

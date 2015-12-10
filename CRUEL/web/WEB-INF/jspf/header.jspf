@@ -22,7 +22,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="menu" class="nav navbar-nav navbar-left">
-                <li><a href="./index.jsp">Home</a></li>
+                <c:choose>
+                    <c:when test="${tp_usuario == 'nutricionista'}">
+                        <li><a href="./index_nutricionista.jsp">Home</a></li>
+                    </c:when>
+                    <c:otherwise>                    
+                        <li><a href="./index.jsp">Home</a></li>
+                    </c:otherwise>
+                </c:choose>
                 <c:if test="${tp_usuario == 'nutricionista'||tp_usuario == 'atendente'||tp_usuario == 'gerente'}">
                     <li>
                         <div class="dropdown">
