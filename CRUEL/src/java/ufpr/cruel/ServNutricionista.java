@@ -108,6 +108,7 @@ public class ServNutricionista extends HttpServlet {
                 i.setDescricao(descricao);
                 daoIng.inserir(i);
                 
+                request.setAttribute("ERRMSG", "Ingrediente Cadastrado com sucesso.");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_ingrediente.jsp");
                 rd.forward(request, response);                
             }else if(action.equals("atualizaringrediente")){
