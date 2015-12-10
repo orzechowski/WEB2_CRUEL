@@ -48,6 +48,18 @@
                 $(".modal-body #telefone").val(lista_colaboradores[id].telefone);
                 $(".modal-body #crn").val(lista_colaboradores[id].crn);
             });
+            $("#senha").change(function(){
+                $("#confirma_senha").val("");
+                $("#confirma_div").attr('class', 'control-group has-warning');
+                // 
+            });
+
+            $("#confirma_senha").change(function(){
+                  var pass = $("#senha").val();
+                  var conf = $("#confirma_senha").val();
+                  if (pass != conf) { alert("Senha nao confere."); }
+            });
+
             </script>
         <div id="editarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">

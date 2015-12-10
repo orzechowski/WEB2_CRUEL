@@ -90,7 +90,7 @@ public class ServGerente extends HttpServlet {
 
                 List<Cardapio> l_cardapio = client
                         .target("http://localhost:8080/CRUEL/webresources/Cardapio")
-                        .request(MediaType.APPLICATION_JSON)
+                        .request(MediaType.APPLICATION_JSON+ ";charset=utf-8")
                         .get(new GenericType<List<Cardapio>>(){});
                 
                 request.setAttribute("l_cardapio", l_cardapio);
@@ -204,9 +204,30 @@ public class ServGerente extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_funcionarios.jsp");
                 rd.forward(request, response);
             }else if(action.equals("atualizarfuncionario")){
-            String descricaoTpCliente = request.getParameter("descricao");
-            String valorTpCiente = request.getParameter("valor");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String confirma_senha = request.getParameter("confirma_senha");
+            String endereco = request.getParameter("endereco");
+            String telefone = request.getParameter("telefone");
+            String cpf = request.getParameter("cpf");
+            Colaborador col = new Colaborador();
+            col.setCpf(cpf);
+            if (!"".equals(senha) && (senha.equals(confirma_senha))){
+                col.setSenha(senha);
+            }
+            col.setEmail(email);
+            col.setEndereco(endereco);
+            col.setTelefone(telefone);
+            try{
+                daoColab.update(col);
+                request.setAttribute("ERRMSG", "Funcionário editado com successo"+telefone+email+cpf);
+            }catch(Exception ex){
+                request.setAttribute("ERRMSG", "Erro ao editar funcionário");
+            }
+             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
             
+            response.sendRedirect(request.getContextPath() + "/consulta_funcionarios.jsp");
             
             }else if(action.equals("desativarfuncionario")){
                 String cpf              = request.getParameter("cpfColaborador");
@@ -215,7 +236,7 @@ public class ServGerente extends HttpServlet {
                 col.setCpf(cpf);
                 col.setAtivo(ativo);
                 try{
-                        daoColaborador.trocaStatus(col);
+                        daoColab.trocaStatus(col);
                         request.setAttribute("ERRMSG", "Funcionário Ativado/Desativado");
                     }catch(Exception ex){
                         request.setAttribute("ERRMSG", "Erro ao ativar/desativar");
@@ -308,5 +329,9 @@ public class ServGerente extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void and(boolean equals) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
