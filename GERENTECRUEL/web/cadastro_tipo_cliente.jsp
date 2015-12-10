@@ -37,7 +37,9 @@
                     lista_tpclientes.push(tpcli);
                 </c:forEach>
                 $(".modal-body #descricao").val(lista_tpclientes[id].descricao);
-                $(".modal-body #valor").val(lista_tpclientes[id].valor);
+                var numvalor = lista_tpclientes[id].valor;
+                numvalor.toFixed(2);
+                $(".modal-body #valor").val(lista_tpclientes[id].valor.toFixed(2));
             });  
             </script>
         <div id="editarTpCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -54,7 +56,7 @@
                                 <input id="descricao" name="descricao" class="form-control" type="text" value="">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="valor">Valor</label>
+                                <label class="control-label" for="valor">Valor - R$</label>
                                 <div class="controls">
                                     <input id="valor" name="valor" class="form-control" type="text">
                                     <script type="text/javascript"> $("#valor").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:""});</script>
