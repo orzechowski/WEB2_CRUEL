@@ -34,8 +34,8 @@ public class daoColaborador {
             " CLB.senha,CLB.endereco,CLB.telefone,CLB.crn,CLB.ativo," +
             " CR.nome as cargo, CR.id_cargo" +
             " from colaborador as CLB join cargo as CR on CLB.id_cargo = CR.id_cargo" +
-            " where (CLB.cpf like '%{FILTRO}%') or (CLB.nome like '%{FILTRO}%')" +
-            " or (CLB.crn like '%{FILTRO}%') and ativo=true";
+            " where (CLB.cpf ilike '%{FILTRO}%') or (CLB.nome ilike '%{FILTRO}%')" +
+            " or (CLB.crn ilike '%{FILTRO}%') or (CLB.email ilike '%{FILTRO}%') and ativo=true";
     
     private final String stmtConfereEmailCpf = "SELECT count(email) FROM colaborador WHERE email=? or cpf=?";
     
