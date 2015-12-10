@@ -49,28 +49,26 @@
                                                 <p class="lista-dia"><c:out value="${cardapio.getDia()}"/></p>
                                                 <p class="lista-mes"><c:out value="${cardapio.getMes()}"/></p>
                                             </td>
-                                            <td>
+                                            <td width="45%">
                                                 <a class="list-group-item">                                              
-                                                    Almoço
+                                                    <strong>Almoço</strong>
                                                     <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
                                                             <c:out value="${ingrediente.nome}"/>,
                                                         </c:forEach>
                                                 </a>
                                             </td>
-                                        
                                         </c:if>
-                                        <c:if test="${cardapio.refeicao == 2}">
-                                        
                                             
-                                                <td>
-                                                    <a class="list-group-item">
-                                                        Janta
-                                                        <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
-                                                                <c:out value="${ingrediente.nome}"/>,
-                                                            </c:forEach>
+                                        <c:if test="${cardapio.refeicao == 2}">
+                                            <td width="45%">
+                                                <a class="list-group-item">
+                                                    <strong>Janta</strong>
+                                                    <br><c:forEach var="ingrediente" items="${cardapio.listaIngredientes}">
+                                                            <c:out value="${ingrediente.nome}"/>,
+                                                        </c:forEach>
 
-                                                    </a>
-                                                </td>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

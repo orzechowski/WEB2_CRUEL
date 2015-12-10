@@ -84,7 +84,7 @@
             <c:choose>
                 <c:when test="${tp_usuario == 'nutricionista'||tp_usuario == 'atendente'||tp_usuario == 'gerente'}">                                
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href=Sair>clique para sair <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href=Sair>Sair<span class="sr-only">(current)</span></a></li>
                     </ul>
                 </c:when>
                 <c:otherwise>
@@ -114,7 +114,6 @@
                                         </div>
                                         <div class="form-group">
                                                 <button class="btn btn-primary btn-lg btn-block" type="submit" >Entrar</button>
-                                                <span class="pull-right"><a href="#">Esqueci minha senha</a></span>
                                         </div>
                                 </form>
                         </div>
