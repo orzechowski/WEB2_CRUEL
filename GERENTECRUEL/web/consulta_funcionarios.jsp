@@ -79,11 +79,10 @@
             var em = $("#email").val();
             var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
             if (!filter.test(em))  
-            {   
-                $("#email_div").attr('class', 'control-group has-warning');
+                {   
                 alert("Email inválido") ;
-            }  
-        });
+                }  
+            });
         </script>
         <script src="js/ie10-viewport-bug-workaround.js"></script>
         <div id="editarFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -112,11 +111,11 @@
                                 </div>
                             </div>  
                             <div class="control-group" id="email_div">
-                                <label class="control-label" for="email">Email</label>
-                                <div class="controls">
-                                    <input id="email" name="email" class="form-control" maxlength="30" required type="text" value="">
+                                    <label class="control-label" for="email">Email</label>
+                                    <div class="controls">
+                                        <input id="email" name="email" class="form-control" maxlength="30" required type="text">
+                                    </div>
                                 </div>
-                            </div>
                             <div class="control-group">
                                 <label class="control-label" for="endereco">Endereço</label>
                                 <div class="controls">

@@ -128,7 +128,6 @@
             var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
             if (!filter.test(em))  
             {   
-                $("#email_div").attr('class', 'control-group has-warning');
                 alert("Email inválido") ;
             }  
         });
