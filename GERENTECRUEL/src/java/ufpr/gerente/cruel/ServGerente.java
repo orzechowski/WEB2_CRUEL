@@ -241,14 +241,14 @@ public class ServGerente extends HttpServlet {
                 if (senha.equals(confirma_senha)){
                     try{
                         daoColab.inserir(col);
+                        request.setAttribute("ERRMSG", "Funcionário Cadastrado com successo");
                     }catch(Exception ex){
                         request.setAttribute("ERRMSG", "Erro ao cadastrar funcionário");
                     }
                 }else{
                     request.setAttribute("ERRMSG", "Senhas não são idênticas");
                 }
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro_funcionario.jsp");
-                rd.forward(request, response); 
+                response.sendRedirect(request.getContextPath() + "/cadastro_funcionario.jsp");
             }else{
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
