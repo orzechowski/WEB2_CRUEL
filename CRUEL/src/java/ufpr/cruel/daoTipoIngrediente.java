@@ -19,7 +19,7 @@ import java.util.List;
 public class daoTipoIngrediente {
     
     private final String stmtInserir = "INSERT INTO tipoingrediente(descricao) VALUES (?)";
-    private final String stmtGetTodos = "SELECT * FROM tipoingrediente";
+    private final String stmtGetTodos = "SELECT id_tipoingrediente, descricao FROM tipoingrediente ORDER BY descricao ASC";
     
     public void inserir(TipoIngrediente Tp){
         

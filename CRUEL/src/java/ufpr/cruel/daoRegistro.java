@@ -25,13 +25,14 @@ public class daoRegistro {
             + " REG.cpf_colaborador,"
             + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
-            + " where datahora between ? and ?";
+            + " where datahora between ? and ? order by REG.datahora desc";
     
     private final String stmtGetDia = "select REG.datahora,REG.valor_cobrado,"
             + " REG.cpf_colaborador,"
             + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
-            + " --where datahora <= CURRENT_DATE";
+            + " --where datahora <= CURRENT_DATE"
+            + " order by REG.datahora desc";
     
     private final String stmtUpdate = "UPDATE registro SET valor_cobrado=?, cpf_colaborador=?, categoria_cliente=? WHERE datahora=?";
     private final String stmtExcluir = "DELETE FROM registro where datahora=?";

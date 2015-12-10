@@ -6,6 +6,7 @@
 package ufpr.gerente.cruel;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +36,8 @@ public class daoColaborador {
             " CR.nome as cargo, CR.id_cargo" +
             " from colaborador as CLB join cargo as CR on CLB.id_cargo = CR.id_cargo" +
             " where (CLB.cpf ilike '%{FILTRO}%') or (CLB.nome ilike '%{FILTRO}%')" +
-            " or (CLB.crn ilike '%{FILTRO}%') or (CLB.email ilike '%{FILTRO}%') and ativo=true";
+            " or (CLB.crn ilike '%{FILTRO}%') or (CLB.email ilike '%{FILTRO}%') and ativo=true"
+            + " ORDER BY cargo ASC, CLB.nome ASC";
     
     private final String stmtConfereEmailCpf = "SELECT count(email) FROM colaborador WHERE email=? or cpf=?";
     
@@ -142,8 +144,17 @@ public class daoColaborador {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtUpdate);
             
+            StringBuffer md5Senha = new StringBuffer();
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(colab.getSenha().getBytes());
+            
+            byte byteData[] = md.digest();
+            for( int i = 0; i < byteData.length; i++){
+                md5Senha.append(Integer.toString( (byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            
             stmt.setString(1, colab.getEmail());
-            stmt.setString(2, colab.getSenha());
+            stmt.setString(2, md5Senha.toString());
             stmt.setString(3, colab.getEndereco());
             stmt.setString(4, colab.getTelefone());
             stmt.setString(5, colab.getCpf());
@@ -153,6 +164,8 @@ public class daoColaborador {
                         
         }catch(SQLException ex){
             throw new RuntimeException("Erro ao atualizar Colaborador." +ex.getMessage());
+        }catch(NoSuchAlgorithmException ex){
+            throw new RuntimeException(ex.getMessage());
         }finally{
             try{rset.close();}catch(Exception ex){System.out.println("Erro ao finalizar lista de resultados: "+ex.getMessage());}
             try{stmt.close();  }catch(Exception ex){System.out.println("Erro ao finalizar busca: "+ex.getMessage());}

@@ -24,7 +24,8 @@ public class daoIngrediente {
         + " ON ING.id_tipoingrediente=TPI.id_tipoingrediente"
         + " where (ING.nome ilike '%{FILTRO}%')"
 	+ " or (ING.descricao ilike '%{FILTRO}%')"
-        + " or (TPI.descricao ilike '%{FILTRO}%')";
+        + " or (TPI.descricao ilike '%{FILTRO}%')"
+        + " order by tp_descricao asc, nome asc";
     
     private final String stmtInserir = "INSERT INTO ingrediente(nome,descricao,id_tipoingrediente) VALUES(?,?,?)";
     private final String stmtExcluirDoCardapio = "DELETE FROM ingredientescardapio WHERE ingrediente = ?";

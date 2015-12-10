@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class daoTipoCliente {
     
-    private final String stmtGetTodos = "SELECT * FROM tipocliente";
+    private final String stmtGetTodos = "SELECT id_tipo, descricao, valor, ativo FROM tipocliente ORDER BY descricao ASC";
     private final String stmtUpdate = "UPDATE TipoCliente SET valor=?, ativo=? WHERE descricao=?";
     
     public List<TipoCliente> getTudo() throws SQLException{
