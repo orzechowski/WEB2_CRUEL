@@ -249,6 +249,13 @@ public class ServNutricionista extends HttpServlet {
                 if (almoco_carne.equals(janta_carne) || almoco_sobremesa.equals(janta_sobremesa)){                   
                     request.setAttribute("ERRMSG", "Carne/Sobremesa do Almoço e Janta não podem ser iguais.");
                     response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
+                }else if(almoco_arroz.equals("0") || almoco_feijao.equals("0") || almoco_salada.equals("0")
+                    || almoco_carne.equals("0") || almoco_acompanhamento.equals("0") || almoco_sobremesa.equals("0")
+                    || janta_arroz.equals("0") || janta_feijao.equals("0") || janta_salada.equals("0")
+                    || janta_carne.equals("0") || janta_acompanhamento.equals("0") || janta_sobremesa.equals("0")    
+                ){
+                    request.setAttribute("ERRMSG", "Favor preencher todos os ingredientes.");
+                    response.sendRedirect(request.getContextPath() + "/index_nutricionista.jsp");
                 }else{
                     /* TIPO INGREDIENTE */
                     TipoIngrediente tp_arroz            = new TipoIngrediente();
