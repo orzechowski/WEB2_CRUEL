@@ -66,7 +66,8 @@ public class ServAtendente extends HttpServlet {
                  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
                  try{
                  Date dtHora = simpleDateFormat.parse(strdtHora);
-                 int    idTpCliente         = Integer.parseInt(request.getParameter("idTpCliente"));
+                 int    idTpCliente         = Integer.parseInt(request.getParameter("selectbasic"));
+                 
                  
                  TipoCliente tp  = new TipoCliente();
                  Registro r = new Registro();

@@ -39,6 +39,7 @@
             </c:forEach>
             $(".modal-body #cpfColaborador").val(lista_registros[id].cpfColaborador);
             $(".modal-body #dtHora").val(lista_registros[id].dtHora);
+            $(".modal-body #dtHora_show").val(lista_registros[id].dtHora);
             document.getElementById(lista_registros[id].tpCliente).selected = true;
             });
             $(document).on("click", "#excluir", function () {
@@ -60,7 +61,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
                         <h4 class="modal-title" id="myModalLabel">Editar Ingredientes</h4>
                     </div>
-                    <form class="form-horizontal" method="POST" action="Atendente?action=atualizarregistro">	    				
+                    <form class="form-horizontal" method="POST" action="ServAtendente?action=editarRegistro">	    				
                         <div class="modal-body">
                             <div class="control-group">
                                 <label class="control-label" for="nome">CPF Colaborador</label>
@@ -80,7 +81,8 @@
                             <div class="control-group">
                                 <label class="control-label" for="dtHora">Data/ Hora</label>
                                 <div class="controls">
-                                    <input id="dtHora" name="dtHora" class="form-control" disabled type="text">
+                                    <input id="dtHora" name="dtHora" class="form-control" type="hidden">
+                                    <input id="dtHora" name="dtHora_show" class="form-control" disabled type="text">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +98,7 @@
         <div id="excluirRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="POST" action="Atendente?action=excluiregistro">
+                    <form method="POST" action="ServAtendente?action=excluiregistro">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
                             <h4 class="modal-title" id="myModalLabel">Remover Registro</h4>
