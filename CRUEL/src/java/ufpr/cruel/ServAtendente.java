@@ -81,15 +81,15 @@ public class ServAtendente extends HttpServlet {
                  
                  }catch(ParseException ex){}
                  
-                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_registro.jsp");
-                 rd.forward(request, response);
+                 response.sendRedirect(request.getContextPath() + "/consulta_registros.jsp");
+                 //RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_registros.jsp");
+                 //rd.forward(request, response);
             }
             else if (action.equals("excluiregistro")){
                 String strdtHora              = request.getParameter("dtHora");
                  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
                  try{
                  Date dtHora = simpleDateFormat.parse(strdtHora);
-                 int    idTpCliente         = Integer.parseInt(request.getParameter("idTpCliente"));
                  Registro r = new Registro();
                  r.setDtHora(dtHora);
                  daoReg.excluir( r );
@@ -97,8 +97,7 @@ public class ServAtendente extends HttpServlet {
                  
                  }catch(ParseException ex){}
                  
-                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta_registro.jsp");
-                 rd.forward(request, response);
+                 response.sendRedirect(request.getContextPath() + "/consulta_registros.jsp");
             }
             else if (action.equals("buscaRegistros")){
              List <Registro> l_registro = new ArrayList();
