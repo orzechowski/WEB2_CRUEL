@@ -121,12 +121,12 @@
                     <section class="panel-consulta">
                         <h1>Registros</h1>
                         <div class="panel-body">
-                        <form class="form-inline well">
+                        <form class="form-inline well" method="POST" action="ServAtendente?action=buscaRegistros">
                             <legend>Filtro de Busca</legend>
                             <fieldset>
                                 <div class="form-group">
                                     <label for="filtroCalendario1">Data: </label>
-                                    <input type="date" class="form-control" id="filtroCalendario1" placeholder="31/01/2015">
+                                    <input type="date" name="filtroData" class="form-control" id="filtroCalendario1" placeholder="31/01/2015">
                                 </div>
                                 <button type="submit" class="btn btn-default">Buscar</button>
                             </fieldset>

@@ -44,6 +44,7 @@ public class ServAtendente extends HttpServlet {
             throws ServletException, IOException, ParseException {
             request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
+            String filtroData = request.getParameter("filtroData");
             
             daoTipoCliente daoTpCliente = new daoTipoCliente();
             daoRegistro daoReg = new daoRegistro();
@@ -102,12 +103,15 @@ public class ServAtendente extends HttpServlet {
              List <Registro> l_registro = new ArrayList();
 
                 try{
-                    l_registro = daoReg.getDia();                    
+                    l_registro = daoReg.getFiltrado(filtroData);                    
                 } catch(SQLException ex){
                 }
                 request.setAttribute("l_registro", l_registro);
+                
                 RequestDispatcher rd = request.getRequestDispatcher("/consulta_registros.jsp");
                 rd.forward(request, response);
+                
+                
             }else if (action.equals("buscaCardapio")){
              List <Cardapio> l_cardapio = new ArrayList();
 
@@ -119,6 +123,7 @@ public class ServAtendente extends HttpServlet {
                 request.setAttribute("l_cardapio", l_cardapio);
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
+                
             }else if (action.equals("registrar")){
                 String descricaoTpCliente         = request.getParameter("descricaoTpCliente");
                 double valorCobrado              = Double.parseDouble(request.getParameter("valorCobrado"));

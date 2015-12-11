@@ -5,6 +5,7 @@
  */
 package ufpr.cruel;
 
+import com.sun.xml.ws.security.impl.policy.Constants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class daoRegistro {
             + " REG.cpf_colaborador,"
             + " TP.id_tipo, TP.descricao, TP.valor, TP.ativo"
             + " from registro as REG join tipocliente as TP on REG.categoria_cliente = TP.id_tipo"
-            + " where datahora between ? and ? order by REG.datahora desc";
+            + " where (datahora)::date = (to_char(?::date,'YYYY-MM-DD'))::date order by REG.datahora desc";
     
     private final String stmtGetDia = "select to_char(REG.datahora,'DD/MM/YYYY HH24:MI:SS')as datahora,REG.valor_cobrado,"
             + " REG.cpf_colaborador,"
@@ -62,15 +64,32 @@ public class daoRegistro {
         }
     }
     
-    public List<Registro> getFiltrado(String dtIni, String dtFin) throws SQLException{
+    public List<Registro> getFiltrado(String filtroData) throws SQLException{
         Connection          conn    = null;
         PreparedStatement   stmt    = null;
         ResultSet           rset    = null;
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
         
         try{
                                   
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtGetPeriodo);
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try{
+                    //Date dtfiltro = sdf.parse(filtroData);
+                    if (filtroData != null){
+                        //sqlDate = new java.sql.Date(System.currentTimeMillis());
+                        sqlDate = new java.sql.Date((sdf.parse(filtroData)).getTime());
+                        
+                    }else {
+                        sqlDate = new java.sql.Date((Calendar.getInstance().getTime()).getTime());
+                    }
+                    
+                    stmt.setDate(1, sqlDate);
+                }catch(ParseException pEx){
+                    throw new RuntimeException(pEx.getMessage());
+                }
             
             rset = stmt.executeQuery();
             List<Registro> listaTodos = new ArrayList();
